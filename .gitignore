@@ -1,0 +1,25 @@
+# Binaries
+curve-generate
+curve-collect
+curve-server
+
+# Frontend
+frontend/node_modules/
+frontend/.svelte-kit/
+frontend/build/
+
+# Server (build artifact — populated by make server)
+cmd/server/static/
+
+# Seed (operational logs)
+seed/collect.log.json
+seed/*.bak
+
+# OS
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*~

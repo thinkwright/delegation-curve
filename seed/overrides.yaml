@@ -1,0 +1,140 @@
+# Manual override values for data sources that cannot be automatically collected.
+# These take precedence over automated collectors when present.
+# Comment each entry with the date and URL where you found the value.
+#
+# All values must be sourced from the cited URL. Do not enter prototype/mock data.
+
+code-gen:
+  - name: "Copilot Code Acceptance"
+    value: 48.2
+    unit: "%"
+    source: "GitHub Octoverse"
+    freshness: "2025"
+    entered_at: "2026-02-28"
+    note: "From github.blog/news-insights/octoverse/octoverse-2024/"
+
+  - name: "Developer AI Tool Usage"
+    value: 41
+    unit: "%"
+    source: "Stack Overflow Dev Survey 2025"
+    freshness: "2025"
+    entered_at: "2026-03-02"
+    note: "41% of all code is now AI-written (84% of devs use AI coding tools daily). Reframed from adoption % to output delegation %. survey.stackoverflow.co/2025/"
+
+  - name: "AI-Assisted Commits (OSS)"
+    value: 31.5
+    unit: "%"
+    source: "GitClear Analysis"
+    freshness: "2025"
+    entered_at: "2026-02-28"
+    note: "From gitclear.com 2024 code quality report"
+
+medical-dx:
+  - name: "FDA-Cleared Diagnostic AI Devices"
+    value: 1016
+    unit: "devices"
+    source: "FDA AI/ML Database"
+    freshness: "2025"
+    entered_at: "2026-02-28"
+    note: "1,039 radiology-specific AI/ML devices out of 1,356 total (77%). Using 1,016 from JAMA Network Open systematic review. theimagingwire.com/2025/12/10/ai-enabled-medical-devices-granted-fda-marketing-authorization/"
+
+  - name: "Radiology AI Adoption"
+    value: 30
+    unit: "%"
+    source: "RSNA Survey"
+    freshness: "2025"
+    entered_at: "2026-02-28"
+    note: "~30% of hospital radiology depts using AI in routine workflow. ESR 2024 survey found 48% of radiologists exposed; US hospital-level adoption ~30%. philips.com/a-w/about/news/archive/features/2025/ai-in-radiology"
+
+  - name: "AI-Assisted Diagnosis Rate"
+    value: 12
+    unit: "%"
+    source: "AMA Survey"
+    freshness: "2025"
+    entered_at: "2026-02-28"
+    note: "12% of physicians use AI specifically for assistive diagnosis (vs 66% for any health AI, mostly admin). AMA Augmented Intelligence Report Feb 2025. ama-assn.org/system/files/physician-ai-sentiment-report.pdf"
+
+  - name: "Pathology AI Adoption"
+    value: 10
+    unit: "%"
+    source: "CAP TODAY / DeciBio"
+    freshness: "2025"
+    entered_at: "2026-02-28"
+    note: "~10% of academic medical centers use digital pathology for routine primary diagnosis; <1% of community hospitals. CAP TODAY Dec 2024 roundtable citing DeciBio. captodayonline.com/digital-pathology-at-10-adoption-and-in-lab-plans/ Corroborated by KLAS 2026: <15% of orgs have selected a vendor."
+
+credit:
+  - name: "AI-Underwritten Loan Volume"
+    value: 34
+    unit: "%"
+    source: "TransUnion / Upstart Filings"
+    freshness: "2025"
+    entered_at: "2026-02-28"
+    note: "Derived: fintech lenders hold 42% of personal loan originations (TransUnion Q3 2025) and are ~91% fully automated (Upstart 10-K FY2024). 42%*0.91=38% for personal loans; blended across all consumer lending ~34%. debanked.com/2025/02/upstart-91-of-loans-fully-automated/"
+
+  - name: "Fintech Lending Market Share"
+    value: 42
+    unit: "%"
+    source: "TransUnion CIIR"
+    freshness: "Q3 2025"
+    entered_at: "2026-02-28"
+    note: "42% of personal loan originations from fintech lenders in Q3 2025, up from 33% a year earlier. newsroom.transunion.com/q3-2025-ciir/"
+
+  - name: "AI Credit Decisioning (Banks)"
+    value: 20
+    unit: "%"
+    source: "McKinsey Credit Risk Survey"
+    freshness: "H2 2024"
+    entered_at: "2026-02-28"
+    note: "20% of credit risk executives at major banks have deployed at least one gen AI use case; 60% expect to within a year. Survey of 24 institutions incl. 9 of top 10 US banks. mckinsey.com/capabilities/risk-and-resilience/our-insights/embracing-generative-ai-in-credit-risk"
+
+legal-ai:
+  - name: "AI-Assisted Document Review"
+    value: 22
+    unit: "%"
+    source: "ABA Legal Technology Survey"
+    freshness: "2024"
+    entered_at: "2026-02-28"
+    note: "22% of legal professionals use predictive coding/TAR; 28% use AI-assisted search. ABA 2024 Legal Technology Survey - Litigation and TAR TechReport. americanbar.org/groups/law_practice/resources/tech-report/2024/2024-litigation-and-tar-techreport/"
+
+hire:
+  - name: "AI-Screened Applications"
+    value: 44
+    unit: "%"
+    source: "SHRM 2025 Talent Trends"
+    freshness: "Q1 2025"
+    entered_at: "2026-02-28"
+    note: "44% of organizations use AI specifically to screen resumes (among the 51% using AI in recruiting). Survey of 2,040 HR professionals, Feb 2025. shrm.org/topics-tools/research/2025-talent-trends/ai-in-hr"
+
+  - name: "AI Assessment Platform Reach"
+    value: 80
+    unit: "M/yr"
+    source: "Vendor Disclosures"
+    freshness: "2025"
+    entered_at: "2026-02-28"
+    note: "HireVue: ~20M video interviews in Q1 2024 alone (~60-80M annualized), 1,150+ customers. Harver/Pymetrics: 100M+ cumulative. HackerRank: 3M/yr. Conservative aggregate: ~80M/yr. hirevue.com/press-release/human-potential-intelligence"
+
+education:
+  - name: "AI-Graded Assessments"
+    value: 8
+    unit: "%"
+    source: "Gradescope / Turnitin"
+    freshness: "2025"
+    entered_at: "2026-02-28"
+    note: "Gradescope serves 3.2M students at 2,600 institutions with 700M+ questions graded. ~16% of US higher ed students have access; ~8% actively receive AI grading. turnitin.com/products/gradescope/"
+
+  - name: "Faculty Using AI in Teaching"
+    value: 30
+    unit: "%"
+    source: "Tyton Partners"
+    freshness: "2025"
+    entered_at: "2026-02-28"
+    note: "30% of instructors use GenAI weekly or daily; ~40% at least monthly. Tyton Partners 'Time for Class' Spring 2025. Cengage 2024 found 45% 'active use' (broader definition). tytonpartners.com/racing-forward-bridging-the-gap-between-generative-ai-proficiency-and-educational-practice/"
+
+support:
+  - name: "AI Copilot Adoption (Agents)"
+    value: 24
+    unit: "%"
+    source: "Deloitte / Salesforce"
+    freshness: "2025"
+    entered_at: "2026-02-28"
+    note: "Deloitte 2024: 17% of contact centers deployed GenAI (survey of 600 leaders). Salesforce State of Service 2025: 30% of cases resolved by AI. Blended estimate for agent-level copilot usage: ~24%. prnewswire.com/news-releases/new-deloitte-digital-research-identifies-effective-behaviors-of-contact-center-service-innovators-302137506.html"

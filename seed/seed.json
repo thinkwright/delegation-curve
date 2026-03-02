@@ -1,0 +1,721 @@
+{
+  "generated_at": "2026-03-02T08:38:18Z",
+  "delegation": {
+    "composite": {
+      "current": 45.6,
+      "previous": 46.5,
+      "delta": -0.9,
+      "trend": [
+        39.7,
+        45.6
+      ],
+      "last_updated": "2026-03-02",
+      "data_year": 2025
+    },
+    "domains": [
+      {
+        "id": "content-mod",
+        "name": "CONTENT-MOD",
+        "full_name": "Content Moderation",
+        "score": 93,
+        "previous_score": 93,
+        "trend": [
+          88.5,
+          93
+        ],
+        "status": "autonomous",
+        "weight": 0.1,
+        "tier": 1,
+        "description": "Percentage of content policy enforcement decisions made by automated systems before human review. Sourced from platform transparency reports mandated under the EU Digital Services Act.",
+        "sub_indicators": [
+          {
+            "name": "Meta Automated Detection",
+            "value": 95.2,
+            "unit": "%",
+            "source": "Meta Transparency Report",
+            "freshness": "Q3 2025"
+          },
+          {
+            "name": "Google Automated Removal",
+            "value": 92.8,
+            "unit": "%",
+            "source": "Google Transparency Report",
+            "freshness": "Q3 2025"
+          },
+          {
+            "name": "TikTok Automated Detection",
+            "value": 94.1,
+            "unit": "%",
+            "source": "TikTok Transparency Report",
+            "freshness": "Q3 2025"
+          },
+          {
+            "name": "X/Twitter Automated Action",
+            "value": 88.6,
+            "unit": "%",
+            "source": "X Transparency Report",
+            "freshness": "H1 2025"
+          },
+          {
+            "name": "DSA Cross-Platform Automated Rate",
+            "value": 96.1,
+            "unit": "%",
+            "source": "EU DSA Transparency Database",
+            "freshness": "H2 2023"
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "Meta Transparency Report",
+            "cadence": "Quarterly",
+            "type": "transparency-report"
+          },
+          {
+            "name": "Google Transparency Report",
+            "cadence": "Quarterly",
+            "type": "transparency-report"
+          },
+          {
+            "name": "TikTok Transparency Report",
+            "cadence": "Quarterly",
+            "type": "transparency-report"
+          },
+          {
+            "name": "X Transparency Report",
+            "cadence": "Semi-annual",
+            "type": "transparency-report"
+          },
+          {
+            "name": "EU DSA Transparency Database",
+            "cadence": "Continuous",
+            "type": "database"
+          }
+        ]
+      },
+      {
+        "id": "algo-trade",
+        "name": "ALGO-TRADE",
+        "full_name": "Algorithmic Trading",
+        "score": 68.4,
+        "previous_score": 68.4,
+        "trend": [
+          63.5,
+          68.4
+        ],
+        "status": "elevated",
+        "weight": 0.15,
+        "tier": 1,
+        "description": "Proportion of financial market trading volume executed by algorithmic and AI-driven systems. Covers US equities, FX, and derivatives markets.",
+        "sub_indicators": [
+          {
+            "name": "US Equities Algo Volume",
+            "value": 73.2,
+            "unit": "%",
+            "source": "SEC Market Structure",
+            "freshness": "Q3 2025"
+          },
+          {
+            "name": "FX Algo Trading",
+            "value": 61.4,
+            "unit": "%",
+            "source": "BIS Triennial Survey",
+            "freshness": "2025"
+          },
+          {
+            "name": "Options Algo Volume",
+            "value": 58.9,
+            "unit": "%",
+            "source": "CBOE Data",
+            "freshness": "Q3 2025"
+          },
+          {
+            "name": "Institutional AI Adoption",
+            "value": 78,
+            "unit": "%",
+            "source": "Greenwich Associates",
+            "freshness": "2025"
+          },
+          {
+            "name": "EU Equity Algo Volume",
+            "value": 51,
+            "unit": "%",
+            "source": "ESMA MiFID II Report",
+            "freshness": "2021"
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "SEC / FINRA Market Structure Reports",
+            "cadence": "Quarterly",
+            "type": "filing"
+          },
+          {
+            "name": "BIS Triennial Survey",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "CBOE Exchange Data",
+            "cadence": "Continuous",
+            "type": "api"
+          },
+          {
+            "name": "Greenwich Associates Survey",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "ESMA Market Structure Report",
+            "cadence": "Annual",
+            "type": "filing"
+          }
+        ]
+      },
+      {
+        "id": "code-gen",
+        "name": "CODE-GEN",
+        "full_name": "Software Development",
+        "score": 44.1,
+        "previous_score": 50.2,
+        "trend": [
+          41,
+          44.1
+        ],
+        "status": "elevated",
+        "weight": 0.15,
+        "tier": 1,
+        "description": "Percentage of production code substantially generated or influenced by AI coding assistants. Measured through IDE telemetry, developer surveys, and code analysis.",
+        "sub_indicators": [
+          {
+            "name": "Copilot Code Acceptance",
+            "value": 48.2,
+            "unit": "%",
+            "source": "GitHub Octoverse",
+            "freshness": "2025"
+          },
+          {
+            "name": "Developer AI Tool Usage",
+            "value": 41,
+            "unit": "%",
+            "source": "Stack Overflow Survey",
+            "freshness": "2025"
+          },
+          {
+            "name": "AI-Assisted Commits (OSS)",
+            "value": 31.5,
+            "unit": "%",
+            "source": "GitClear Analysis",
+            "freshness": "2025"
+          },
+          {
+            "name": "IDE AI Extension Installs",
+            "value": 87.425924,
+            "unit": "M",
+            "source": "VS Code Marketplace",
+            "freshness": "2026-03-02"
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "GitHub Octoverse / Copilot Blog",
+            "cadence": "Annual + ad hoc",
+            "type": "scrape"
+          },
+          {
+            "name": "Stack Overflow Developer Survey",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "JetBrains Developer Ecosystem",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "GitClear Code Quality Report",
+            "cadence": "Annual",
+            "type": "scrape"
+          },
+          {
+            "name": "VS Code Marketplace",
+            "cadence": "Continuous",
+            "type": "api"
+          }
+        ]
+      },
+      {
+        "id": "support",
+        "name": "SUPPORT",
+        "full_name": "Customer Support",
+        "score": 45.9,
+        "previous_score": 45.9,
+        "trend": [
+          36.4,
+          45.9
+        ],
+        "status": "elevated",
+        "weight": 0.15,
+        "tier": 1,
+        "description": "Percentage of customer service interactions resolved by AI without human handoff. Measured through platform analytics, industry surveys, and vendor reports.",
+        "sub_indicators": [
+          {
+            "name": "AI Resolution Rate",
+            "value": 41,
+            "unit": "%",
+            "source": "Zendesk CX Trends",
+            "freshness": "2025"
+          },
+          {
+            "name": "Bot Deflection Rate",
+            "value": 52.3,
+            "unit": "%",
+            "source": "Intercom Trends",
+            "freshness": "2025"
+          },
+          {
+            "name": "Orgs Using AI Support",
+            "value": 63,
+            "unit": "%",
+            "source": "Salesforce State of Service",
+            "freshness": "2025"
+          },
+          {
+            "name": "AI Copilot Adoption (Agents)",
+            "value": 24,
+            "unit": "%",
+            "source": "Zendesk/Salesforce Reports",
+            "freshness": "2025"
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "Zendesk CX Trends Report",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "Intercom Customer Service Trends",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "Salesforce State of Service",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "Zendesk / Salesforce Agent AI Reports",
+            "cadence": "Annual",
+            "type": "survey"
+          }
+        ]
+      },
+      {
+        "id": "credit",
+        "name": "CREDIT",
+        "full_name": "Credit \u0026 Lending",
+        "score": 28.9,
+        "previous_score": 28.9,
+        "trend": [
+          23.4,
+          28.9
+        ],
+        "status": "nominal",
+        "weight": 0.1,
+        "tier": 2,
+        "description": "Proportion of consumer and commercial lending decisions influenced by AI/ML underwriting models. Tracked through regulatory filings, fintech disclosures, and industry surveys.",
+        "sub_indicators": [
+          {
+            "name": "AI-Underwritten Loan Volume",
+            "value": 34,
+            "unit": "%",
+            "source": "Fintech Filings",
+            "freshness": "2025"
+          },
+          {
+            "name": "Fintech Lending Market Share",
+            "value": 42,
+            "unit": "%",
+            "source": "Industry Reports",
+            "freshness": "Q3 2025"
+          },
+          {
+            "name": "AI Credit Decisioning (Banks)",
+            "value": 20,
+            "unit": "%",
+            "source": "OCC Survey",
+            "freshness": "H2 2024"
+          },
+          {
+            "name": "UK Firms Using AI Credit Risk",
+            "value": 16,
+            "unit": "%",
+            "source": "BoE/FCA AI Survey",
+            "freshness": "2024"
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "Fintech Market Reports",
+            "cadence": "Quarterly",
+            "type": "report"
+          },
+          {
+            "name": "Upstart / Zest AI Public Filings",
+            "cadence": "Quarterly",
+            "type": "filing"
+          },
+          {
+            "name": "OCC / Fed Credit Risk Surveys",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "Bank of England / FCA AI Survey",
+            "cadence": "Annual",
+            "type": "regulatory"
+          }
+        ]
+      },
+      {
+        "id": "medical-dx",
+        "name": "MEDICAL-DX",
+        "full_name": "Medical Diagnosis",
+        "score": 25.1,
+        "previous_score": 25.1,
+        "trend": [
+          20.2,
+          25.1
+        ],
+        "status": "nominal",
+        "weight": 0.12,
+        "tier": 2,
+        "description": "Percentage of clinical diagnostic decisions assisted or made by AI systems. Measured at the practitioner level: 12% of physicians report using AI for diagnosis (AMA), while 50% of U.S. health systems have deployed at least one imaging AI tool (KLAS). The gap between deployment and actual diagnostic usage remains large — autonomous AI retinal screening has penetrated only 2.2% of eligible imaging despite years of FDA clearance.",
+        "sub_indicators": [
+          {
+            "name": "Physicians Using AI for Diagnosis",
+            "value": 12,
+            "unit": "%",
+            "source": "AMA Physician Sentiment Survey",
+            "freshness": "2024"
+          },
+          {
+            "name": "Health Systems with Imaging AI Deployed",
+            "value": 50,
+            "unit": "%",
+            "source": "KLAS Imaging AI Report",
+            "freshness": "2024"
+          },
+          {
+            "name": "European Radiologists Using AI Clinically",
+            "value": 48,
+            "unit": "%",
+            "source": "ESR/EuroAIM Survey",
+            "freshness": "2024"
+          },
+          {
+            "name": "FDA-Cleared Diagnostic AI Devices",
+            "value": 1016,
+            "unit": "devices",
+            "source": "FDA AI/ML Database",
+            "freshness": "2025"
+          },
+          {
+            "name": "Autonomous AI DR Screening Penetration",
+            "value": 2.2,
+            "unit": "%",
+            "source": "Medicare Claims Data",
+            "freshness": "2023"
+          },
+          {
+            "name": "Radiology AI Adoption",
+            "value": 30,
+            "unit": "%",
+            "source": "RSNA Survey",
+            "freshness": "2025"
+          },
+          {
+            "name": "AI-Assisted Diagnosis Rate",
+            "value": 12,
+            "unit": "%",
+            "source": "AMA Survey",
+            "freshness": "2025"
+          },
+          {
+            "name": "Pathology AI Adoption",
+            "value": 10,
+            "unit": "%",
+            "source": "CAP Survey",
+            "freshness": "2025"
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "AMA Physician Sentiment Survey",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "KLAS Imaging AI Report",
+            "cadence": "Annual",
+            "type": "report"
+          },
+          {
+            "name": "ESR/EuroAIM Radiology AI Survey",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "FDA AI/ML Device Database",
+            "cadence": "Continuous",
+            "type": "database"
+          },
+          {
+            "name": "Medicare Claims Data (CPT 92229)",
+            "cadence": "Annual",
+            "type": "filing"
+          }
+        ]
+      },
+      {
+        "id": "legal-ai",
+        "name": "LEGAL-AI",
+        "full_name": "Legal Research \u0026 Review",
+        "score": 29,
+        "previous_score": 29,
+        "trend": [
+          18.4,
+          29
+        ],
+        "status": "nominal",
+        "weight": 0.08,
+        "tier": 2,
+        "description": "Proportion of legal research, document review, and contract analysis substantially performed by AI tools. Measured through legal industry surveys and vendor adoption data.",
+        "sub_indicators": [
+          {
+            "name": "AI Tool Adoption (BigLaw)",
+            "value": 42,
+            "unit": "%",
+            "source": "ALM Survey",
+            "freshness": "2025"
+          },
+          {
+            "name": "AI Tool Adoption (Solo/Small)",
+            "value": 18.5,
+            "unit": "%",
+            "source": "Clio Legal Trends",
+            "freshness": "2025"
+          },
+          {
+            "name": "AI-Assisted Document Review",
+            "value": 22,
+            "unit": "%",
+            "source": "EDRM/Relativity Survey",
+            "freshness": "2024"
+          },
+          {
+            "name": "Lawyers Using AI Tools",
+            "value": 30.2,
+            "unit": "%",
+            "source": "ABA Legal Technology Survey",
+            "freshness": "2024"
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "Clio Legal Trends Report",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "ALM / American Lawyer Survey",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "Thomson Reuters Institute",
+            "cadence": "Quarterly",
+            "type": "survey"
+          },
+          {
+            "name": "EDRM/Relativity TAR Survey",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "ABA Legal Technology Survey Report",
+            "cadence": "Annual",
+            "type": "survey"
+          }
+        ]
+      },
+      {
+        "id": "hire",
+        "name": "HIRE",
+        "full_name": "Recruitment \u0026 Screening",
+        "score": 36.8,
+        "previous_score": 36.8,
+        "trend": [
+          31.8,
+          36.8
+        ],
+        "status": "nominal",
+        "weight": 0.08,
+        "tier": 2,
+        "description": "Percentage of hiring decisions involving AI screening, assessment, or ranking of candidates. Adoption is growing fast — 51% of organizations now use AI in recruiting, up from 26% a year earlier — but the growth is wide and shallow. Most AI use is in low-stakes tasks like writing job descriptions (66% of AI-using recruiters) rather than consequential decisions like automated candidate rejection. Only 14% of organizations have deeply integrated AI into their talent acquisition stack. The score reflects this gap between adoption breadth and decision-making depth.",
+        "sub_indicators": [
+          {
+            "name": "Orgs Using AI in Recruiting",
+            "value": 51,
+            "unit": "%",
+            "source": "SHRM 2025 Talent Trends",
+            "freshness": "Feb 2025"
+          },
+          {
+            "name": "HR Pros Using AI for Recruiting",
+            "value": 69,
+            "unit": "%",
+            "source": "SHRM 2025 Talent Trends",
+            "freshness": "Feb 2025"
+          },
+          {
+            "name": "AI-Using Recruiters Screening Resumes",
+            "value": 44,
+            "unit": "%",
+            "source": "SHRM 2025 Talent Trends",
+            "freshness": "Feb 2025"
+          },
+          {
+            "name": "AI Assessment Volume",
+            "value": 80,
+            "unit": "M/yr",
+            "source": "HireVue Platform Data",
+            "freshness": "Q1 2024"
+          },
+          {
+            "name": "Deep TA Stack AI Integration",
+            "value": 14,
+            "unit": "%",
+            "source": "Mercer TA Survey",
+            "freshness": "Feb 2024"
+          },
+          {
+            "name": "AI-Screened Applications",
+            "value": 44,
+            "unit": "%",
+            "source": "SHRM/LinkedIn Data",
+            "freshness": "Q1 2025"
+          },
+          {
+            "name": "AI Assessment Platform Reach",
+            "value": 80,
+            "unit": "M/yr",
+            "source": "Platform Aggregation",
+            "freshness": "2025"
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "SHRM 2025 Talent Trends Report",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "HireVue Global AI in Hiring Report",
+            "cadence": "Annual",
+            "type": "report"
+          },
+          {
+            "name": "Mercer Strategic AI in TA Survey",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "Employ Recruiter Nation Report",
+            "cadence": "Annual",
+            "type": "survey"
+          }
+        ]
+      },
+      {
+        "id": "education",
+        "name": "EDUCATION",
+        "full_name": "Education \u0026 Assessment",
+        "score": 19.4,
+        "previous_score": 19.4,
+        "trend": [
+          13.8,
+          19.4
+        ],
+        "status": "nominal",
+        "weight": 0.07,
+        "tier": 3,
+        "description": "Proportion of educational assessment, tutoring, and grading decisions involving AI systems. Uniquely multi-dimensional: AI delegation occurs on both sides of the classroom. Students delegate writing and problem-solving to AI (15% of submissions are now substantially AI-generated), while teachers independently delegate grading and feedback to AI (10.7% across OECD countries). These represent distinct actors with different incentives, making this domain harder to measure than most.",
+        "sub_indicators": [
+          {
+            "name": "Students Using AI Tutors",
+            "value": 18.5,
+            "unit": "%",
+            "source": "Educause Survey",
+            "freshness": "2025"
+          },
+          {
+            "name": "AI-Graded Assessments",
+            "value": 8,
+            "unit": "%",
+            "source": "Gradescope/EdTech Reports",
+            "freshness": "2025"
+          },
+          {
+            "name": "Faculty Using AI in Teaching",
+            "value": 30,
+            "unit": "%",
+            "source": "AAUP/Educause Survey",
+            "freshness": "2025"
+          },
+          {
+            "name": "Teachers Using AI for Grading",
+            "value": 10.7,
+            "unit": "%",
+            "source": "OECD TALIS 2024",
+            "freshness": "2024"
+          },
+          {
+            "name": "Student Papers 80%+ AI-Written",
+            "value": 15,
+            "unit": "%",
+            "source": "Turnitin AI Detection",
+            "freshness": "2026"
+          }
+        ],
+        "data_sources": [
+          {
+            "name": "Educause / ITHC Survey",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "Gradescope / EdTech Adoption Reports",
+            "cadence": "Annual",
+            "type": "report"
+          },
+          {
+            "name": "AAUP Faculty AI Survey",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "Turnitin AI Writing Reports",
+            "cadence": "Annual",
+            "type": "report"
+          },
+          {
+            "name": "OECD TALIS Survey",
+            "cadence": "Triennial",
+            "type": "survey"
+          }
+        ]
+      }
+    ]
+  }
+}
