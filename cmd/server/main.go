@@ -140,6 +140,9 @@ func serveFile(w http.ResponseWriter, r *http.Request, fsys http.FileSystem, nam
 	case strings.HasSuffix(name, ".wasm"):
 		w.Header().Set("Content-Type", "application/wasm")
 		w.Header().Set("Cache-Control", "public, max-age=3600")
+	case strings.HasSuffix(name, ".json"):
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.Header().Set("Cache-Control", "public, max-age=300")
 	case strings.HasSuffix(name, ".parquet"):
 		w.Header().Set("Content-Type", "application/octet-stream")
 		w.Header().Set("Cache-Control", "no-cache")

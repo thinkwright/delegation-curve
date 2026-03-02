@@ -37,6 +37,33 @@
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Dataset",
+				"name": "AI Delegation Curve Seed Data",
+				"description": "Composite scores, domain scores, sub-indicators, data sources, and trend history for the AI Delegation Curve — measuring AI decision-making influence across 9 domains.",
+				"url": "https://curve.thinkwright.ai/data",
+				"license": "https://creativecommons.org/licenses/by/4.0/",
+				"creator": { "@type": "Organization", "name": "ThinkWright", "url": "https://thinkwright.ai" },
+				"distribution": {
+					"@type": "DataDownload",
+					"encodingFormat": "application/json",
+					"contentUrl": "https://curve.thinkwright.ai/seed.json"
+				},
+				"temporalCoverage": "2024/2025",
+				"keywords": ["AI autonomy", "AI delegation", "AI decision-making", "AI governance", "composite index"]
+			},
+			{
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{ "@type": "ListItem", "position": 1, "name": "AI Delegation Curve", "item": "https://curve.thinkwright.ai" },
+					{ "@type": "ListItem", "position": 2, "name": "Data", "item": "https://curve.thinkwright.ai/data" }
+				]
+			}
+		]
+	})}</script>`}
 </svelte:head>
 
 <div class="px-4 py-8 pb-4">

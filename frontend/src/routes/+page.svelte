@@ -24,6 +24,30 @@
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Organization",
+				"name": "ThinkWright",
+				"url": "https://thinkwright.ai",
+				"logo": "https://curve.thinkwright.ai/og-image.png"
+			},
+			{
+				"@type": "WebSite",
+				"name": "AI Delegation Curve",
+				"url": "https://curve.thinkwright.ai",
+				"description": "A composite index tracking what percentage of consequential decisions are delegated to AI systems across 9 domains.",
+				"publisher": { "@type": "Organization", "name": "ThinkWright" }
+			},
+			{
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{ "@type": "ListItem", "position": 1, "name": "AI Delegation Curve", "item": "https://curve.thinkwright.ai" }
+				]
+			}
+		]
+	})}</script>`}
 </svelte:head>
 
 {#if error}

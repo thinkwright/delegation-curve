@@ -33,6 +33,19 @@
 	<meta property="og:title" content="AI Delegation Scores by Domain — AI Delegation Curve" />
 	<meta property="og:description" content="AI delegation scores ranked across 9 decision domains. See which sectors have delegated the most decision-making power to AI systems." />
 	<meta property="og:url" content="https://curve.thinkwright.ai/delegation" />
+	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
+		"itemListElement": [
+			{ "@type": "ListItem", "position": 1, "name": "AI Delegation Curve", "item": "https://curve.thinkwright.ai" },
+			{ "@type": "ListItem", "position": 2, "name": "Domains", "item": "https://curve.thinkwright.ai/delegation" }
+		]
+	})}</script>`}
 </svelte:head>
 
 <div class="px-4 py-8 pb-4">

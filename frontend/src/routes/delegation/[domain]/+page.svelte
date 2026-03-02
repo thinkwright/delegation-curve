@@ -32,8 +32,25 @@
 
 <svelte:head>
 	<title>{domain?.fullName ?? data.domainId} — AI Delegation Score — AI Delegation Curve</title>
+	<meta name="description" content="{domain ? `${domain.fullName} AI delegation score: ${domain.score}/100 (${domain.status}). ${domain.description}` : `AI delegation score for ${data.domainId}. Measuring AI decision-making influence with normalized indicators.`}" />
 	<link rel="canonical" href="https://curve.thinkwright.ai/delegation/{data.domainId}" />
+	<meta property="og:title" content="{domain?.fullName ?? data.domainId} — AI Delegation Score" />
+	<meta property="og:description" content="{domain ? `Score: ${domain.score}/100. ${domain.description}` : `AI delegation score for ${data.domainId}.`}" />
 	<meta property="og:url" content="https://curve.thinkwright.ai/delegation/{data.domainId}" />
+	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
+		"itemListElement": [
+			{ "@type": "ListItem", "position": 1, "name": "AI Delegation Curve", "item": "https://curve.thinkwright.ai" },
+			{ "@type": "ListItem", "position": 2, "name": "Domains", "item": "https://curve.thinkwright.ai/delegation" },
+			{ "@type": "ListItem", "position": 3, "name": domain?.fullName ?? data.domainId, "item": "https://curve.thinkwright.ai/delegation/" + data.domainId }
+		]
+	})}</script>`}
 </svelte:head>
 
 {#if error}
