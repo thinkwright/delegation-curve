@@ -56,7 +56,7 @@ func CodeGenConfig() DomainConfig {
 		Indicators: []IndicatorConfig{
 			{
 				Name:       "Copilot Code Acceptance",
-				Weight:     0.35,
+				Weight:     0.50,
 				NormConfig: NormConfig{Method: DirectPercent},
 				SourceName: "GitHub Octoverse",
 			},
@@ -68,7 +68,7 @@ func CodeGenConfig() DomainConfig {
 			},
 			{
 				Name:       "AI-Assisted Commits (OSS)",
-				Weight:     0.40,
+				Weight:     0.25,
 				NormConfig: NormConfig{Method: DirectPercent},
 				SourceName: "GitClear Analysis",
 			},

@@ -3,8 +3,8 @@
 	import { base } from '$app/paths';
 
 	const tabs = [
-		{ href: `${base}/`, icon: 'dashboard', label: 'Home' },
 		{ href: `${base}/delegation`, icon: 'list', label: 'Domains' },
+		{ href: `${base}/data`, icon: 'code', label: 'Data' },
 		{ href: `${base}/about`, icon: 'info', label: 'About' }
 	];
 

@@ -2,6 +2,7 @@
 	import { getDomains } from '$lib/db/client';
 	import type { DelegationDomain } from '$lib/data/types';
 	import WeightExplorer from '$lib/components/WeightExplorer.svelte';
+	import { base } from '$app/paths';
 
 	let domains = $state<DelegationDomain[]>([]);
 
@@ -113,7 +114,7 @@
 		</div>
 		<div class="flex gap-3">
 			<span class="text-base font-mono font-bold tabular-nums shrink-0 text-neutral-300">02</span>
-			<p class="text-sm leading-relaxed"><strong>Raw data access</strong> — underlying indicators are downloadable.</p>
+			<p class="text-sm leading-relaxed"><strong>Raw data access</strong> — underlying indicators are <a href="{base}/data" class="underline hover:text-neutral-500 transition-colors">downloadable</a>.</p>
 		</div>
 		<div class="flex gap-3">
 			<span class="text-base font-mono font-bold tabular-nums shrink-0 text-neutral-300">03</span>

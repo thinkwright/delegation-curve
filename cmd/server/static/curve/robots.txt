@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://curve.thinkwright.ai/sitemap.xml

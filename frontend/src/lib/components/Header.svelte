@@ -8,6 +8,7 @@
 
 	const tabs = [
 		{ href: `${base}/delegation`, label: 'Domains' },
+		{ href: `${base}/data`, label: 'Data' },
 		{ href: `${base}/about`, label: 'About' }
 	];
 
