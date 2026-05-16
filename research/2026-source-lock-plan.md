@@ -300,7 +300,9 @@ Candidate sources:
 - OECD TALIS 2024 / OECD 2026 Digital Education Outlook for teacher AI use.
 - Pew 2026 teen AI survey as K-12 context.
 
-Decision: add AI Index/EDUCAUSE for student and faculty use; keep grading separate.
+Extraction note: `research/2026-evidence/education.md`.
+
+Decision: rename or split the student indicator before scoring. Use Pew for K-12 schoolwork depth, HAI for broad cross-level context, OECD for teacher workflow, and keep grading plus AI-written-output signals separate until direct assessment-automation usage is found.
 
 ## Proposed Source Lock Gates
 
