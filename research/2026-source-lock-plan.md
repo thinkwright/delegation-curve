@@ -70,7 +70,7 @@ Do not update scores directly in `seed/seed.json` without creating or updating a
      -data-freshness "2026 Q2"
    ```
 
-5. Regenerate Parquet and rebuild the frontend/server. The visualizations should show the public current-method curve, while archived publication baselines remain available in the run data for audit.
+5. Regenerate Parquet and rebuild the frontend/server. The visualizations should show the recalculated public curve, while archived publication baselines remain available in the run data for audit.
 
 ## Evidence Grades
 

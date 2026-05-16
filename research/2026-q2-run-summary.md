@@ -8,9 +8,9 @@ Data freshness label: `2026 Q2`.
 
 ## Result
 
-The 2026 Q2 refresh yields a composite Delegation Curve score of **45.8**, up 8.1 index points from the 2025 comparable estimate of 37.7.
+The 2026 Q2 refresh yields a composite Delegation Curve score of **45.8**, up 8.1 index points from the recalculated 2025 baseline of 37.7.
 
-The March 2026 published score of 46.0 is retained as an archived run, but it is no longer used as the public prior because it was produced under the original scoring series. The public curve now compares `2026-q2` against `current-method-2025`, a recalculated estimate under the 2026 scoring frame. See `research/2026-current-method-series.md`.
+The March 2026 published score of 46.0 is retained as an archived run, but it is no longer used as the public prior because it was produced under the original scoring series. The public curve now compares `2026-q2` against `current-method-2025`, a recalculated baseline under the 2026 scoring frame. See `research/2026-current-method-series.md`.
 
 The largest construct correction is in `algo-trade`: the archived 2025 score mixed market-automation proxies with AI-specific adoption. The v2 run narrows the scored inputs to:
 
@@ -24,7 +24,7 @@ The 15.0 value is current internal-AI trade-execution adoption from Coalition Gr
 
 ## Domain Scores
 
-| Domain | 2025 comparable | 2026 Q2 | Change | Notes |
+| Domain | 2025 recalculated | 2026 Q2 | Change | Notes |
 | --- | ---: | ---: | ---: | --- |
 | content-mod | 94.1 | 96.1 | +2.0 | X demoted; YouTube automated flagging and TikTok DSA automated enforcement used |
 | algo-trade | 39.2 | 39.2 | +0.0 | Adjusted from broad market automation toward defensible current AI execution adoption |

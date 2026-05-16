@@ -5,14 +5,14 @@ Date: 2026-05-16.
 
 ## Decision
 
-The public Delegation Curve should remain one continuous curve. The March 2026 publication scores remain archived, but the public prior points are now comparable estimates under the 2026 scoring frame:
+The public Delegation Curve should remain one continuous curve. The March 2026 publication scores remain archived, but the public prior points are now recalculated under the 2026 scoring frame:
 
 | Run ID | Period | Score | Public curve | Notes |
 | --- | --- | ---: | --- | --- |
 | `legacy-2024` | 2024 | 39.7 | no | Archived original scoring series |
 | `legacy-2025` | 2025 | 46.0 | no | Archived March 2026 publication baseline |
-| `current-method-2024` | 2024 | 31.5 | yes | Backcast comparable estimate |
-| `current-method-2025` | 2025 | 37.7 | yes | Recalculated comparable prior |
+| `current-method-2024` | 2024 | 31.5 | yes | Recalculated history |
+| `current-method-2025` | 2025 | 37.7 | yes | Recalculated baseline |
 | `2026-q2` | 2026 Q2 | 45.8 | yes | Current source refresh |
 
 The headline comparison is therefore:
@@ -25,11 +25,11 @@ The headline comparison is therefore:
 
 The prior public score of 46.0 was not a comparable denominator for the 2026 Q2 score because the 2026 update changed source contracts, especially in algorithmic trading. Showing `45.8` as `-0.2` against the March score implied a decline in AI delegation that the evidence did not support.
 
-The correction is to preserve the old publication as an archived run and compare the 2026 score against a recalculated 2025 estimate under the current scoring frame.
+The correction is to preserve the old publication as an archived run and compare the 2026 score against a recalculated 2025 baseline under the current scoring frame.
 
-## 2025 Comparable Estimate
+## 2025 Recalculated Baseline
 
-The 2025 comparable estimate uses the 2026 indicator contracts where a prior-period value or close predecessor exists. Domain scores:
+The 2025 recalculated baseline uses the 2026 indicator contracts where a prior-period value or close predecessor exists. Domain scores:
 
 | Domain | 2025 comparable | Basis |
 | --- | ---: | --- |
@@ -69,7 +69,7 @@ The homepage should not explain methodology versioning in the hero. It should sh
 ```text
 45.8
 +8.1 pts
-vs prior estimate
+vs recalculated 2025
 ```
 
 The archive/methodology pages can explain that earlier published scores are retained for audit but are not the current public comparison series.
