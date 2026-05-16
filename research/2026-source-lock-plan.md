@@ -159,6 +159,8 @@ Decision: targeted source refresh only; no obvious high-fidelity 2026 replacemen
 
 Current state: high-value domain for a 2026 refresh. Existing sources mix acceptance, adoption, OSS proxy, and install inventory.
 
+Extraction note: see `research/2026-evidence/code-gen.md`.
+
 Recommended lock:
 
 - Add METR as `Technical Work AI Value Share` or `AI-Attributable Technical Output Value`.
