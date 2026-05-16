@@ -198,7 +198,9 @@ Candidate sources:
 - Gartner 2026 support workforce/AI implementation survey.
 - Stanford HAI 2026 economy chapter for productivity context.
 
-Decision: refresh current family; add Intercom 2026 if direct deployment/resolution metrics can be extracted.
+Extraction note: `research/2026-evidence/support.md`.
+
+Decision: keep support as a high-priority score-refresh domain, but rename `AI Resolution Rate` to `Cases Handled by AI` unless a true autonomous-resolution source is found. Add Sinch as production/reliability context and avoid counting rollback-prone deployment as positive impact without a methodology decision.
 
 ### credit
 
