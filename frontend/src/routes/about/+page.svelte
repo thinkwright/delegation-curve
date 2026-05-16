@@ -12,11 +12,11 @@
 </script>
 
 <svelte:head>
-	<title>Methodology — How We Measure AI Decision-Making — AI Delegation Curve</title>
-	<meta name="description" content="Methodology for the AI Delegation Curve: how we measure AI autonomy and AI decision-making influence. Min-max normalization, domain weighting, three-tier data sources (transparency reports, regulatory filings, public benchmarks), and credibility principles. Open methodology for tracking AI governance and AI adoption across 9 domains." />
+	<title>Methodology — How We Measure AI Influence — AI Delegation Curve</title>
+	<meta name="description" content="Methodology for the AI Delegation Curve: how we estimate AI influence and delegated workflow share. Indicator normalization, domain weighting, source quality, and curve maintenance for tracking AI governance and adoption across 9 domains." />
 	<link rel="canonical" href="https://curve.thinkwright.ai/about" />
-	<meta property="og:title" content="Methodology — How We Measure AI Decision-Making" />
-	<meta property="og:description" content="Open methodology for measuring AI delegation: normalization, weighting, data source tiers, and credibility principles." />
+	<meta property="og:title" content="Methodology — How We Measure AI Influence" />
+	<meta property="og:description" content="Open methodology for estimating AI influence: indicator normalization, weighting, source quality, and curve maintenance." />
 	<meta property="og:url" content="https://curve.thinkwright.ai/about" />
 	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
 	<meta property="og:image:width" content="1200" />
@@ -49,7 +49,7 @@
 		{domains.length} domains are tracked: content moderation, algorithmic trading, code generation, customer support, credit decisioning, medical diagnostics, legal AI, hiring, and education.
 	</p>
 	<p class="text-sm leading-relaxed">
-		Each domain score is built from 2-4 normalized indicators sourced from transparency reports, regulatory filings, surveys, and public benchmarks.
+		Each domain score is built from 2-5 normalized indicators sourced from transparency reports, regulatory filings, surveys, public datasets, and research.
 	</p>
 </div>
 
@@ -57,10 +57,10 @@
 <div class="px-4 py-6 hairline-b">
 	<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-3">Curve Maintenance</p>
 	<p class="text-sm leading-relaxed mb-4">
-		The public curve is kept on one measuring stick over time. When sources or scoring rules improve, prior points may be recalculated before showing headline movement.
+		The public curve is kept on one measuring stick over time. When sources or scoring rules improve, earlier public points may be restated before showing headline movement.
 	</p>
 	<p class="text-sm leading-relaxed">
-		Older published baselines are retained in the dataset for audit, but the main chart uses the recalculated history.
+		Older published points are retained in the dataset for audit, but the main chart uses the current measurement series.
 	</p>
 </div>
 
@@ -69,12 +69,12 @@
 	<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-3">The Delegation Curve</p>
 
 	<p class="text-sm leading-relaxed mb-4">
-		The composite score is a weighted average across {domains.length} decision domains. Each domain score (0–100) represents the percentage of decisions in that sector made or substantially influenced by AI systems.
+		The composite score is a weighted average across {domains.length} decision domains. Each domain score (0–100) estimates AI influence in that sector using direct delegation measures where available and proxy signals where direct measurement is still incomplete.
 	</p>
 
 	<p class="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-2">Normalization</p>
 	<p class="text-sm leading-relaxed mb-4">
-		Raw metrics are normalized to 0–100 using min-max scaling against a historical baseline floor and theoretical automation ceiling. For example, content moderation automated detection was ~24% in 2017 (floor), theoretical ceiling is 100%.
+		Raw metrics are normalized to 0–100 before weighting. Most inputs are direct percentages; count and reach metrics use fixed caps or log scaling so they can be compared with percentage-based indicators without implying they are literal decision shares.
 	</p>
 
 	<p class="text-xs font-bold uppercase tracking-widest text-neutral-500 mb-2">Status Tiers</p>
@@ -108,16 +108,16 @@
 
 	<div class="space-y-4">
 		<div>
-			<p class="text-xs font-bold uppercase mb-2">Tier 1 — Direct Measurement</p>
-			<p class="text-sm text-neutral-600 leading-relaxed">Platform transparency reports, exchange data, IDE telemetry. Updated quarterly or more frequently. Highest confidence.</p>
+			<p class="text-xs font-bold uppercase mb-2">Tier 1 — Direct Workflow Evidence</p>
+			<p class="text-sm text-neutral-600 leading-relaxed">Platform transparency reports, operational datasets, regulatory or filing disclosures, and first-party telemetry. Highest confidence when definitions are stable.</p>
 		</div>
 		<div>
 			<p class="text-xs font-bold uppercase mb-2">Tier 2 — Strong Proxies</p>
-			<p class="text-sm text-neutral-600 leading-relaxed">FDA databases, industry surveys (Gartner, McKinsey), regulatory filings. Updated annually. Medium confidence.</p>
+			<p class="text-sm text-neutral-600 leading-relaxed">Official databases, industry surveys, product-market denominators, and adoption reports. Used when direct delegated-decision data is not yet available.</p>
 		</div>
 		<div>
-			<p class="text-xs font-bold uppercase mb-2">Tier 3 — Directional Signal</p>
-			<p class="text-sm text-neutral-600 leading-relaxed">Google Trends, web traffic, app rankings, VC funding data. Updated continuously. Used for interpolation between anchor data points.</p>
+			<p class="text-xs font-bold uppercase mb-2">Tier 3 — Context & Guardrails</p>
+			<p class="text-sm text-neutral-600 leading-relaxed">Public benchmarks, research studies, quality reports, and reliability evidence. Used to interpret confidence and scope, not as standalone proof of social delegation.</p>
 		</div>
 	</div>
 </div>
@@ -137,15 +137,15 @@
 		</div>
 		<div class="flex gap-3">
 			<span class="text-base font-mono font-bold tabular-nums shrink-0 text-neutral-300">03</span>
-			<p class="text-sm leading-relaxed"><strong>Confidence bands</strong> — uncertainty is shown, not hidden. Survey-based domains get wider bands.</p>
+			<p class="text-sm leading-relaxed"><strong>Source confidence</strong> — uncertainty is documented, not hidden. Survey-based and proxy-heavy domains are treated more cautiously.</p>
 		</div>
 		<div class="flex gap-3">
 			<span class="text-base font-mono font-bold tabular-nums shrink-0 text-neutral-300">04</span>
-			<p class="text-sm leading-relaxed"><strong>Recalculated history</strong> — public prior points stay on the current measuring stick; archived publication baselines remain available for audit.</p>
+			<p class="text-sm leading-relaxed"><strong>Continuous series</strong> — public prior points stay on the current measuring stick; archived publication points remain available for audit.</p>
 		</div>
 		<div class="flex gap-3">
 			<span class="text-base font-mono font-bold tabular-nums shrink-0 text-neutral-300">05</span>
-			<p class="text-sm leading-relaxed"><strong>No editorializing</strong> — the number is the number. The curve does the talking.</p>
+			<p class="text-sm leading-relaxed"><strong>Method before interpretation</strong> — sources, weights, and formulas are separated from narrative conclusions.</p>
 		</div>
 	</div>
 </div>

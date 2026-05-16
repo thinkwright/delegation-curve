@@ -29,7 +29,7 @@
         "status": "autonomous",
         "weight": 0.1,
         "tier": 1,
-        "description": "Percentage of content policy enforcement decisions made by automated systems before human review. Sourced from platform transparency reports mandated under the EU Digital Services Act.",
+        "description": "Share of platform content moderation detection, flagging, or enforcement actions handled by automated systems before or without human review.",
         "sub_indicators": [
           {
             "name": "Meta Automated Detection",
@@ -85,7 +85,7 @@
         "status": "nominal",
         "weight": 0.15,
         "tier": 1,
-        "description": "Proportion of financial market trading volume executed by algorithmic and AI-driven systems. Covers US equities, FX, and derivatives markets.",
+        "description": "Financial-market automation score combining FX electronic trading share with current buy-side internal-AI trade-execution adoption.",
         "sub_indicators": [
           {
             "name": "FX Electronic Trading Share",
@@ -209,7 +209,7 @@
         "status": "elevated",
         "weight": 0.15,
         "tier": 1,
-        "description": "Percentage of customer service interactions resolved by AI without human handoff. Measured through platform analytics, industry surveys, and vendor reports.",
+        "description": "Share of customer support cases, deflection, production communications agents, and mature support operations involving AI systems.",
         "sub_indicators": [
           {
             "name": "Cases Handled by AI",
@@ -277,7 +277,7 @@
         "status": "nominal",
         "weight": 0.1,
         "tier": 2,
-        "description": "Proportion of consumer and commercial lending decisions influenced by AI/ML underwriting models. Tracked through regulatory filings, fintech disclosures, and industry surveys.",
+        "description": "Degree of AI involvement in credit underwriting and lending decisions, with platform automation adjusted by product-market denominators.",
         "sub_indicators": [
           {
             "name": "AI-Underwritten Personal Loan Proxy",
@@ -321,7 +321,7 @@
         "status": "nominal",
         "weight": 0.12,
         "tier": 2,
-        "description": "Percentage of clinical diagnostic decisions assisted or made by AI systems. Measured at the practitioner level: 12% of physicians report using AI for diagnosis (AMA), while 50% of U.S. health systems have deployed at least one imaging AI tool (KLAS). The gap between deployment and actual diagnostic usage remains large — autonomous AI retinal screening has penetrated only 2.2% of eligible imaging despite years of FDA clearance.",
+        "description": "AI involvement in clinical diagnosis and imaging, combining FDA-cleared AI device capacity, imaging AI adoption, physician assistive-diagnosis use, and pathology adoption.",
         "sub_indicators": [
           {
             "name": "FDA AI-Enabled Medical Devices",
@@ -389,7 +389,7 @@
         "status": "elevated",
         "weight": 0.08,
         "tier": 2,
-        "description": "Proportion of legal research, document review, and contract analysis substantially performed by AI tools. Measured through legal industry surveys and vendor adoption data.",
+        "description": "AI adoption and workflow use in legal research, document review, and legal work, anchored by organization surveys and document-review evidence.",
         "sub_indicators": [
           {
             "name": "Legal Organization GenAI Adoption",
@@ -445,7 +445,7 @@
         "status": "elevated",
         "weight": 0.08,
         "tier": 2,
-        "description": "Percentage of hiring decisions involving AI screening, assessment, or ranking of candidates. Adoption is growing fast — 51% of organizations now use AI in recruiting, up from 26% a year earlier — but the growth is wide and shallow. Most AI use is in low-stakes tasks like writing job descriptions (66% of AI-using recruiters) rather than consequential decisions like automated candidate rejection. Only 14% of organizations have deeply integrated AI into their talent acquisition stack. The score reflects this gap between adoption breadth and decision-making depth.",
+        "description": "AI involvement in talent acquisition, combining organization adoption, screening use-case adoption, broad process coverage, and assessment platform reach.",
         "sub_indicators": [
           {
             "name": "Orgs Using AI in Talent Acquisition",
@@ -503,7 +503,7 @@
         "status": "nominal",
         "weight": 0.07,
         "tier": 3,
-        "description": "Proportion of educational assessment, tutoring, and grading decisions involving AI systems. Uniquely multi-dimensional: AI delegation occurs on both sides of the classroom. Students delegate writing and problem-solving to AI (15% of submissions are now substantially AI-generated), while teachers independently delegate grading and feedback to AI (10.7% across OECD countries). These represent distinct actors with different incentives, making this domain harder to measure than most.",
+        "description": "AI influence across student schoolwork, assessment and grading, teacher workflow, and AI-written student output.",
         "sub_indicators": [
           {
             "name": "Students Using AI for Schoolwork",

@@ -43,10 +43,10 @@
 
 <svelte:head>
 	<title>{domain?.fullName ?? data.domainId} — AI Delegation Score — AI Delegation Curve</title>
-	<meta name="description" content="{domain ? `${domain.fullName} AI delegation score: ${domain.score}/100 (${domain.status}). ${domain.description}` : `AI delegation score for ${data.domainId}. Measuring AI decision-making influence with normalized indicators.`}" />
+	<meta name="description" content="{domain ? `${domain.fullName} AI influence score: ${domain.score}/100 (${domain.status}). ${domain.description}` : `AI influence score for ${data.domainId}. Measuring AI decision-making influence with normalized indicators.`}" />
 	<link rel="canonical" href="https://curve.thinkwright.ai/delegation/{data.domainId}" />
 	<meta property="og:title" content="{domain?.fullName ?? data.domainId} — AI Delegation Score" />
-	<meta property="og:description" content="{domain ? `Score: ${domain.score}/100. ${domain.description}` : `AI delegation score for ${data.domainId}.`}" />
+	<meta property="og:description" content="{domain ? `Score: ${domain.score}/100. ${domain.description}` : `AI influence score for ${data.domainId}.`}" />
 	<meta property="og:url" content="https://curve.thinkwright.ai/delegation/{data.domainId}" />
 	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
 	<meta property="og:image:width" content="1200" />
@@ -97,7 +97,7 @@
 			{domain.status === 'autonomous' ? 'text-rose' : ''}">{domain.score}</span>
 		<div class="flex flex-col mb-3">
 			<span class="text-base font-mono font-bold tabular-nums {delta >= 0 ? 'text-sage' : 'text-rose'}">{formatDelta(delta)} pts</span>
-			<span class="text-[10px] font-mono text-neutral-400 uppercase">vs {priorPeriodLabel} baseline</span>
+			<span class="text-[10px] font-mono text-neutral-400 uppercase">since {priorPeriodLabel}</span>
 		</div>
 	</div>
 

@@ -17,7 +17,7 @@
 
 <svelte:head>
 	<title>AI Delegation Curve</title>
-	<meta name="description" content="The AI Delegation Curve tracks what percentage of consequential decisions are delegated to AI systems. A composite index across 9 domains including content moderation, algorithmic trading, code generation, medical diagnostics, credit scoring, legal AI, hiring automation, and education. Measuring AI autonomy, AI governance, and AI decision-making influence." />
+	<meta name="description" content="The AI Delegation Curve is a composite index estimating AI influence and delegated workflow share across 9 consequential domains including content moderation, algorithmic trading, code generation, medical diagnostics, credit scoring, legal AI, hiring automation, and education." />
 	<meta name="keywords" content="AI delegation, AI autonomy index, AI decision making, AI governance metrics, AI adoption tracker, AI influence measurement, artificial intelligence oversight, algorithmic decision making, AI transparency, AI accountability, autonomous AI systems, AI safety metrics, AI risk assessment, machine learning adoption, AI automation index, content moderation AI, algorithmic trading, AI code generation, AI medical diagnosis, AI credit scoring, AI hiring, AI legal, AI education" />
 </svelte:head>
 
