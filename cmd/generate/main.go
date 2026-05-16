@@ -105,6 +105,9 @@ func main() {
 func compositeRunHistory(rows []schema.AnalysisRunRow) []map[string]any {
 	history := make([]map[string]any, 0, len(rows))
 	for _, r := range rows {
+		if !r.IsPublicSeries {
+			continue
+		}
 		history = append(history, map[string]any{
 			"runId":              r.RunID,
 			"label":              r.Label,

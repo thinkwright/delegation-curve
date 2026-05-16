@@ -95,7 +95,7 @@
 		</svg>
 	</div>
 	<div class="flex justify-between">
-		<span class="text-[10px] font-mono text-neutral-400">{domain.previousScore} prior</span>
-		<span class="text-[10px] font-mono text-neutral-400">{formatDelta(delta)} vs prior</span>
+		<span class="text-[10px] font-mono text-neutral-400">{domain.previousScore} prior estimate</span>
+		<span class="text-[10px] font-mono text-neutral-400">{formatDelta(delta)} pts</span>
 	</div>
 </a>

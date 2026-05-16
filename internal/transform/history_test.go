@@ -65,6 +65,17 @@ func TestHistoryUsesExplicitRuns(t *testing.T) {
 	seed := &ingest.Seed{
 		AnalysisRuns: []ingest.AnalysisRunJSON{
 			{
+				RunID:              "legacy-2025",
+				Label:              "2025 published baseline",
+				PublishedAt:        "2026-03-02",
+				MeasurementPeriod:  "2025",
+				MeasurementYear:    2025,
+				MethodologyVersion: "legacy-trend-v1",
+				CompositeScore:     46,
+				Notes:              "Archived run.",
+				IsPublicSeries:     boolPtr(false),
+			},
+			{
 				RunID:              "2026-q2",
 				Label:              "2026 Q2 refresh",
 				PublishedAt:        "2026-06-30",
@@ -106,8 +117,11 @@ func TestHistoryUsesExplicitRuns(t *testing.T) {
 
 	runs, domainScores, observations := History(seed)
 
-	if len(runs) != 1 || runs[0].RunID != "2026-q2" || runs[0].CompositeScore != 51.2 {
+	if len(runs) != 2 || runs[1].RunID != "2026-q2" || runs[1].CompositeScore != 51.2 {
 		t.Fatalf("unexpected explicit runs: %+v", runs)
+	}
+	if runs[0].IsPublicSeries || !runs[1].IsPublicSeries {
+		t.Fatalf("unexpected public series flags: %+v", runs)
 	}
 	if len(domainScores) != 1 || domainScores[0].Score != 58.4 {
 		t.Fatalf("unexpected explicit domain scores: %+v", domainScores)
@@ -115,4 +129,8 @@ func TestHistoryUsesExplicitRuns(t *testing.T) {
 	if len(observations) != 1 || observations[0].SourceURL == "" || !observations[0].IncludedInScore {
 		t.Fatalf("unexpected explicit observations: %+v", observations)
 	}
+}
+
+func boolPtr(v bool) *bool {
+	return &v
 }

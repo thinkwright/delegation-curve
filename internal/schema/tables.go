@@ -57,6 +57,7 @@ type AnalysisRunRow struct {
 	CompositeScore     float64 `parquet:"composite_score"`
 	Notes              string  `parquet:"notes,zstd"`
 	IsCurrent          bool    `parquet:"is_current"`
+	IsPublicSeries     bool    `parquet:"is_public_series"`
 }
 
 // DomainScoreRow — one row per domain per analysis run.

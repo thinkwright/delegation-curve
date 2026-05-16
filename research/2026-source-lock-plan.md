@@ -1,6 +1,6 @@
 # 2026 Delegation Curve Source Lock Plan
 
-Status: preparation artifact, not a score update.
+Status: preparation artifact, superseded for public-series handling by `research/2026-current-method-series.md`.
 Date prepared: 2026-05-16.
 
 ## Objective
@@ -70,7 +70,7 @@ Do not update scores directly in `seed/seed.json` without creating or updating a
      -data-freshness "2026 Q2"
    ```
 
-5. Regenerate Parquet and rebuild the frontend/server. The visualizations should then show both the current March 2026 publication baseline and the new 2026 refresh point.
+5. Regenerate Parquet and rebuild the frontend/server. The visualizations should show the public current-method curve, while archived publication baselines remain available in the run data for audit.
 
 ## Evidence Grades
 

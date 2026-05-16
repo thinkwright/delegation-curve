@@ -29,6 +29,10 @@ func explicitHistory(seed *ingest.Seed) (
 ) {
 	runRows := make([]schema.AnalysisRunRow, 0, len(seed.AnalysisRuns))
 	for _, r := range seed.AnalysisRuns {
+		isPublicSeries := true
+		if r.IsPublicSeries != nil {
+			isPublicSeries = *r.IsPublicSeries
+		}
 		runRows = append(runRows, schema.AnalysisRunRow{
 			RunID:              r.RunID,
 			Label:              r.Label,
@@ -39,6 +43,7 @@ func explicitHistory(seed *ingest.Seed) (
 			CompositeScore:     r.CompositeScore,
 			Notes:              r.Notes,
 			IsCurrent:          r.IsCurrent,
+			IsPublicSeries:     isPublicSeries,
 		})
 	}
 
@@ -100,6 +105,7 @@ func legacyHistory(seed *ingest.Seed) (
 			CompositeScore:     score,
 			Notes:              "Derived from legacy trend arrays in seed.json.",
 			IsCurrent:          year == composite.DataYear,
+			IsPublicSeries:     true,
 		})
 	}
 

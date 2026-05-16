@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { generatePath } from '$lib/utils/sparkline';
+
 	let {
 		data,
 		labels,
-		seriesKeys,
 		height = 160,
 		color = 'var(--color-primary)',
 		showGrid = true,
@@ -10,7 +11,6 @@
 	}: {
 		data: number[];
 		labels?: string[];
-		seriesKeys?: string[];
 		height?: number;
 		color?: string;
 		showGrid?: boolean;
@@ -40,26 +40,24 @@
 		return chartH - ((v - min) / (max - min)) * chartH;
 	});
 
-	const activeSeriesKeys = $derived(
-		seriesKeys?.length === data.length ? seriesKeys : data.map(() => 'default')
-	);
-	const segments = $derived(() => {
-		const result: number[][] = [];
-		for (let i = 0; i < data.length; i += 1) {
-			if (i === 0 || activeSeriesKeys[i] !== activeSeriesKeys[i - 1]) {
-				result.push([i]);
-			} else {
-				result[result.length - 1].push(i);
-			}
+	// For 2-point data, use a cubic bezier; otherwise use the standard polyline
+	const linePath = $derived(() => {
+		const { min, max } = yRange();
+		if (data.length === 1) {
+			const y = toY(data[0]);
+			return `M0,${y.toFixed(1)} L${chartW},${y.toFixed(1)}`;
 		}
-		return result;
+		if (data.length === 2) {
+			const y0 = toY(data[0]);
+			const y1 = toY(data[1]);
+			return `M0,${y0.toFixed(1)} C${(chartW * 0.4).toFixed(1)},${y0.toFixed(1)} ${(chartW * 0.6).toFixed(1)},${y1.toFixed(1)} ${chartW},${y1.toFixed(1)}`;
+		}
+		return generatePath(data, chartW, chartH, 0, min, max);
 	});
-	const breakIndexes = $derived(() => {
-		const indexes: number[] = [];
-		for (let i = 1; i < data.length; i += 1) {
-			if (activeSeriesKeys[i] !== activeSeriesKeys[i - 1]) indexes.push(i);
-		}
-		return indexes;
+	const areaPath = $derived(() => {
+		const line = linePath();
+		if (!line) return '';
+		return `${line} L${chartW},${chartH} L0,${chartH} Z`;
 	});
 
 	// Y-axis ticks: evenly spaced within the auto-scaled range
@@ -76,28 +74,6 @@
 		return Array.from({ length: data.length }, (_, i) => String(startYear + i));
 	});
 	const toX = (index: number, total: number) => total <= 1 ? chartW : (index / (total - 1)) * chartW;
-	const linePathFor = (indexes: number[]) => {
-		if (!indexes.length) return '';
-		if (indexes.length === 1) {
-			const x = toX(indexes[0], data.length);
-			const y = toY(data[indexes[0]]);
-			return `M${(x - 6).toFixed(1)},${y.toFixed(1)} L${(x + 6).toFixed(1)},${y.toFixed(1)}`;
-		}
-		return indexes
-			.map((index, i) => {
-				const x = toX(index, data.length);
-				const y = toY(data[index]);
-				return `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`;
-			})
-			.join(' ');
-	};
-	const areaPathFor = (indexes: number[]) => {
-		if (indexes.length < 2) return '';
-		const line = linePathFor(indexes);
-		const firstX = toX(indexes[0], data.length);
-		const lastX = toX(indexes[indexes.length - 1], data.length);
-		return `${line} L${lastX.toFixed(1)},${chartH} L${firstX.toFixed(1)},${chartH} Z`;
-	};
 
 	const lastValue = $derived(data[data.length - 1] ?? 0);
 	const lastY = $derived(toY(lastValue));
@@ -120,23 +96,11 @@
 				{/each}
 			{/if}
 
-			{#each breakIndexes() as index}
-				{@const x = (toX(index - 1, data.length) + toX(index, data.length)) / 2}
-				<line x1={x} y1="0" x2={x} y2={chartH} stroke="var(--color-grid)" stroke-width="1" stroke-dasharray="3 3" />
-				<text x={x + 3} y="10" class="text-[7px] fill-neutral-400 uppercase" font-family="'JetBrains Mono', monospace">new series</text>
-			{/each}
-
 			<!-- Area fill -->
-			{#each segments() as segment}
-				{#if areaPathFor(segment)}
-					<path d={areaPathFor(segment)} fill={color} opacity="0.04" />
-				{/if}
-			{/each}
+			<path d={areaPath()} fill={color} opacity="0.04" />
 
 			<!-- Line -->
-			{#each segments() as segment}
-				<path d={linePathFor(segment)} fill="none" stroke={color} stroke-width="2" vector-effect="non-scaling-stroke" />
-			{/each}
+			<path d={linePath()} fill="none" stroke={color} stroke-width="2" vector-effect="non-scaling-stroke" />
 
 			<!-- Current value dot -->
 			<rect x={chartW - 3} y={lastY - 3} width="6" height="6" fill={color} />

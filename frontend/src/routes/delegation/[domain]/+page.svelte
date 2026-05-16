@@ -38,25 +38,6 @@
 			? domain.runHistory.map((p) => p.measurementPeriod)
 			: undefined
 	);
-	const domainMethodologies = $derived(
-		domain?.runHistory?.length
-			? domain.runHistory.map((p) => p.methodologyVersion)
-			: undefined
-	);
-	const currentRun = $derived(
-		domain?.runHistory?.find((p) => p.isCurrent)
-			?? domain?.runHistory?.[domain.runHistory.length - 1]
-			?? null
-	);
-	const priorRun = $derived(() => {
-		const history = domain?.runHistory ?? [];
-		if (!currentRun) return null;
-		const index = history.findIndex((p) => p.runId === currentRun.runId);
-		return index > 0 ? history[index - 1] : null;
-	});
-	const isMethodologyBreak = $derived(
-		Boolean(currentRun && priorRun() && currentRun.methodologyVersion !== priorRun()?.methodologyVersion)
-	);
 </script>
 
 <svelte:head>
@@ -114,22 +95,12 @@
 		<span class="text-[72px] font-black font-mono tabular-nums tracking-tighter leading-none
 			{domain.status === 'autonomous' ? 'text-rose' : ''}">{domain.score}</span>
 		<div class="flex flex-col mb-3">
-			{#if isMethodologyBreak}
-				<span class="text-base font-mono font-bold tabular-nums text-neutral-500">New baseline</span>
-				<span class="text-[10px] font-mono text-neutral-400 uppercase">method refreshed</span>
-			{:else}
-				<span class="text-base font-mono font-bold tabular-nums {delta >= 0 ? 'text-sage' : 'text-rose'}">{formatDelta(delta)}</span>
-				<span class="text-[10px] font-mono text-neutral-400 uppercase">vs prior period</span>
-			{/if}
+			<span class="text-base font-mono font-bold tabular-nums {delta >= 0 ? 'text-sage' : 'text-rose'}">{formatDelta(delta)} pts</span>
+			<span class="text-[10px] font-mono text-neutral-400 uppercase">vs prior estimate</span>
 		</div>
 	</div>
 
 	<p class="text-xs text-neutral-500 leading-relaxed">{domain.description}</p>
-	{#if isMethodologyBreak}
-		<p class="text-[10px] text-neutral-500 leading-relaxed mt-2">
-			This update refreshes sources and scoring, so the score starts a new measurement series while prior points remain visible for context.
-		</p>
-	{/if}
 </div>
 
 <!-- Full Curve -->
@@ -138,7 +109,6 @@
 	<CurveChart
 		data={domainScores}
 		labels={domainPeriods}
-		seriesKeys={domainMethodologies}
 		height={180}
 		color={domain.status === 'autonomous' ? 'var(--color-rose)' : 'var(--color-primary)'}
 		endYear={dataYear}

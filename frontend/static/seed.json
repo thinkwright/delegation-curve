@@ -3,11 +3,11 @@
   "delegation": {
     "composite": {
       "current": 45.8,
-      "previous": 46,
-      "delta": -0.2,
+      "previous": 37.7,
+      "delta": 8.1,
       "trend": [
-        39.7,
-        46,
+        31.5,
+        37.7,
         45.8
       ],
       "last_updated": "2026-05-16",
@@ -20,10 +20,10 @@
         "name": "CONTENT-MOD",
         "full_name": "Content Moderation",
         "score": 96.1,
-        "previous_score": 93,
+        "previous_score": 94.1,
         "trend": [
-          88.5,
-          93,
+          89.6,
+          94.1,
           96.1
         ],
         "status": "autonomous",
@@ -76,10 +76,10 @@
         "name": "ALGO-TRADE",
         "full_name": "Algorithmic Trading",
         "score": 39.2,
-        "previous_score": 68.4,
+        "previous_score": 39.2,
         "trend": [
-          63.5,
-          68.4,
+          34.3,
+          39.2,
           39.2
         ],
         "status": "nominal",
@@ -120,10 +120,10 @@
         "name": "CODE-GEN",
         "full_name": "Software Development",
         "score": 48.2,
-        "previous_score": 46.6,
+        "previous_score": 32.6,
         "trend": [
-          41,
-          46.6,
+          27,
+          32.6,
           48.2
         ],
         "status": "elevated",
@@ -188,10 +188,10 @@
         "name": "SUPPORT",
         "full_name": "Customer Support",
         "score": 40.5,
-        "previous_score": 45.9,
+        "previous_score": 37,
         "trend": [
-          36.4,
-          45.9,
+          27.5,
+          37,
           40.5
         ],
         "status": "elevated",
@@ -256,10 +256,10 @@
         "name": "CREDIT",
         "full_name": "Credit & Lending",
         "score": 30,
-        "previous_score": 28.9,
+        "previous_score": 27.7,
         "trend": [
-          23.4,
-          28.9,
+          22.2,
+          27.7,
           30
         ],
         "status": "nominal",
@@ -300,10 +300,10 @@
         "name": "MEDICAL-DX",
         "full_name": "Medical Diagnosis",
         "score": 32.3,
-        "previous_score": 25.1,
+        "previous_score": 21.7,
         "trend": [
-          20.2,
-          25.1,
+          16.8,
+          21.7,
           32.3
         ],
         "status": "nominal",
@@ -424,10 +424,10 @@
         "name": "HIRE",
         "full_name": "Recruitment & Screening",
         "score": 49,
-        "previous_score": 36.8,
+        "previous_score": 38.1,
         "trend": [
-          31.8,
-          36.8,
+          33.1,
+          38.1,
           49
         ],
         "status": "elevated",
@@ -482,10 +482,10 @@
         "name": "EDUCATION",
         "full_name": "Education & Assessment",
         "score": 35.8,
-        "previous_score": 19.4,
+        "previous_score": 18,
         "trend": [
-          13.8,
-          19.4,
+          12.4,
+          18,
           35.8
         ],
         "status": "nominal",
@@ -550,23 +550,47 @@
   "analysis_runs": [
     {
       "run_id": "legacy-2024",
-      "label": "2024 baseline",
+      "label": "2024 published baseline",
       "published_at": "",
       "measurement_period": "2024",
       "measurement_year": 2024,
       "methodology_version": "legacy-trend-v1",
       "composite_score": 39.7,
-      "notes": "Derived from legacy trend arrays in seed.json."
+      "notes": "Archived published baseline from the original scoring series; retained for audit but not used in the public current-method curve.",
+      "is_public_series": false
     },
     {
       "run_id": "legacy-2025",
-      "label": "2025 baseline",
+      "label": "2025 published baseline",
       "published_at": "2026-03-02",
       "measurement_period": "2025",
       "measurement_year": 2025,
       "methodology_version": "legacy-trend-v1",
       "composite_score": 46,
-      "notes": "Derived from legacy trend arrays in seed.json."
+      "notes": "Archived March 2026 publication baseline from the original scoring series; retained for audit but not used as the public prior after the 2026 source refresh.",
+      "is_public_series": false
+    },
+    {
+      "run_id": "current-method-2024",
+      "label": "2024 comparable estimate",
+      "published_at": "2026-05-16",
+      "measurement_period": "2024",
+      "measurement_year": 2024,
+      "methodology_version": "delegation-curve-v2",
+      "composite_score": 31.5,
+      "notes": "Backcast for the public curve using the 2026 scoring frame. Source-level coverage is limited; 2024 values preserve the original 2024-to-2025 domain movement from the recalculated 2025 anchor.",
+      "is_public_series": true
+    },
+    {
+      "run_id": "current-method-2025",
+      "label": "2025 comparable estimate",
+      "published_at": "2026-05-16",
+      "measurement_period": "2025",
+      "measurement_year": 2025,
+      "methodology_version": "delegation-curve-v2",
+      "composite_score": 37.7,
+      "notes": "Recalculated under the 2026 source and scoring frame so the public curve compares like with like. The archived March 2026 published score was 46.0 under the prior scoring series.",
+      "is_public_series": true
     },
     {
       "run_id": "2026-q2",
@@ -576,8 +600,9 @@
       "measurement_year": 2026,
       "methodology_version": "delegation-curve-v2",
       "composite_score": 45.8,
-      "notes": "2026 source refresh using methodology v2 source-lock decisions. Algorithmic trading adjusted from broad market-automation proxies toward BIS FX electronic execution plus current Coalition Greenwich internal-AI trade-execution adoption.",
-      "is_current": true
+      "notes": "2026 source refresh using the same public current-method series. Algorithmic trading is scored from BIS FX electronic execution and Coalition Greenwich internal-AI trade-execution adoption rather than broad market-automation proxies.",
+      "is_current": true,
+      "is_public_series": true
     }
   ],
   "domain_scores": [
@@ -769,6 +794,132 @@
       "score": 45.9,
       "weight": 0.15,
       "status": "elevated"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "content-mod",
+      "score": 89.6,
+      "weight": 0.1,
+      "status": "autonomous"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "algo-trade",
+      "score": 34.3,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "code-gen",
+      "score": 27,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "support",
+      "score": 27.5,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "credit",
+      "score": 22.2,
+      "weight": 0.1,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "medical-dx",
+      "score": 16.8,
+      "weight": 0.12,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "legal-ai",
+      "score": 18.4,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "hire",
+      "score": 33.1,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "education",
+      "score": 12.4,
+      "weight": 0.07,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "content-mod",
+      "score": 94.1,
+      "weight": 0.1,
+      "status": "autonomous"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "algo-trade",
+      "score": 39.2,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "code-gen",
+      "score": 32.6,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "support",
+      "score": 37,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "credit",
+      "score": 27.7,
+      "weight": 0.1,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "medical-dx",
+      "score": 21.7,
+      "weight": 0.12,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "legal-ai",
+      "score": 29,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "hire",
+      "score": 38.1,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "education",
+      "score": 18,
+      "weight": 0.07,
+      "status": "nominal"
     }
   ],
   "indicator_observations": [

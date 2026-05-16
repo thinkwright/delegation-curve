@@ -20,11 +20,6 @@
 			? composite.delegation.runHistory.map((p) => p.measurementPeriod)
 			: undefined
 	);
-	const delegationMethodologies = $derived(
-		composite?.delegation.runHistory?.length
-			? composite.delegation.runHistory.map((p) => p.methodologyVersion)
-			: undefined
-	);
 	const currentRun = $derived(
 		composite?.delegation.runHistory?.find((p) => p.isCurrent)
 			?? composite?.delegation.runHistory?.[composite.delegation.runHistory.length - 1]
@@ -36,9 +31,6 @@
 		const index = history.findIndex((p) => p.runId === currentRun.runId);
 		return index > 0 ? history[index - 1] : null;
 	});
-	const isMethodologyBreak = $derived(
-		Boolean(currentRun && priorRun() && currentRun.methodologyVersion !== priorRun()?.methodologyVersion)
-	);
 </script>
 
 <svelte:head>
@@ -109,24 +101,14 @@
 	<div class="flex items-end gap-3 mb-1">
 		<span class="text-[96px] font-black font-mono tabular-nums tracking-tighter leading-none">{composite.delegation.current}</span>
 		<div class="flex flex-col mb-4">
-			{#if isMethodologyBreak}
-				<span class="text-lg font-mono font-bold text-neutral-500 tabular-nums">New baseline</span>
-				<span class="text-[10px] font-mono text-neutral-400 uppercase">method refreshed</span>
-			{:else}
-				<span class="text-lg font-mono font-bold text-sage tabular-nums">{formatDelta(composite.delegation.delta)}%</span>
-				<span class="text-[10px] font-mono text-neutral-400 uppercase">vs prior</span>
-			{/if}
+			<span class="text-lg font-mono font-bold text-sage tabular-nums">{formatDelta(composite.delegation.delta)} pts</span>
+			<span class="text-[10px] font-mono text-neutral-400 uppercase">vs prior estimate</span>
 		</div>
 	</div>
 
 	<p class="text-xs text-neutral-500 leading-relaxed max-w-xs">
 		What percentage of consequential decisions are made or influenced by AI? A weighted composite of {composite.domainsTracked} decision domains.
 	</p>
-	{#if isMethodologyBreak}
-		<p class="text-[10px] text-neutral-500 leading-relaxed max-w-xs mt-2">
-			The 2026 update refreshes sources and scoring, so the curve starts a new measurement series while prior points remain visible for context.
-		</p>
-	{/if}
 	<p class="text-[10px] font-mono text-neutral-400 uppercase mt-2">Data through {composite.delegation.dataYear}</p>
 </div>
 
@@ -135,7 +117,6 @@
 	<CurveChart
 		data={delegationScores}
 		labels={delegationPeriods}
-		seriesKeys={delegationMethodologies}
 		height={160}
 		endYear={composite.delegation.dataYear}
 	/>
@@ -153,7 +134,7 @@
 	<MetricCard
 		label="Prior Run"
 		value={composite.delegation.previous}
-		subtitle={isMethodologyBreak && priorRun() ? `${priorRun()?.measurementPeriod} · previous scoring series` : `${composite.delegation.dataYear - 1} composite`}
+		subtitle={priorRun() ? `${priorRun()?.measurementPeriod} comparable estimate` : `${composite.delegation.dataYear - 1} estimate`}
 		icon="history"
 		href={`${base}/delegation`}
 	/>
