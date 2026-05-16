@@ -101,57 +101,112 @@ func serveFile(w http.ResponseWriter, r *http.Request, fsys http.FileSystem, nam
 		http.Error(w, "Not Found", http.StatusNotFound)
 		return
 	}
-	defer f.Close()
 
 	stat, err := f.Stat()
 	if err != nil {
+		f.Close()
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 
 	if stat.IsDir() {
+		f.Close()
 		http.Error(w, "Not Found", http.StatusNotFound)
 		return
 	}
 
-	// Set Content-Type and Cache-Control based on file extension.
+	compressible := isCompressible(name)
+	if compressible {
+		w.Header().Set("Vary", "Accept-Encoding")
+	}
+	if acceptsGzip(r) && compressible {
+		if gz, gzErr := fsys.Open(name + ".gz"); gzErr == nil {
+			if gzStat, statErr := gz.Stat(); statErr == nil && !gzStat.IsDir() {
+				f.Close()
+				f = gz
+				stat = gzStat
+				w.Header().Set("Content-Encoding", "gzip")
+			} else {
+				gz.Close()
+			}
+		}
+	}
+
+	// Set Content-Type and Cache-Control based on file path and extension.
 	switch {
 	case strings.HasSuffix(name, ".html"):
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		w.Header().Set("Cache-Control", "no-cache")
 	case strings.HasSuffix(name, ".css"):
 		w.Header().Set("Content-Type", "text/css; charset=utf-8")
-		w.Header().Set("Cache-Control", "no-cache")
 	case strings.HasSuffix(name, ".js"):
 		w.Header().Set("Content-Type", "application/javascript; charset=utf-8")
-		w.Header().Set("Cache-Control", "no-cache")
 	case strings.HasSuffix(name, ".svg"):
 		w.Header().Set("Content-Type", "image/svg+xml; charset=utf-8")
-		w.Header().Set("Cache-Control", "public, max-age=300")
 	case strings.HasSuffix(name, ".png"):
 		w.Header().Set("Content-Type", "image/png")
-		w.Header().Set("Cache-Control", "public, max-age=3600")
 	case strings.HasSuffix(name, ".xml"):
 		w.Header().Set("Content-Type", "application/xml; charset=utf-8")
-		w.Header().Set("Cache-Control", "public, max-age=300")
 	case strings.HasSuffix(name, ".txt"):
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		w.Header().Set("Cache-Control", "public, max-age=300")
 	case strings.HasSuffix(name, ".wasm"):
 		w.Header().Set("Content-Type", "application/wasm")
-		w.Header().Set("Cache-Control", "public, max-age=3600")
 	case strings.HasSuffix(name, ".json"):
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.Header().Set("Cache-Control", "public, max-age=300")
 	case strings.HasSuffix(name, ".parquet"):
-		w.Header().Set("Content-Type", "application/octet-stream")
-		w.Header().Set("Cache-Control", "no-cache")
+		w.Header().Set("Content-Type", "application/vnd.apache.parquet")
 	}
+	w.Header().Set("Cache-Control", cacheControl(name))
 
 	seeker, ok := f.(io.ReadSeeker)
 	if !ok {
+		f.Close()
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
+	defer f.Close()
 	http.ServeContent(w, r, name, stat.ModTime(), seeker)
+}
+
+func acceptsGzip(r *http.Request) bool {
+	for _, part := range strings.Split(r.Header.Get("Accept-Encoding"), ",") {
+		token := strings.TrimSpace(strings.Split(part, ";")[0])
+		if strings.EqualFold(token, "gzip") && !strings.Contains(strings.ReplaceAll(part, " ", ""), ";q=0") {
+			return true
+		}
+	}
+	return false
+}
+
+func isCompressible(name string) bool {
+	switch {
+	case strings.HasSuffix(name, ".js"),
+		strings.HasSuffix(name, ".css"),
+		strings.HasSuffix(name, ".json"),
+		strings.HasSuffix(name, ".svg"),
+		strings.HasSuffix(name, ".xml"),
+		strings.HasSuffix(name, ".txt"),
+		strings.HasSuffix(name, ".wasm"):
+		return true
+	default:
+		return false
+	}
+}
+
+func cacheControl(name string) string {
+	switch {
+	case strings.HasSuffix(name, ".html"):
+		return "no-cache"
+	case strings.HasPrefix(name, "/_app/immutable/"):
+		return "public, max-age=31536000, immutable"
+	case strings.HasPrefix(name, "/duckdb/"):
+		return "public, max-age=86400"
+	case strings.HasPrefix(name, "/data/"):
+		return "public, max-age=300, stale-while-revalidate=86400"
+	case strings.HasSuffix(name, ".svg"), strings.HasSuffix(name, ".png"):
+		return "public, max-age=3600"
+	case strings.HasSuffix(name, ".xml"), strings.HasSuffix(name, ".txt"), strings.HasSuffix(name, ".json"):
+		return "public, max-age=300"
+	default:
+		return "no-cache"
+	}
 }

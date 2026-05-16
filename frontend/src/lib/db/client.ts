@@ -8,13 +8,37 @@ import type {
 	ScorePoint,
 } from '$lib/data/types';
 
+let metaPromise: Promise<CompositeData> | null = null;
+let domainsPromise: Promise<DelegationDomain[]> | null = null;
+const domainDetailPromises = new Map<string, Promise<DelegationDomain | null>>();
+
 export async function getMeta(): Promise<CompositeData> {
-	const resp = await fetch(`${base || ''}/data/meta.json`);
-	return resp.json();
+	if (!metaPromise) {
+		metaPromise = fetch(`${base || ''}/data/meta.json`)
+			.then((resp) => {
+				if (!resp.ok) throw new Error(`Failed to load meta.json: ${resp.status}`);
+				return resp.json();
+			})
+			.catch((e) => {
+				metaPromise = null;
+				throw e;
+			});
+	}
+	return metaPromise;
 }
 
 export async function getDomains(): Promise<DelegationDomain[]> {
-	const rows = await query(Q.delegationAll);
+	if (!domainsPromise) {
+		domainsPromise = loadDomains().catch((e) => {
+			domainsPromise = null;
+			throw e;
+		});
+	}
+	return domainsPromise;
+}
+
+async function loadDomains(): Promise<DelegationDomain[]> {
+	const rows = await query(Q.delegationAll, ['delegation']);
 	return rows.map((r) => ({
 		id: r.id as string,
 		name: r.name as string,
@@ -32,11 +56,23 @@ export async function getDomains(): Promise<DelegationDomain[]> {
 }
 
 export async function getDomainDetail(id: string): Promise<DelegationDomain | null> {
+	let promise = domainDetailPromises.get(id);
+	if (!promise) {
+		promise = loadDomainDetail(id).catch((e) => {
+			domainDetailPromises.delete(id);
+			throw e;
+		});
+		domainDetailPromises.set(id, promise);
+	}
+	return promise;
+}
+
+async function loadDomainDetail(id: string): Promise<DelegationDomain | null> {
 	const [domainRows, subRows, sourceRows, historyRows] = await Promise.all([
-		query(Q.delegationById(id)),
-		query(Q.subIndicators(id)),
-		query(Q.dataSources(id)),
-		query(Q.domainRunHistory(id))
+		query(Q.delegationById(id), ['delegation']),
+		query(Q.subIndicators(id), ['sub_indicators']),
+		query(Q.dataSources(id), ['data_sources']),
+		query(Q.domainRunHistory(id), ['domain_scores', 'analysis_runs'])
 	]);
 	if (!domainRows.length) return null;
 	const r = domainRows[0];

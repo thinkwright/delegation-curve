@@ -3,7 +3,7 @@ COLLECT_BIN := curve-collect
 SNAPSHOT_BIN := curve-snapshot-run
 SERVER_BIN  := curve-server
 
-.PHONY: build build-collect build-snapshot snapshot-baseline generate collect collect-codegen collect-contentmod collect-algotrade collect-support collect-credit collect-medicaldx collect-legalai collect-hire collect-education pipeline frontend server run-server dev deploy clean test
+.PHONY: build build-collect build-snapshot snapshot-baseline generate collect collect-codegen collect-contentmod collect-algotrade collect-support collect-credit collect-medicaldx collect-legalai collect-hire collect-education pipeline frontend compress-static server run-server dev deploy clean test
 
 build:
 	go build -o $(BINARY) ./cmd/generate
@@ -50,9 +50,13 @@ generate: build
 frontend: generate
 	cd frontend && npm ci && npm run build
 
+compress-static:
+	find cmd/server/static -type f \( -name '*.js' -o -name '*.css' -o -name '*.json' -o -name '*.svg' -o -name '*.xml' -o -name '*.txt' -o -name '*.wasm' \) -exec sh -c 'for f do gzip -c -9 "$$f" > "$$f.gz"; done' sh {} +
+
 server: frontend
 	rm -rf cmd/server/static
 	cp -r frontend/build cmd/server/static
+	$(MAKE) compress-static
 	go build -o $(SERVER_BIN) ./cmd/server
 
 run-server: server
