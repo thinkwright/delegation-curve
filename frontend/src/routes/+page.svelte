@@ -103,7 +103,7 @@
 		<span class="text-[96px] font-black font-mono tabular-nums tracking-tighter leading-none">{composite.delegation.current}</span>
 		<div class="flex flex-col mb-4">
 			<span class="text-lg font-mono font-bold text-sage tabular-nums">{formatDelta(composite.delegation.delta)} pts</span>
-			<span class="text-[10px] font-mono text-neutral-400 uppercase">vs recalculated {priorPeriodLabel}</span>
+			<span class="text-[10px] font-mono text-neutral-400 uppercase">vs {priorPeriodLabel} baseline</span>
 		</div>
 	</div>
 
@@ -133,9 +133,9 @@
 		href={`${base}/delegation`}
 	/>
 	<MetricCard
-		label="Recalculated {priorPeriodLabel}"
+		label="{priorPeriodLabel} Baseline"
 		value={composite.delegation.previous}
-		subtitle="Prior score on the current method"
+		subtitle="Prior comparison score"
 		icon="history"
 		href={`${base}/delegation`}
 	/>

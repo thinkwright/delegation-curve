@@ -3,7 +3,15 @@
 	import { base } from '$app/paths';
 	import { formatDelta } from '$lib/utils/format';
 
-	let { domain, maxDelta = 1 }: { domain: DelegationDomain; maxDelta?: number } = $props();
+	let {
+		domain,
+		maxDelta = 1,
+		priorLabel = 'prior baseline'
+	}: {
+		domain: DelegationDomain;
+		maxDelta?: number;
+		priorLabel?: string;
+	} = $props();
 
 	const statusColor = $derived(
 		domain.status === 'autonomous' ? 'text-rose' :
@@ -95,7 +103,7 @@
 		</svg>
 	</div>
 	<div class="flex justify-between">
-		<span class="text-[10px] font-mono text-neutral-400">{domain.previousScore} recalculated prior</span>
+		<span class="text-[10px] font-mono text-neutral-400">{domain.previousScore} {priorLabel}</span>
 		<span class="text-[10px] font-mono text-neutral-400">{formatDelta(delta)} pts</span>
 	</div>
 </a>
