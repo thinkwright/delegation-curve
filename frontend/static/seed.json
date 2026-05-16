@@ -556,7 +556,7 @@
       "measurement_year": 2024,
       "methodology_version": "legacy-trend-v1",
       "composite_score": 39.7,
-      "notes": "Archived published baseline from the original scoring series; retained for audit but not used in the public current-method curve.",
+      "notes": "Archived published baseline from the original scoring series; retained for audit but not used in the headline comparison.",
       "is_public_series": false
     },
     {
@@ -567,29 +567,29 @@
       "measurement_year": 2025,
       "methodology_version": "legacy-trend-v1",
       "composite_score": 46,
-      "notes": "Archived March 2026 publication baseline from the original scoring series; retained for audit but not used as the public prior after the 2026 source refresh.",
+      "notes": "Archived March 2026 publication baseline from the original scoring series; retained for audit but not used as the headline prior after the 2026 source refresh.",
       "is_public_series": false
     },
     {
       "run_id": "current-method-2024",
-      "label": "2024 comparable estimate",
+      "label": "2024 recalculated history",
       "published_at": "2026-05-16",
       "measurement_period": "2024",
       "measurement_year": 2024,
       "methodology_version": "delegation-curve-v2",
       "composite_score": 31.5,
-      "notes": "Backcast for the public curve using the 2026 scoring frame. Source-level coverage is limited; 2024 values preserve the original 2024-to-2025 domain movement from the recalculated 2025 anchor.",
+      "notes": "Backcast using the 2026 scoring frame. Source-level coverage is limited; 2024 values preserve the original 2024-to-2025 domain movement from the recalculated 2025 anchor.",
       "is_public_series": true
     },
     {
       "run_id": "current-method-2025",
-      "label": "2025 comparable estimate",
+      "label": "2025 recalculated baseline",
       "published_at": "2026-05-16",
       "measurement_period": "2025",
       "measurement_year": 2025,
       "methodology_version": "delegation-curve-v2",
       "composite_score": 37.7,
-      "notes": "Recalculated under the 2026 source and scoring frame so the public curve compares like with like. The archived March 2026 published score was 46.0 under the prior scoring series.",
+      "notes": "Recalculated with the 2026 source and scoring rules so the 2026 update is compared using the same measuring stick. The archived March 2026 published score was 46.0 under the prior scoring series.",
       "is_public_series": true
     },
     {
@@ -600,7 +600,7 @@
       "measurement_year": 2026,
       "methodology_version": "delegation-curve-v2",
       "composite_score": 45.8,
-      "notes": "2026 source refresh using the same public current-method series. Algorithmic trading is scored from BIS FX electronic execution and Coalition Greenwich internal-AI trade-execution adoption rather than broad market-automation proxies.",
+      "notes": "2026 source refresh in the recalculated public series. Algorithmic trading is scored from BIS FX electronic execution and Coalition Greenwich internal-AI trade-execution adoption rather than broad market-automation proxies.",
       "is_current": true,
       "is_public_series": true
     }

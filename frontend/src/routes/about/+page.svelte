@@ -57,10 +57,10 @@
 <div class="px-4 py-6 hairline-b">
 	<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-3">Curve Maintenance</p>
 	<p class="text-sm leading-relaxed mb-4">
-		The public curve is maintained as a single current-method estimate over time. When sources or scoring contracts improve, prior points may be recalculated so the headline movement compares like with like.
+		The public curve is kept on one measuring stick over time. When sources or scoring rules improve, prior points may be recalculated before showing headline movement.
 	</p>
 	<p class="text-sm leading-relaxed">
-		Older published baselines are retained in the dataset for audit, but the main chart uses the latest comparable series.
+		Older published baselines are retained in the dataset for audit, but the main chart uses the recalculated history.
 	</p>
 </div>
 
@@ -141,7 +141,7 @@
 		</div>
 		<div class="flex gap-3">
 			<span class="text-base font-mono font-bold tabular-nums shrink-0 text-neutral-300">04</span>
-			<p class="text-sm leading-relaxed"><strong>Comparable history</strong> — public prior points are recalculated when needed; archived publication baselines remain available for audit.</p>
+			<p class="text-sm leading-relaxed"><strong>Recalculated history</strong> — public prior points stay on the current measuring stick; archived publication baselines remain available for audit.</p>
 		</div>
 		<div class="flex gap-3">
 			<span class="text-base font-mono font-bold tabular-nums shrink-0 text-neutral-300">05</span>

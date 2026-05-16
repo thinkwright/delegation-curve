@@ -31,6 +31,7 @@
 		const index = history.findIndex((p) => p.runId === currentRun.runId);
 		return index > 0 ? history[index - 1] : null;
 	});
+	const priorPeriodLabel = $derived(priorRun()?.measurementPeriod ?? 'prior');
 </script>
 
 <svelte:head>
@@ -102,7 +103,7 @@
 		<span class="text-[96px] font-black font-mono tabular-nums tracking-tighter leading-none">{composite.delegation.current}</span>
 		<div class="flex flex-col mb-4">
 			<span class="text-lg font-mono font-bold text-sage tabular-nums">{formatDelta(composite.delegation.delta)} pts</span>
-			<span class="text-[10px] font-mono text-neutral-400 uppercase">vs prior estimate</span>
+			<span class="text-[10px] font-mono text-neutral-400 uppercase">vs recalculated {priorPeriodLabel}</span>
 		</div>
 	</div>
 
@@ -132,9 +133,9 @@
 		href={`${base}/delegation`}
 	/>
 	<MetricCard
-		label="Prior Run"
+		label="Recalculated {priorPeriodLabel}"
 		value={composite.delegation.previous}
-		subtitle={priorRun() ? `${priorRun()?.measurementPeriod} comparable estimate` : `${composite.delegation.dataYear - 1} estimate`}
+		subtitle="Prior score on the current method"
 		icon="history"
 		href={`${base}/delegation`}
 	/>
