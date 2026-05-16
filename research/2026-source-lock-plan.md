@@ -133,7 +133,9 @@ Candidate sources:
 - X Global Transparency Reports. Current public result located for H2 2024; needs check for H1/H2 2025 availability.
 - EU DSA Transparency Database or platform DSA transparency reports.
 
-Decision: keep current source family; investigate DSA reproducibility before scoring.
+Extraction note: `research/2026-evidence/content-mod.md`.
+
+Decision: keep current source family, but rename indicators to match source semantics before the next scored run. YouTube is best described as automated flagging, TikTok requires a choice between EU DSA automated enforcement and global CGER proactive removal, Meta needs a 2025 methodology-break note, and X should stay on hold until a comparable 2025 global report is found. Promote DSA only after tokened extraction and run-level snapshots exist.
 
 ### algo-trade
 
