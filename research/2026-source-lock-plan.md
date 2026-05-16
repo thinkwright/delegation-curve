@@ -220,7 +220,9 @@ Candidate sources:
 - McKinsey 2026 risk/banking articles for proof-of-concept and adoption context.
 - Bank of England February 2026 AI roundtables and FCA/BoE AI survey materials.
 
-Decision: lock Upstart plus TransUnion; treat bank AI adoption as cautious context unless a credit-decisioning deployment measure is found.
+Extraction note: `research/2026-evidence/credit.md`.
+
+Decision: lock Upstart plus TransUnion, but do not use the raw 91% Upstart platform automation rate as a broad market value. The current candidate is `91% * 42% = 38.2%` for a personal-loan fintech automation proxy. If that blended proxy is scored, demote `Fintech Lending Market Share` to denominator/context to avoid double counting. Treat bank AI adoption as cautious context unless a credit-decisioning deployment measure is found.
 
 ### medical-dx
 
