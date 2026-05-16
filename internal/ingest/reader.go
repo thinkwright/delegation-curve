@@ -1,6 +1,7 @@
 package ingest
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -22,12 +23,13 @@ type DelegationSeed struct {
 }
 
 type CompositeDelegation struct {
-	Current     float64   `json:"current"`
-	Previous    float64   `json:"previous"`
-	Delta       float64   `json:"delta"`
-	Trend       []float64 `json:"trend"`
-	LastUpdated string    `json:"last_updated"`
-	DataYear    int       `json:"data_year"`
+	Current       float64   `json:"current"`
+	Previous      float64   `json:"previous"`
+	Delta         float64   `json:"delta"`
+	Trend         []float64 `json:"trend"`
+	LastUpdated   string    `json:"last_updated"`
+	DataYear      int       `json:"data_year"`
+	DataFreshness string    `json:"data_freshness,omitempty"`
 }
 
 type DomainJSON struct {
@@ -110,11 +112,14 @@ func ReadSeed(path string) (*Seed, error) {
 // WriteSeed atomically writes the seed to disk via temp file + rename.
 func WriteSeed(path string, seed *Seed) error {
 	seed.GeneratedAt = time.Now().UTC().Format(time.RFC3339)
-	data, err := json.MarshalIndent(seed, "", "  ")
-	if err != nil {
+	var buf bytes.Buffer
+	enc := json.NewEncoder(&buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(seed); err != nil {
 		return fmt.Errorf("marshal seed: %w", err)
 	}
-	return atomicWrite(path, data)
+	return atomicWrite(path, buf.Bytes())
 }
 
 // atomicWrite writes data to a temp file then renames it into place.

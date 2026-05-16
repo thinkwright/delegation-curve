@@ -118,14 +118,14 @@ func legacyHistory(seed *ingest.Seed) (
 		}
 	}
 
-	indicatorRows := currentIndicatorObservations(seed, legacyRunID(composite.DataYear))
+	indicatorRows := CurrentIndicatorObservations(seed, legacyRunID(composite.DataYear))
 	sortAnalysisRuns(runRows)
 	sortDomainScores(domainRows)
 	sortIndicatorObservations(indicatorRows)
 	return runRows, domainRows, indicatorRows
 }
 
-func currentIndicatorObservations(seed *ingest.Seed, runID string) []schema.IndicatorObservationRow {
+func CurrentIndicatorObservations(seed *ingest.Seed, runID string) []schema.IndicatorObservationRow {
 	configs := map[string]collect.DomainConfig{}
 	for _, cfg := range collect.AllDomainConfigs() {
 		configs[cfg.DomainID] = cfg

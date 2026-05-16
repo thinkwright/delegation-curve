@@ -1,14 +1,21 @@
 BINARY      := curve-generate
 COLLECT_BIN := curve-collect
+SNAPSHOT_BIN := curve-snapshot-run
 SERVER_BIN  := curve-server
 
-.PHONY: build build-collect generate collect collect-codegen collect-contentmod collect-algotrade collect-support collect-credit collect-medicaldx collect-legalai collect-hire collect-education pipeline frontend server run-server dev deploy clean test
+.PHONY: build build-collect build-snapshot snapshot-baseline generate collect collect-codegen collect-contentmod collect-algotrade collect-support collect-credit collect-medicaldx collect-legalai collect-hire collect-education pipeline frontend server run-server dev deploy clean test
 
 build:
 	go build -o $(BINARY) ./cmd/generate
 
 build-collect:
 	go build -o $(COLLECT_BIN) ./cmd/collect
+
+build-snapshot:
+	go build -o $(SNAPSHOT_BIN) ./cmd/snapshot-run
+
+snapshot-baseline: build-snapshot
+	./$(SNAPSHOT_BIN) -seed seed/seed.json -bootstrap-only -data-freshness "Q4 2025"
 
 COLLECT_CMD := ./$(COLLECT_BIN) -seed seed/seed.json -overrides seed/overrides.yaml -log seed/collect.log.json
 
@@ -61,7 +68,7 @@ test:
 	go test ./...
 
 clean:
-	rm -f $(BINARY) $(COLLECT_BIN) $(SERVER_BIN)
+	rm -f $(BINARY) $(COLLECT_BIN) $(SNAPSHOT_BIN) $(SERVER_BIN)
 	rm -f frontend/static/data/*.parquet
 	rm -rf frontend/build
 	rm -rf cmd/server/static
