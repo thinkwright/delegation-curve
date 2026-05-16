@@ -45,7 +45,7 @@ The 15.0 value is current internal-AI trade-execution adoption from Coalition Gr
 - `code-gen` is updated to 48.1 under a five-input method: Sonar/GitLab output share, METR technical-work value share, DORA/JetBrains workflow reliance, Anthropic/arXiv agentic task delegation, and low-weight VS Code Marketplace tool reach. Stack Overflow is retired from scoring and retained only as historical bridge context. Harness/Lightrun/CircleCI/Faros and AI-code-quality studies remain validation-tax guardrails.
 - Some 2026 values remain survey-based or vendor-reported. The source-lock ledger keeps evidence grade and confidence notes for follow-up.
 - The composite should be interpreted as one point in the public current-method curve, with archived published scores available for audit.
-- Public copy labels the comparison as `vs 2025 baseline`; the recalculated/current-method explanation remains on the methodology page and in research notes.
+- Public copy labels the comparison as `since 2025`; technical `v2`, `recalculated`, and `baseline` terms are kept out of first-read UI surfaces and reserved for audit/history context.
 - Curve visualizations mark all public analysis run points, with prior points shown as smaller outlined markers and the current run as the emphasized endpoint.
 
 ## Regeneration Commands
