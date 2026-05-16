@@ -42,7 +42,7 @@ The 15.0 value is current internal-AI trade-execution adoption from Coalition Gr
 - The public curve uses the current-method series: `current-method-2024`, `current-method-2025`, and `2026-q2`.
 - v2 current views display only current scored indicators; retired v1 indicators remain in historical `indicator_observations`.
 - `algo-trade` remains the largest construct correction. The new score is more conservative and more semantically honest.
-- `code-gen` remains at 48.2 pending a specific workflow-reliance method update. Stack Overflow is retained only as a low-weight bridge adoption proxy; DORA 2025 and JetBrains AI Pulse 2026 are now identified as stronger candidates for measuring AI reliance in software work.
+- `code-gen` remains at 48.2 pending a specific workflow-reliance method update. Stack Overflow is retained only as a low-weight bridge adoption proxy; DORA 2025 and JetBrains AI Pulse 2026 are now identified as stronger candidates for measuring AI reliance in software work. A follow-up source sweep added GitLab as output-share triangulation, Anthropic and arXiv as assisted-vs-agentic delegation evidence, and Harness/Lightrun/CircleCI/Faros as validation-tax guardrails.
 - Some 2026 values remain survey-based or vendor-reported. The source-lock ledger keeps evidence grade and confidence notes for follow-up.
 - The composite should be interpreted as one point in the public current-method curve, with archived published scores available for audit.
 

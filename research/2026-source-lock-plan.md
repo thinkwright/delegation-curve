@@ -170,10 +170,14 @@ Recommended lock:
 
 - Add METR as `Technical Work AI Value Share` or `AI-Attributable Technical Output Value`.
 - Add Sonar 2026 as `AI-Generated or Assisted Committed Code` if we accept survey-based committed-code estimates.
+- Use GitLab 2026 as the strongest second output-share comparator before changing the score.
 - Treat Stack Overflow 2025 as a bridge adoption source only. Its developer-community sample is useful but self-selected, and daily use is not an output or reliance measure.
 - Prototype DORA 2025 as `AI Workflow Reliance`, using its moderate-to-heavy reliance and time-spent measures.
 - Use JetBrains AI Pulse 2026 to triangulate professional work usage and specialized agent/editor adoption.
-- Use Anthropic Claude Code and Alphabet internal-code claims as frontier benchmarks or narrative callouts, not as population score inputs.
+- Use the arXiv GitHub coding-agent adoption study as a behavior-based agentic adoption candidate.
+- Use Anthropic's 2026 Agentic Coding Trends report to separate AI-assisted work from fully delegated tasks.
+- Use Anthropic Claude Code, Alphabet internal-code claims, and Augment's AI-native survey as frontier benchmarks or narrative callouts, not as population score inputs.
+- Use Harness, Lightrun, CircleCI, Faros, and AI-code technical-debt research as validation and quality guardrails rather than positive score inputs.
 - Keep VS Code Marketplace as a weak but continuously refreshable stock metric.
 - Keep GitClear only if the report can be refreshed and the definition remains stable.
 
@@ -181,14 +185,23 @@ Candidate sources:
 
 - METR 2026 AI usage survey.
 - Sonar 2026 State of Code Developer Survey.
+- GitLab 2026 Global DevSecOps Report.
 - Stack Overflow 2025 Developer Survey AI section.
 - DORA 2025 State of AI-assisted Software Development.
 - JetBrains AI Pulse 2026.
+- Agentic Much? Adoption of Coding Agents on GitHub.
+- Anthropic 2026 Agentic Coding Trends Report.
 - Anthropic Claude Code product and documentation.
 - Alphabet Q3 2025 earnings-call code-generation benchmark.
+- Augment Code State of AI-Native Engineering 2026.
+- Harness State of Engineering Excellence 2026.
+- Lightrun State of AI-Powered Engineering 2026.
+- CircleCI 2026 State of Software Delivery.
+- Faros AI Engineering Report 2026.
+- Debt Behind the AI Boom arXiv study.
 - VS Code Marketplace API.
 
-Decision: keep the current 48.2 score unchanged for now. The next code-gen method iteration should test whether DORA workflow reliance can replace Stack Overflow daily-use, with JetBrains as triangulation and frontier-company evidence displayed separately from the central population score.
+Decision: keep the current 48.2 score unchanged for now. The next code-gen method iteration should test a three-part frame: output share from Sonar plus GitLab, workflow reliance from DORA plus JetBrains, and agentic delegation from Anthropic's assisted-versus-fully-delegated split plus the arXiv GitHub trace study. Delivery and reliability sources should be used as guardrails or uncertainty modifiers so the curve does not confuse generated-code volume with net delegated work.
 
 ### support
 
