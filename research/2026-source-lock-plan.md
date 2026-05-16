@@ -145,17 +145,20 @@ Recommended lock:
 
 - Keep SEC/FINRA market structure and BIS FX as anchors.
 - Keep Cboe for options market structure/volume, but avoid converting ordinary options volume into AI delegation.
-- Keep a survey source such as Greenwich/The TRADE for institutional algo adoption if the methodology is available.
+- Keep a survey source such as Coalition Greenwich/The TRADE for institutional algo adoption if the methodology is available.
 - Do not import generic "AI trading market size" vendor estimates into the composite.
 
 Candidate sources:
 
 - BIS 2025 Triennial Survey and FX execution analysis.
-- SEC market structure and algorithmic trading materials.
+- SEC Market Structure Analytics and algorithmic trading materials.
 - Cboe 2025 and Q1 2026 options industry reports.
 - The TRADE 2025 Algorithmic Trading Survey as a possible survey/proxy source.
+- Coalition Greenwich 2025 buy-side AI in equity trading as a narrow AI-execution adoption source.
 
-Decision: targeted source refresh only; no obvious high-fidelity 2026 replacement found yet.
+Extraction note: `research/2026-evidence/algo-trade.md`.
+
+Decision: targeted source refresh plus methodology cleanup. BIS can refresh an FX electronic-trading share, but the indicator should be renamed before scoring. SEC and Cboe should remain market-automation context unless a direct algorithmic-execution share is found. The current `Institutional AI Adoption` value appears to be expected impact on algorithm optimization rather than adoption; replace it with Coalition Greenwich current-use or current-plus-planned internal-AI trade-execution adoption during the scored run. Demote options and stale EU equity signals unless better direct sources are found.
 
 ### code-gen
 
