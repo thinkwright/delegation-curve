@@ -35,11 +35,11 @@
 </script>
 
 <svelte:head>
-	<title>AI Delegation Curve — A measure of consequential decision-making by AI</title>
-	<meta name="description" content="The AI Delegation Curve: a single composite score (0–100) measuring what percentage of consequential decisions are made or influenced by AI. Tracks AI autonomy and AI adoption across content moderation, algorithmic trading, code generation, customer support, credit decisioning, medical diagnostics, legal AI, hiring automation, and education." />
+	<title>AI Delegation Curve — Tracking AI influence in consequential work</title>
+	<meta name="description" content="The AI Delegation Curve: a composite score (0–100) estimating AI influence and delegated workflow share across content moderation, algorithmic trading, code generation, customer support, credit decisioning, medical diagnostics, legal AI, hiring automation, and education." />
 	<link rel="canonical" href="https://curve.thinkwright.ai" />
-	<meta property="og:title" content="AI Delegation Curve — A measure of consequential decision-making by AI" />
-	<meta property="og:description" content="A composite index tracking AI decision-making influence across 9 domains. How much autonomy have we delegated to AI systems?" />
+	<meta property="og:title" content="AI Delegation Curve — Tracking AI influence in consequential work" />
+	<meta property="og:description" content="A composite index estimating AI influence and delegated workflow share across 9 consequential domains." />
 	<meta property="og:url" content="https://curve.thinkwright.ai" />
 	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
 	<meta property="og:image:width" content="1200" />
@@ -60,7 +60,7 @@
 				"@type": "WebSite",
 				"name": "AI Delegation Curve",
 				"url": "https://curve.thinkwright.ai",
-				"description": "A composite index tracking what percentage of consequential decisions are delegated to AI systems across 9 domains.",
+				"description": "A composite index estimating AI influence and delegated workflow share across 9 consequential domains.",
 				"publisher": { "@type": "Organization", "name": "ThinkWright" }
 			},
 			{
@@ -89,7 +89,7 @@
 <div class="px-4 pt-8 pb-6">
 	<div class="flex justify-between items-start mb-6">
 		<div>
-			<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-2">Measuring AI Decision Influence</p>
+			<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-2">Measuring AI Influence</p>
 			<h2 class="text-4xl font-black tracking-tight uppercase leading-none">Delegation<br/>Curve</h2>
 		</div>
 		<div class="flex items-center gap-1.5 mt-1">
@@ -103,14 +103,14 @@
 		<span class="text-[96px] font-black font-mono tabular-nums tracking-tighter leading-none">{composite.delegation.current}</span>
 		<div class="flex flex-col mb-4">
 			<span class="text-lg font-mono font-bold text-sage tabular-nums">{formatDelta(composite.delegation.delta)} pts</span>
-			<span class="text-[10px] font-mono text-neutral-400 uppercase">vs {priorPeriodLabel} baseline</span>
+			<span class="text-[10px] font-mono text-neutral-400 uppercase">since {priorPeriodLabel}</span>
 		</div>
 	</div>
 
 	<p class="text-xs text-neutral-500 leading-relaxed max-w-xs">
-		What percentage of consequential decisions are made or influenced by AI? A weighted composite of {composite.domainsTracked} decision domains.
+		A weighted index estimating AI influence across {composite.domainsTracked} consequential domains, from platform enforcement to code, support, credit, medicine, law, hiring, and education.
 	</p>
-	<p class="text-[10px] font-mono text-neutral-400 uppercase mt-2">Data through {composite.delegation.dataYear}</p>
+	<p class="text-[10px] font-mono text-neutral-400 uppercase mt-2">Current run: {composite.dataFreshness}</p>
 </div>
 
 <!-- Curve Chart -->
@@ -133,9 +133,9 @@
 		href={`${base}/delegation`}
 	/>
 	<MetricCard
-		label="{priorPeriodLabel} Baseline"
+		label={`${priorPeriodLabel} Score`}
 		value={composite.delegation.previous}
-		subtitle="Prior comparison score"
+		subtitle="Prior point on the curve"
 		icon="history"
 		href={`${base}/delegation`}
 	/>

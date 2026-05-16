@@ -95,7 +95,7 @@ func ContentModConfig() DomainConfig {
 		DomainID:    "content-mod",
 		DomainName:  "CONTENT-MOD",
 		FullName:    "Content Moderation",
-		Description: "Share of platform content moderation detection or enforcement actions substantially handled by automated systems.",
+		Description: "Share of platform content moderation detection, flagging, or enforcement actions handled by automated systems before or without human review.",
 		Weight:      0.10,
 		Tier:        1,
 		Indicators: []IndicatorConfig{
@@ -112,7 +112,7 @@ func AlgoTradeConfig() DomainConfig {
 		DomainID:    "algo-trade",
 		DomainName:  "ALGO-TRADE",
 		FullName:    "Algorithmic Trading",
-		Description: "Share of financial market execution automation and buy-side AI trade-execution adoption supported by current source data.",
+		Description: "Financial-market automation score combining FX electronic trading share with current buy-side internal-AI trade-execution adoption.",
 		Weight:      0.15,
 		Tier:        1,
 		Indicators: []IndicatorConfig{
@@ -128,7 +128,7 @@ func SupportConfig() DomainConfig {
 		DomainID:    "support",
 		DomainName:  "SUPPORT",
 		FullName:    "Customer Support",
-		Description: "Share of customer support and customer communications workflows handled by AI systems or mature AI support operations.",
+		Description: "Share of customer support cases, deflection, production communications agents, and mature support operations involving AI systems.",
 		Weight:      0.15,
 		Tier:        1,
 		Indicators: []IndicatorConfig{
@@ -162,7 +162,7 @@ func MedicalDxConfig() DomainConfig {
 		DomainID:    "medical-dx",
 		DomainName:  "MEDICAL-DX",
 		FullName:    "Medical Diagnosis",
-		Description: "Degree of AI involvement in clinical diagnosis and medical imaging interpretation.",
+		Description: "AI involvement in clinical diagnosis and imaging, combining FDA-cleared AI device capacity, imaging AI adoption, physician assistive-diagnosis use, and pathology adoption.",
 		Weight:      0.12,
 		Tier:        2,
 		Indicators: []IndicatorConfig{
@@ -180,7 +180,7 @@ func LegalAIConfig() DomainConfig {
 		DomainID:    "legal-ai",
 		DomainName:  "LEGAL-AI",
 		FullName:    "Legal Research & Review",
-		Description: "Degree of AI adoption in legal research, document review, and court proceedings.",
+		Description: "AI adoption and workflow use in legal research, document review, and legal work, anchored by organization surveys and document-review evidence.",
 		Weight:      0.08,
 		Tier:        2,
 		Indicators: []IndicatorConfig{
@@ -197,7 +197,7 @@ func HireConfig() DomainConfig {
 		DomainID:    "hire",
 		DomainName:  "HIRE",
 		FullName:    "Recruitment & Screening",
-		Description: "Degree of AI involvement in hiring, screening, and employment decisions.",
+		Description: "AI involvement in talent acquisition, combining organization adoption, screening use-case adoption, broad process coverage, and assessment platform reach.",
 		Weight:      0.08,
 		Tier:        2,
 		Indicators: []IndicatorConfig{
@@ -215,7 +215,7 @@ func EducationConfig() DomainConfig {
 		DomainID:    "education",
 		DomainName:  "EDUCATION",
 		FullName:    "Education & Assessment",
-		Description: "Degree of AI adoption in tutoring, assessment, and academic integrity monitoring.",
+		Description: "AI influence across student schoolwork, assessment and grading, teacher workflow, and AI-written student output.",
 		Weight:      0.07,
 		Tier:        3,
 		Indicators: []IndicatorConfig{

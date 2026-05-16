@@ -6,7 +6,7 @@
 	let {
 		domain,
 		maxDelta = 1,
-		priorLabel = 'prior baseline'
+		priorLabel = 'prior score'
 	}: {
 		domain: DelegationDomain;
 		maxDelta?: number;

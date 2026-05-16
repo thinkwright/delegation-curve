@@ -43,7 +43,7 @@
 			{
 				"@type": "Dataset",
 				"name": "AI Delegation Curve Seed Data",
-				"description": "Composite scores, domain scores, sub-indicators, data sources, and trend history for the AI Delegation Curve — measuring AI decision-making influence across 9 domains.",
+				"description": "Composite scores, domain scores, sub-indicators, data sources, and trend history for the AI Delegation Curve — estimating AI influence across 9 consequential domains.",
 				"url": "https://curve.thinkwright.ai/data",
 				"license": "https://creativecommons.org/licenses/by/4.0/",
 				"creator": { "@type": "Organization", "name": "ThinkWright", "url": "https://thinkwright.ai" },
@@ -107,11 +107,11 @@
 		</div>
 		<div class="flex gap-3">
 			<span class="font-mono text-xs text-sage shrink-0 w-20">score</span>
-			<span class="text-neutral-500">0-100 scale representing AI decision-making influence</span>
+			<span class="text-neutral-500">0-100 scale estimating AI influence and delegated workflow share</span>
 		</div>
 		<div class="flex gap-3">
 			<span class="font-mono text-xs text-sage shrink-0 w-20">trend</span>
-			<span class="text-neutral-500">Array of historical scores (one per data year)</span>
+			<span class="text-neutral-500">Array of public curve scores over time</span>
 		</div>
 	</div>
 </div>
