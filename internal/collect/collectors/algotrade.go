@@ -16,9 +16,7 @@ func (c *AlgoTradeCollector) DomainID() string { return "algo-trade" }
 
 func (c *AlgoTradeCollector) Collect(_ context.Context) ([]collect.CollectResult, error) {
 	return []collect.CollectResult{
-		{IndicatorName: "US Equities Algo Volume", DomainID: "algo-trade", SourceName: "SEC Market Structure", Err: fmt.Errorf("manual source: update overrides.yaml from sec.gov/market-structure")},
-		{IndicatorName: "FX Algo Trading", DomainID: "algo-trade", SourceName: "BIS Triennial Survey", Err: fmt.Errorf("manual source: update overrides.yaml from bis.org/statistics")},
-		{IndicatorName: "Options Algo Volume", DomainID: "algo-trade", SourceName: "CBOE Data", Err: fmt.Errorf("manual source: update overrides.yaml from cboe.com/data")},
-		{IndicatorName: "Institutional AI Adoption", DomainID: "algo-trade", SourceName: "Greenwich Associates", Err: fmt.Errorf("manual source: update overrides.yaml from greenwich.com")},
+		{IndicatorName: "FX Electronic Trading Share", DomainID: "algo-trade", SourceName: "BIS Triennial Survey", Err: fmt.Errorf("manual source: update overrides.yaml from bis.org/statistics")},
+		{IndicatorName: "Buy-Side AI Trade Execution Adoption", DomainID: "algo-trade", SourceName: "Coalition Greenwich", Err: fmt.Errorf("manual source: update overrides.yaml from greenwich.com")},
 	}, nil
 }

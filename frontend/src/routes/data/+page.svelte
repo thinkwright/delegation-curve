@@ -52,7 +52,7 @@
 					"encodingFormat": "application/json",
 					"contentUrl": "https://curve.thinkwright.ai/seed.json"
 				},
-				"temporalCoverage": "2024/2025",
+				"temporalCoverage": "2024/2026",
 				"keywords": ["AI autonomy", "AI delegation", "AI decision-making", "AI governance", "composite index"]
 			},
 			{
