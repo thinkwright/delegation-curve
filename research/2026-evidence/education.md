@@ -1,24 +1,33 @@
 # Education 2026 Evidence Extraction
 
-Status: source refresh notes only; no score update yet.
+Status: implemented for the 2026 Q2 source refresh.
 Prepared: 2026-05-16.
 
 ## Current Scoring Contract
 
-Current `education` score: 19.4.
+Current `education` score: 35.8.
 
 Configured indicators:
 
-- `Students Using AI Tutors`: 35% weight.
-- `AI-Graded Assessments`: 30% weight.
-- `Faculty Using AI in Teaching`: 35% weight.
+- `Students Using AI for Schoolwork`: 40% weight.
+- `AI-Graded Assessments`: 20% weight.
+- `Teachers Using AI for Work`: 30% weight.
+- `Student Papers 80%+ AI-Written`: 10% weight.
 
-Displayed but currently unscored:
+Current observations:
 
-- `Teachers Using AI for Grading`.
-- `Student Papers 80%+ AI-Written`.
+- `Students Using AI for Schoolwork`: 54.0%, freshness 2026.
+- `AI-Graded Assessments`: 8.0%, freshness 2025.
+- `Teachers Using AI for Work`: 37.0%, freshness 2024.
+- `Student Papers 80%+ AI-Written`: 15.0%, freshness 2026.
 
-The current contract says "tutors," but the strongest 2026 evidence is broader: AI-assisted schoolwork, writing, research, math help, and faculty/staff work use. That creates a scope decision before scores should move.
+The current score calculates as:
+
+```text
+0.40 * 54.0 + 0.20 * 8.0 + 0.30 * 37.0 + 0.10 * 15.0 = 35.8
+```
+
+The implemented 2026 Q2 contract broadens the student indicator from tutoring to schoolwork, keeps grading separate, and adds a low-weight student-output signal with detector caveats.
 
 ## Extracted Candidate Sources
 
@@ -130,22 +139,22 @@ Relevant values:
 
 Recommendation: retain `Student Papers 80%+ AI-Written` as a displayed student-output signal, with explicit detector caveats. Do not mix it into `AI-Graded Assessments`; it measures student production, not educator assessment delegation.
 
-## Proposed Education Source Lock
+## Implemented Education Source Lock
 
-Proposed v2 scoring candidates:
+Current v2 scoring inputs and retained candidates:
 
-| Indicator | Suggested role | Evidence grade | Confidence | Notes |
+| Indicator | Role | Evidence grade | Confidence | Notes |
 | --- | --- | --- | --- | --- |
-| Students Using AI for Schoolwork | score input or split input | B | high | HAI broad 80%; Pew 54% teen schoolwork help; Pew 31% some-or-more depth |
+| Students Using AI for Schoolwork | score input | B | high | Pew 54% teen schoolwork help is used as the current K-12 depth anchor; HAI broad 80% remains context |
 | AI-Graded Assessments | score input if direct source found | A/B | low | No refreshed direct assessment-automation source locked yet |
 | Faculty/Teachers Using AI in Instructional Work | score input | B | medium | OECD 37% lower-secondary teacher work use; EDUCAUSE 94% higher-ed work use is broader than teaching |
-| Teachers Using AI for Grading | display or pending | B | low | Need direct actual-use measure; EDUCAUSE 16% is opportunity, not usage |
-| Student Papers 80%+ AI-Written | display or low-weight output-share signal | C | medium | Turnitin 15%; detector caveats and submission-population bias |
+| Teachers Using AI for Grading | context or pending | B | low | Need direct actual-use measure; EDUCAUSE 16% is opportunity, not usage |
+| Student Papers 80%+ AI-Written | low-weight output-share signal | C | medium | Turnitin 15%; detector caveats and submission-population bias |
 
-Near-term decision:
+Implementation decision:
 
-- Rename or split `Students Using AI Tutors`; the current name is too narrow for the strongest 2026 evidence.
+- Rename `Students Using AI Tutors` to `Students Using AI for Schoolwork`.
 - Keep `AI-Graded Assessments` separate and do not backfill it with student AI-writing or detection data.
-- Use Pew as the depth anchor for K-12 schoolwork delegation, and HAI as broad cross-level context.
+- Use Pew as the current K-12 schoolwork score input and HAI as broad cross-level context.
 - Use OECD for teacher work use unless a better faculty-teaching-specific source is found.
-- Keep Turnitin as a displayed output-share signal with caveats, not as evidence of grading delegation.
+- Use Turnitin as a low-weight student-output share signal with caveats, not as evidence of grading delegation.

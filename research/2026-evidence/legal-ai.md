@@ -1,32 +1,31 @@
 # Legal AI 2026 Evidence Extraction
 
-Status: source refresh notes only; no score update yet.
+Status: implemented for the 2026 Q2 source refresh.
 Prepared: 2026-05-16.
 
 ## Current Scoring Contract
 
-Current `legal-ai` score: 29.0.
+Current `legal-ai` score: 46.3.
 
 Configured scoring formula:
 
-- `AI Tool Adoption (BigLaw)`: 40% weight.
-- `AI Tool Adoption (Solo/Small)`: 30% weight.
+- `Legal Organization GenAI Adoption`: 40% weight.
+- `Solo and Small Firms Using AI for Legal Work`: 30% weight.
 - `AI-Assisted Document Review`: 30% weight.
 
 Current observations:
 
-- `AI Tool Adoption (BigLaw)`: 42%, freshness 2025.
-- `AI Tool Adoption (Solo/Small)`: 18.5%, freshness 2025.
-- `AI-Assisted Document Review`: 22%, freshness 2024.
-- `Lawyers Using AI Tools`: 30.2%, freshness 2024, display-only.
+- `Legal Organization GenAI Adoption`: 40.0%, freshness 2026.
+- `Solo and Small Firms Using AI for Legal Work`: 73.0%, freshness 2026.
+- `AI-Assisted Document Review`: 28.0%, freshness 2024.
 
 The current score calculates as:
 
 ```text
-0.40 * 42 + 0.30 * 18.5 + 0.30 * 22 = 29.0
+0.40 * 40.0 + 0.30 * 73.0 + 0.30 * 28.0 = 46.3
 ```
 
-The main 2026 issue is scope drift. New legal AI sources show high tool adoption, especially in small, mid-sized, and professional-services samples, but the current domain description is about legal research, document review, and contract analysis being substantially performed by AI. Adoption does not directly equal delegated legal work.
+The implemented 2026 Q2 contract uses broad legal-organization GenAI adoption, solo/small legal-work adoption, and a direct document-review workflow anchor. Adoption still does not equal autonomous legal decisioning, so legal benchmark and agentic claims remain context.
 
 ## Extracted Candidate Sources
 
@@ -135,20 +134,20 @@ Relevant values:
 
 Recommendation: keep as a 2024/2025 baseline and governance/caution source. It is no longer fresh enough to anchor 2026 scoring by itself.
 
-## Proposed Legal AI Source Lock
+## Implemented Legal AI Source Lock
 
-Proposed v2 scoring candidates:
+Current v2 scoring inputs and retained candidates:
 
-| Indicator | Suggested role | Evidence grade | Confidence | Notes |
+| Indicator | Role | Evidence grade | Confidence | Notes |
 | --- | --- | --- | --- | --- |
-| Large and Mid Law Firm AI Adoption | score input or split input | B | medium | Clio mid-sized 86% is strong but not BigLaw; Thomson gives broader professional/law-firm context |
+| Legal Organization GenAI Adoption | score input | B | medium | Thomson 40% organization GenAI adoption gives broader professional/legal context |
 | Solo and Small Firms Using AI for Legal Work | score input | B | medium-high | Clio 71% solo and 75% small is a major refresh from stale 18.5% |
 | AI-Assisted Document Review | score input | A/B | medium | ABA 28% AI-assisted search and 22% predictive coding remain cleaner than raw Thomson use-case shares |
-| Legal GenAI Workflow Use | display/context | B | medium | Thomson top use cases show research 80% and document review 74% among legal GenAI users |
+| Legal GenAI Workflow Use | context | B | medium | Thomson top use cases show research 80% and document review 74% among legal GenAI users |
 
-Near-term decision:
+Implementation decision:
 
+- Replace BigLaw-specific adoption with `Legal Organization GenAI Adoption` from Thomson Reuters.
 - Refresh solo/small adoption from Clio, but label it adoption rather than delegation.
-- Do not replace `AI-Assisted Document Review` with Thomson's 74% raw use-case share; use it as context or create an explicit blended proxy such as current legal GenAI usage times document-review use-case share.
-- Consider replacing `AI Tool Adoption (BigLaw)` with a broader `Large and Mid Law Firm AI Adoption` indicator unless a direct BigLaw/AmLaw 2026 source is locked.
+- Do not replace `AI-Assisted Document Review` with Thomson's 74% raw use-case share; use it as context unless an explicit blended proxy is approved.
 - Keep legal benchmark performance and agentic expectations out of the score unless observed deployed workflow data is available.

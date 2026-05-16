@@ -26,7 +26,7 @@ The prior contract was directionally defensible, but it had one weak seam: Stack
 
 ## Measurement Constructs
 
-| Construct | Question answered | Candidate sources | Prototype role |
+| Construct | Question answered | Candidate sources | Method role |
 | --- | --- | --- | --- |
 | Output share | What share of code or committed code is AI-generated or AI-assisted? | Sonar 2026, GitLab 2026, Augment 2026 | Core score input |
 | Technical value share | What share of technical work value is attributed to AI assistance? | METR 2026 | Core score input |

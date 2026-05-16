@@ -64,12 +64,14 @@ This keeps the public curve continuous while making clear that the most defensib
 
 ## Product Treatment
 
-The homepage should not explain methodology versioning in the hero. It should show:
+The homepage and domain detail pages should not explain methodology versioning in the hero. They should use a plain visitor-facing baseline label:
 
 ```text
 45.8
 +8.1 pts
-vs recalculated 2025
+vs 2025 baseline
 ```
 
-The archive/methodology pages can explain that earlier published scores are retained for audit but are not the current public comparison series.
+The `2025 baseline` label refers to `current-method-2025`, the recalculated comparison point under the current scoring frame. The archive/methodology pages explain that earlier published scores are retained for audit but are not the current public comparison series.
+
+Curve charts should mark each public analysis run. Prior public points use small outlined markers; the current run remains the stronger filled marker.

@@ -1,41 +1,33 @@
 # Hire 2026 Evidence Extraction
 
-Status: source refresh notes only; no score update yet.
+Status: implemented for the 2026 Q2 source refresh.
 Prepared: 2026-05-16.
 
 ## Current Scoring Contract
 
-Current `hire` score: 36.8.
+Current `hire` score: 49.0.
 
 Configured scoring formula:
 
-- `Orgs Using AI Screening`: 40% weight.
-- `AI-Screened Applications`: 35% weight.
-- `AI Assessment Platform Reach`: 25% weight, normalized as `value / 300M`.
+- `Orgs Using AI in Talent Acquisition`: 30% weight.
+- `AI Screening Use Case Adoption`: 35% weight.
+- `Broad AI Across Hiring Processes`: 15% weight.
+- `AI Assessment Platform Reach`: 20% weight, normalized as `value / 300M`.
 
 Current observations:
 
-- `Orgs Using AI in Recruiting`: 51%, freshness Feb 2025, display-only because the configured name is `Orgs Using AI Screening`.
-- `AI-Screened Applications`: 44%, freshness Q1 2025.
+- `Orgs Using AI in Talent Acquisition`: 69.0%, freshness 2026.
+- `AI Screening Use Case Adoption`: 58.0%, freshness 2026.
+- `Broad AI Across Hiring Processes`: 18.0%, freshness 2026.
 - `AI Assessment Platform Reach`: 80M/yr, freshness 2025, normalized to 26.7%.
-- `HR Pros Using AI for Recruiting`: 69%, freshness Feb 2025, display-only.
-- `AI-Using Recruiters Screening Resumes`: 44%, freshness Feb 2025, display-only.
-- `Deep TA Stack AI Integration`: 14%, freshness Feb 2024, display-only.
-- `AI Assessment Volume`: 80M/yr, freshness Q1 2024, display-only.
 
-The active score currently reweights around the two configured indicators that match observations:
+The current score calculates as:
 
 ```text
-(0.35 * 44 + 0.25 * 26.7) / (0.35 + 0.25) = 36.8
+0.30 * 69.0 + 0.35 * 58.0 + 0.15 * 18.0 + 0.20 * 26.7 = 49.0
 ```
 
-If the existing 51% `Orgs Using AI in Recruiting` observation were wired into the current score retroactively, the score would become:
-
-```text
-0.40 * 51 + 0.35 * 44 + 0.25 * 26.7 = 42.5
-```
-
-That should not be applied as a silent historical correction. The name/contract fix should happen in the next methodology version or be explicitly re-snapshotted as a corrected baseline.
+The implemented 2026 Q2 contract fixes the indicator-name mismatch and separates broad talent-acquisition adoption, screening-specific adoption, deeper process coverage, and low-confidence platform reach.
 
 ## Extracted Candidate Sources
 
@@ -121,21 +113,21 @@ Relevant values:
 
 Recommendation: keep the current 80M/yr platform-reach approximation only as a low-confidence reach proxy until a refreshed multi-vendor denominator is found. Do not treat vendor assessment volume as application share.
 
-## Proposed Hire Source Lock
+## Implemented Hire Source Lock
 
-Proposed v2 scoring candidates:
+Current v2 scoring inputs and retained candidates:
 
-| Indicator | Suggested role | Evidence grade | Confidence | Notes |
+| Indicator | Role | Evidence grade | Confidence | Notes |
 | --- | --- | --- | --- | --- |
 | Orgs Using AI in Talent Acquisition | score input | B | medium | ICIMS 69% in TA sample or SHRM 27% recruiting practice area; denominator choice materially changes score |
 | AI Screening Use Case Adoption | score input | B | medium-high | ICIMS 58% screening use case is closer to delegated screening than broad org adoption |
 | AI Assessment Platform Reach | low-weight score input or context | B/C | low-medium | Current 80M/yr proxy still needs a refreshed multi-vendor denominator |
 | Broad AI Across Hiring Processes | display/context | B | medium | ICIMS 18% broad use across hiring processes captures depth better than headline adoption |
 
-Near-term decision:
+Implementation decision:
 
-- Fix the contract by choosing a canonical first indicator name before the next run. Prefer `Orgs Using AI in Talent Acquisition` for methodology v2.
-- Do not silently backfill the current historical score with the display-only 51% value.
-- Rename or replace `AI-Screened Applications`; the best locked 2026 source currently measures screening use-case adoption, not application share.
+- Use `Orgs Using AI in Talent Acquisition` as the canonical first indicator.
+- Do not silently backfill older historical scores with the old display-only 51% value.
+- Replace `AI-Screened Applications` with `AI Screening Use Case Adoption`.
 - Keep platform reach low-confidence until a refreshed multi-vendor annual assessment/application denominator is found.
 - Add governance and human-override context, because hiring is a high-stakes domain where adoption does not imply autonomous decisioning.

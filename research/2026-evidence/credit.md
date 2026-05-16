@@ -1,32 +1,29 @@
 # Credit 2026 Evidence Extraction
 
-Status: source refresh notes only; no score update yet.
+Status: implemented for the 2026 Q2 source refresh.
 Prepared: 2026-05-16.
 
 ## Current Scoring Contract
 
-Current `credit` score: 28.9.
+Current `credit` score: 30.0.
 
 Configured scoring formula:
 
-- `AI-Underwritten Loan Volume`: 40% weight.
-- `Fintech Lending Market Share`: 15% weight.
+- `AI-Underwritten Personal Loan Proxy`: 55% weight.
 - `AI Credit Decisioning (Banks)`: 45% weight.
 
 Current observations:
 
-- `AI-Underwritten Loan Volume`: 34%, freshness 2025.
-- `Fintech Lending Market Share`: 42%, freshness Q3 2025.
+- `AI-Underwritten Personal Loan Proxy`: 38.2%, freshness 2025.
 - `AI Credit Decisioning (Banks)`: 20%, freshness H2 2024.
-- `UK Firms Using AI Credit Risk`: 16%, freshness 2024, display-only.
 
 The current score calculates as:
 
 ```text
-0.40 * 34 + 0.15 * 42 + 0.45 * 20 = 28.9
+0.55 * 38.2 + 0.45 * 20 = 30.0
 ```
 
-The main 2026 issue is formula clarity. A raw fintech platform automation rate is not a whole-market credit-decisioning rate. If we directly replace `AI-Underwritten Loan Volume` with Upstart's 91%, the score would jump to 51.7 before any bank update, which would overstate delegation across the full credit market.
+The implemented 2026 Q2 contract keeps the fintech automation signal product-specific by blending Upstart's platform automation rate with TransUnion's fintech personal-loan origination denominator. Bank credit decisioning remains conservative until a credit-specific bank deployment metric is found.
 
 ## Extracted Candidate Sources
 
@@ -127,21 +124,21 @@ Relevant values:
 
 Recommendation: use as 2026 deployment-friction context. It supports keeping bank AI credit decisioning conservative unless a direct bank credit underwriting source is found.
 
-## Proposed Credit Source Lock
+## Implemented Credit Source Lock
 
-Proposed v2 scoring candidates:
+Current v2 scoring inputs and retained candidates:
 
-| Indicator | Suggested role | Evidence grade | Confidence | Notes |
+| Indicator | Role | Evidence grade | Confidence | Notes |
 | --- | --- | --- | --- | --- |
 | AI-Underwritten Personal Loan Proxy | score input | A/B | medium | Upstart 91% fully automated times TransUnion 42% FinTech personal-loan origination share equals 38.2% |
 | FinTech Personal Loan Origination Share | denominator or context | B | medium | Strong product-specific market denominator; avoid double-counting if used in blended proxy |
 | Bank AI Credit Decisioning | hold or low-confidence score input | B | low | BoE/FCA broad AI survey is not credit-specific; 2026 roundtables imply caution |
 | UK Financial Services AI Credit Risk | display/context | B | medium | Useful governance and automation context; not part of current score |
 
-Near-term decision:
+Implementation decision:
 
-- Do not use Upstart 91% raw as `AI-Underwritten Loan Volume`.
-- Candidate blended proxy: `91% Upstart fully automated * 42% FinTech personal-loan origination share = 38.2%`.
-- If the blended proxy is used, consider demoting `Fintech Lending Market Share` from scored input to denominator/context to avoid double counting.
-- Keep `AI Credit Decisioning (Banks)` at hold until a credit-specific bank deployment metric is found.
+- Do not use Upstart 91% raw as a broad market `AI-Underwritten Loan Volume`.
+- Use the blended proxy: `91% Upstart fully automated * 42% FinTech personal-loan origination share = 38.2%`.
+- Treat FinTech personal-loan origination share as the denominator for the blended proxy, not as a second independent scored input.
+- Keep `AI Credit Decisioning (Banks)` conservative until a credit-specific bank deployment metric is found.
 - Document that the strongest available 2026 signal is for unsecured personal loans, not all consumer and commercial credit.

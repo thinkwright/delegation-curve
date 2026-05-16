@@ -1,34 +1,29 @@
 # Algorithmic Trading 2026 Evidence Extraction
 
-Status: source refresh notes only; no score update yet.
+Status: implemented for the 2026 Q2 source refresh.
 Prepared: 2026-05-16.
 
 ## Current Scoring Contract
 
-Current `algo-trade` score: 68.4.
+Current `algo-trade` score: 39.2.
 
 Configured scoring formula:
 
-- `US Equities Algo Volume`: 35% weight.
-- `FX Algo Trading`: 25% weight.
-- `Options Algo Volume`: 20% weight.
-- `Institutional AI Adoption`: 20% weight.
+- `FX Electronic Trading Share`: 55% weight.
+- `Buy-Side AI Trade Execution Adoption`: 45% weight.
 
 Current observations:
 
-- `US Equities Algo Volume`: 73.2%, freshness Q3 2025.
-- `FX Algo Trading`: 61.4%, freshness 2025.
-- `Options Algo Volume`: 58.9%, freshness Q3 2025.
-- `Institutional AI Adoption`: 78.0%, freshness 2025.
-- `EU Equity Algo Volume`: 51.0%, freshness 2021, display-only.
+- `FX Electronic Trading Share`: 59.0%, freshness April 2025.
+- `Buy-Side AI Trade Execution Adoption`: 15.0%, freshness 2025.
 
 The current score calculates as:
 
 ```text
-0.35 * 73.2 + 0.25 * 61.4 + 0.20 * 58.9 + 0.20 * 78.0 = 68.4
+0.55 * 59.0 + 0.45 * 15.0 = 39.2
 ```
 
-The main 2026 issue is construct validity. This domain mixes four related but different concepts: automated market infrastructure, electronic execution, algorithmic execution, and AI or ML adoption in trade execution. The 2026 source lock should decide whether this domain measures broad market execution automation or AI-specific trading delegation. The current indicators are easier to defend as market automation than as AI delegation.
+The implemented 2026 Q2 contract deliberately narrows this domain away from broad market-automation proxies. BIS electronic FX execution remains an execution-automation anchor, while Coalition Greenwich current internal-AI trade-execution adoption keeps the score grounded in AI-specific workflow use.
 
 ## Extracted Candidate Sources
 
@@ -145,22 +140,22 @@ Relevant values and constraints:
 
 Recommendation: replace the current `Institutional AI Adoption` value of 78.0. The defensible values are 15% current internal-AI use or 39% current-plus-planned internal-AI use. The 78% figure is closer to expected impact on algo optimization, not adoption.
 
-## Proposed Algorithmic Trading Source Lock
+## Implemented Algorithmic Trading Source Lock
 
-Proposed v2 scoring candidates:
+Current v2 scoring inputs and retained candidates:
 
-| Indicator | Suggested role | Evidence grade | Confidence | Notes |
+| Indicator | Role | Evidence grade | Confidence | Notes |
 | --- | --- | --- | --- | --- |
 | U.S. Equities Automated Market Structure | context or score only after redefinition | A | medium | SEC and Cboe are strong on automation context but not direct algo volume |
-| FX Electronic Trading Share | score input if renamed | A | high | BIS 2025 supports 59.0% electronic trading share |
+| FX Electronic Trading Share | score input | A | high | BIS 2025 supports 59.0% electronic trading share |
 | Options Market Electronic Structure Context | context | B | medium | Cboe gives fresh options volume but no algorithmic share |
-| Buy-Side AI Trade Execution Adoption | score input candidate | C | medium | Use 15% current or 39% current-plus-planned, not 78% expected impact |
+| Buy-Side AI Trade Execution Adoption | score input | C | medium | Use 15% current internal-AI trade-execution adoption, not 39% current-plus-planned or 78% expected impact |
 | EU Equity Algo Volume | hold or drop | D | low | Display-only 2021 value remains stale |
 
-Near-term decision:
+Implementation decision:
 
 - Do not treat 2026 market-structure volume sources as direct AI delegation evidence.
-- Rename `FX Algo Trading` before using the BIS 59.0% value.
-- Replace `Institutional AI Adoption` with a current-use or current-plus-planned value from Coalition Greenwich during the next scored run.
-- Demote `Options Algo Volume` unless a direct automated-execution source is found.
-- Keep a clear note that this domain is closer to market automation than societal AI delegation unless the methodology v2 narrows it to AI-specific trade execution.
+- Use BIS 59.0% only under the renamed `FX Electronic Trading Share` indicator.
+- Use Coalition Greenwich 15% current internal-AI trade-execution adoption, not the 39% current-plus-planned value or 78% expected-impact figure.
+- Retire broad U.S. equities, options, and stale EU equity proxies from the current score unless a direct automated-execution source is found.
+- Keep a clear note that this domain remains partly market automation and partly AI-specific trade execution.

@@ -1,34 +1,31 @@
 # Content Moderation 2026 Evidence Extraction
 
-Status: source refresh notes only; no score update yet.
+Status: implemented for the 2026 Q2 source refresh.
 Prepared: 2026-05-16.
 
 ## Current Scoring Contract
 
-Current `content-mod` score: 93.0.
+Current `content-mod` score: 96.1.
 
 Configured scoring formula:
 
-- `Meta Automated Detection`: 30% weight.
-- `Google Automated Removal`: 25% weight.
-- `TikTok Automated Detection`: 25% weight.
-- `X/Twitter Automated Action`: 20% weight.
+- `Meta Automated Detection`: 37.5% weight.
+- `YouTube Automated Flagging`: 31.25% weight.
+- `TikTok Automated Enforcement`: 31.25% weight.
 
 Current observations:
 
 - `Meta Automated Detection`: 95.2%, freshness Q3 2025.
-- `Google Automated Removal`: 92.8%, freshness Q3 2025.
-- `TikTok Automated Detection`: 94.1%, freshness Q3 2025.
-- `X/Twitter Automated Action`: 88.6%, freshness H1 2025.
-- `DSA Cross-Platform Automated Rate`: 96.1%, freshness H2 2023, display-only.
+- `YouTube Automated Flagging`: 99.5%, freshness Jul-Sep 2025.
+- `TikTok Automated Enforcement`: 93.8%, freshness H2 2025.
 
 The current score calculates as:
 
 ```text
-0.30 * 95.2 + 0.25 * 92.8 + 0.25 * 94.1 + 0.20 * 88.6 = 93.0
+0.375 * 95.2 + 0.3125 * 99.5 + 0.3125 * 93.8 = 96.1
 ```
 
-The main 2026 issue is comparability. Platform transparency sources report different concepts: proactive detection, automated flagging, automated enforcement without human review, account suspension, content removal, labels, and EU-only statements of reasons. These are all real delegation signals, but they should not be blended unless each indicator keeps a stable definition.
+The implemented 2026 Q2 contract keeps each platform indicator aligned to its source semantics. X and cross-platform DSA data are retained as context until a stable comparable 2025/2026 extraction is locked.
 
 ## Extracted Candidate Sources
 
@@ -142,11 +139,11 @@ Relevant values and constraints:
 
 Recommendation: DSA is valuable for methodology v2 only if we request access, implement a reproducible extraction, and snapshot the dataset for each analysis run. Otherwise it should remain display/context.
 
-## Proposed Content Moderation Source Lock
+## Implemented Content Moderation Source Lock
 
-Proposed v2 scoring candidates:
+Current v2 scoring inputs and retained candidates:
 
-| Indicator | Suggested role | Evidence grade | Confidence | Notes |
+| Indicator | Role | Evidence grade | Confidence | Notes |
 | --- | --- | --- | --- | --- |
 | Meta Automated Detection | score input | A | medium | Keep but mark 2025 methodology break after policy shift |
 | YouTube Automated Flagging | score input | A | high | Rename from Google automated removal if using flagging |
@@ -154,10 +151,10 @@ Proposed v2 scoring candidates:
 | X Automated Enforcement | hold or context | A | low-medium | Direct 2025 global report not locked |
 | DSA Cross-Platform Automated Rate | future score input only after extractor | A | medium | Requires token and run-level snapshots because retention is rolling |
 
-Near-term decision:
+Implementation decision:
 
-- Keep the current source family, but normalize indicator names to what each source actually measures.
+- Keep the Meta, YouTube, and TikTok source family, with indicator names normalized to what each source actually measures.
 - Treat Meta 2025 as a methodology break and verify CSER definitions before comparing to prior proactive rates.
-- Use YouTube automated flagging directly if the old `Google Automated Removal` label is inaccurate.
-- Use TikTok DSA H2 2025 as the cleanest 2026 automation source unless the global CGER data can be extracted directly.
-- Do not promote DSA into scoring until a tokened extractor and snapshot workflow exists.
+- Use YouTube automated flagging directly instead of the old `Google Automated Removal` label.
+- Use TikTok DSA H2 2025 automated enforcement as the current score input unless global CGER data can be extracted directly.
+- Keep X and cross-platform DSA data as context until a comparable current global report or tokened DSA extractor and snapshot workflow exists.

@@ -1,27 +1,33 @@
 # Customer Support 2026 Evidence Extraction
 
-Status: source refresh notes only; no score update yet.
+Status: implemented for the 2026 Q2 source refresh.
 Prepared: 2026-05-16.
 
 ## Current Scoring Contract
 
-Current `support` score: 45.9.
+Current `support` score: 40.5.
 
 Configured indicators:
 
-- `AI Resolution Rate`: 30% weight.
-- `Bot Deflection Rate`: 25% weight.
-- `Orgs Using AI Support`: 25% weight.
-- `AI Copilot Adoption (Agents)`: 20% weight.
+- `Cases Handled by AI`: 45% weight.
+- `Bot Deflection Rate`: 20% weight.
+- `Production AI Customer Communications Agents`: 25% weight.
+- `Mature AI Support Deployment`: 10% weight.
 
 Current observations:
 
-- `AI Resolution Rate`: 41%, freshness 2025.
+- `Cases Handled by AI`: 30%, freshness 2025.
 - `Bot Deflection Rate`: 52.3%, freshness 2025.
-- `Orgs Using AI Support`: 63%, freshness 2025.
-- `AI Copilot Adoption (Agents)`: 24%, freshness 2025.
+- `Production AI Customer Communications Agents`: 62%, freshness 2026.
+- `Mature AI Support Deployment`: 10%, freshness Q4 2025.
 
-The current contract is directionally right: customer support is one of the clearest real-world delegation domains. The main risk is metric mismatch. 2026 sources often report adoption, investment, maturity, or expected resolution rather than measured resolved-case or true deflection rates.
+The current score calculates as:
+
+```text
+0.45 * 30.0 + 0.20 * 52.3 + 0.25 * 62.0 + 0.10 * 10.0 = 40.5
+```
+
+The implemented 2026 Q2 contract renames the resolution signal to cases handled by AI, preserves bot deflection, and adds production/maturity context without treating investment or projected adoption as current delegation.
 
 ## Extracted Candidate Sources
 
@@ -64,7 +70,7 @@ Relevant values:
 - Service representatives using AI report spending 20% less time on routine cases.
 - 51% of service leaders say security concerns have delayed or limited AI initiatives.
 
-Recommendation: treat the 30% currently handled by AI value as the strongest candidate for a refreshed `AI Resolution Rate` or a renamed `Cases Handled by AI` indicator. It is closer to delegation than broad org adoption, but still survey-estimated and not necessarily true end-to-end resolution.
+Recommendation: treat the 30% currently handled by AI value as the current score input for the renamed `Cases Handled by AI` indicator. It is closer to delegation than broad org adoption, but still survey-estimated and not necessarily true end-to-end resolution.
 
 ### Zendesk 2026 CX Trends
 
@@ -159,23 +165,23 @@ Relevant values:
 
 Recommendation: use AI Index only as productivity context. It supports the importance of the domain, but it should not replace adoption or resolution share metrics.
 
-## Proposed Support Source Lock
+## Implemented Support Source Lock
 
-Proposed v2 scoring candidates:
+Current v2 scoring inputs and retained candidates:
 
-| Indicator | Suggested role | Evidence grade | Confidence | Notes |
+| Indicator | Role | Evidence grade | Confidence | Notes |
 | --- | --- | --- | --- | --- |
-| Cases Handled by AI | score input or rename of `AI Resolution Rate` | B | medium-high | Salesforce 30% current and 50% projected by 2027; closer to delegation than org adoption |
+| Cases Handled by AI | score input | B | medium-high | Salesforce 30% current and 50% projected by 2027; closer to delegation than org adoption |
 | Bot Deflection Rate | score input if direct source found | A/B | low | Still needs a refreshed operational deflection source with clear definition |
-| Orgs Using AI Support | score input or context | B | medium | Intercom 82% invested and 10% mature deployment; Salesforce 79% investment-essential |
+| Mature AI Support Deployment | score input | B | medium | Intercom 10% mature deployment captures depth better than broad investment |
 | AI Copilot Adoption (Agents) | score input if agent-level source found | B | low | Current sources speak to reps using AI or agents spending less time on routine work, not clean agent-level adoption |
-| Production AI Customer Communications Agents | display or reliability modifier | B | medium | Sinch 62% live in production and 74% rollback after governance failure |
+| Production AI Customer Communications Agents | score input with reliability caveat | B | medium | Sinch 62% live in production and 74% rollback after governance failure |
 | AI Support Productivity Lift | context only | B | medium-high | AI Index 14%-15% more issues resolved per hour |
 
-Near-term decision:
+Implementation decision:
 
-- Rename `AI Resolution Rate` to `Cases Handled by AI` unless a true autonomous-resolution source is found.
-- Keep `Bot Deflection Rate` locked only after the source defines whether deflection means no escalation, customer-confirmed resolution, or completed backend workflow.
-- Add Sinch as a new production-reliability source, but keep it out of positive scoring unless a reliability penalty or maturity modifier is added.
+- Rename `AI Resolution Rate` to `Cases Handled by AI`.
+- Keep `Bot Deflection Rate` with its prior locked source until a clearer operational definition is found.
+- Add Sinch as a production-reliability source, with rollback evidence retained as a caveat rather than a positive score boost.
 - Use Hiver and Gartner as caution/context, not score inputs.
-- Avoid mixing projected 2027 values into a 2026 score; use Salesforce 30% current as the candidate score value if we proceed before stronger telemetry is found.
+- Avoid mixing projected 2027 values into a 2026 score; use Salesforce 30% current as the scored value until stronger telemetry is found.

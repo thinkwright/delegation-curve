@@ -34,7 +34,7 @@ The 15.0 value is current internal-AI trade-execution adoption from Coalition Gr
 | medical-dx | 21.7 | 32.3 | +10.6 | Uses FDA live device count and AMA 2026 assistive diagnosis rate |
 | legal-ai | 29.0 | 46.3 | +17.3 | Uses Thomson Reuters org GenAI adoption and Clio solo/small legal-work adoption |
 | hire | 38.1 | 49.0 | +10.9 | Fixes indicator contract and uses ICIMS/Aptitude TA adoption and screening use-case values |
-| education | 18.0 | 35.8 | +17.8 | Renames student indicator to schoolwork and uses Pew/OECD/Turnitin 2026 signals |
+| education | 18.0 | 35.8 | +17.8 | Renames student indicator to schoolwork and uses Pew, OECD, and Turnitin sources |
 
 ## Methodology Notes
 
@@ -45,6 +45,8 @@ The 15.0 value is current internal-AI trade-execution adoption from Coalition Gr
 - `code-gen` is updated to 48.1 under a five-input method: Sonar/GitLab output share, METR technical-work value share, DORA/JetBrains workflow reliance, Anthropic/arXiv agentic task delegation, and low-weight VS Code Marketplace tool reach. Stack Overflow is retired from scoring and retained only as historical bridge context. Harness/Lightrun/CircleCI/Faros and AI-code-quality studies remain validation-tax guardrails.
 - Some 2026 values remain survey-based or vendor-reported. The source-lock ledger keeps evidence grade and confidence notes for follow-up.
 - The composite should be interpreted as one point in the public current-method curve, with archived published scores available for audit.
+- Public copy labels the comparison as `vs 2025 baseline`; the recalculated/current-method explanation remains on the methodology page and in research notes.
+- Curve visualizations mark all public analysis run points, with prior points shown as smaller outlined markers and the current run as the emphasized endpoint.
 
 ## Regeneration Commands
 
@@ -61,4 +63,5 @@ PATH=/home/bran/code/curve/.tools/go/bin:$PATH make collect
   -data-freshness "2026 Q2" \
   -replace
 PATH=/home/bran/code/curve/.tools/go/bin:$PATH make generate
+PATH=/home/bran/code/curve/.tools/go/bin:$PATH make server
 ```

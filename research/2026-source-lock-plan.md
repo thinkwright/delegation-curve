@@ -1,11 +1,11 @@
 # 2026 Delegation Curve Source Lock Plan
 
-Status: preparation artifact, superseded for public-series handling by `research/2026-current-method-series.md`.
+Status: implemented for the 2026 Q2 run; public-series handling is recorded in `research/2026-current-method-series.md`.
 Date prepared: 2026-05-16.
 
 ## Objective
 
-Prepare the next Delegation Curve research run so it can incorporate 2026 evidence without silently changing what the composite means. The current public curve is best understood as a 2024-2025 measurement snapshot, with a few early 2026 references. The next run should explicitly distinguish:
+Record the source lock and implementation decisions for the 2026 Q2 Delegation Curve run. The March 2026 published curve is best understood as a 2024-2025 measurement snapshot, with a few early 2026 references. The 2026 Q2 run explicitly distinguishes:
 
 - observed delegated decisions,
 - workflow penetration,
@@ -13,40 +13,51 @@ Prepare the next Delegation Curve research run so it can incorporate 2026 eviden
 - ordinary adoption,
 - capability benchmarks or contextual evidence.
 
-The source set should be locked before score edits begin.
+This file began as a pre-run source-lock plan and now also records the implemented decisions. The run summary is in `research/2026-q2-run-summary.md`.
 
-## Current Dataset Audit
+## Dataset Audit
 
-Local state:
+Pre-refresh local state:
 
 - Original score snapshot generated at `2026-03-02T08:36:54Z`; the seed file has since been rewritten only to materialize run history.
 - composite last updated `2026-03-02`, `data_year: 2025`.
-- The current 2024 and 2025 curve points are now materialized as explicit `analysis_runs` so the next refresh can append a new run instead of overwriting the historical baseline.
 - 9 domains, 46 displayed sub-indicators, 42 displayed data-source rows.
-- Active scoring config uses 32 configured indicators, but only 31 are present by exact name in the current seed.
-- 15 displayed indicators are currently not included in scoring.
+- Active scoring config used 32 configured indicators, but only 31 were present by exact name in the seed.
+- 15 displayed indicators were not included in scoring.
+
+Implemented 2026 Q2 state:
+
+- Current run ID: `2026-q2`.
+- Composite score: 45.8.
+- Prior public comparison: 37.7 from `current-method-2025`.
+- Public movement: +8.1 index points.
+- Data freshness label: `2026 Q2`.
+- Public analysis runs: `current-method-2024`, `current-method-2025`, and `2026-q2`.
+- Archived publication baselines: `legacy-2024` and `legacy-2025`.
+- 9 domains, 31 displayed current sub-indicators, 29 displayed data-source rows.
+- Current displayed sub-indicators are the scored v2 indicators; retired v1 indicators remain in historical `indicator_observations`.
 - Only `VS Code Marketplace` is a live automated collector. Almost all other collectors are manual stubs resolved by `seed/overrides.yaml` or cached seed values.
 
-Freshness distribution across displayed indicators:
+Freshness distribution across current displayed indicators:
 
 | Freshness label | Count |
 | --- | ---: |
-| 2021 | 1 |
-| 2023 / H2 2023 | 2 |
-| 2024 / 2024 quarter labels | 10 |
-| 2025 / 2025 quarter labels | 31 |
-| 2026 / exact 2026 date | 2 |
+| 2024 / H2 2024 | 3 |
+| 2025 / 2025 quarter labels | 13 |
+| 2025/2026 | 2 |
+| 2026 / exact 2026 date | 13 |
 
-Important local drift to fix before scoring:
+Resolved local drift in the implemented run:
 
-- `hire` config expects `Orgs Using AI Screening`, but the seed displays `Orgs Using AI in Recruiting`. This causes the configured 40% hiring indicator to be missing and the score to reweight around the remaining two configured indicators.
-- `content-mod`, `algo-trade`, `credit`, `medical-dx`, `legal-ai`, `hire`, and `education` display additional indicators that are not scored.
-- The methodology page says status tiers are nominal `<30`, elevated `30-60`, autonomous `>60`, but the code classifies nominal `<40`, elevated `40-74.9`, autonomous `>=75`.
-- `DataFreshness` is now seed-driven via `delegation.composite.data_freshness`.
+- The hiring indicator contract now uses `Orgs Using AI in Talent Acquisition`, `AI Screening Use Case Adoption`, `Broad AI Across Hiring Processes`, and `AI Assessment Platform Reach`.
+- Current domain pages display only current scored v2 indicators.
+- The methodology page status tiers match the code: nominal `<40`, elevated `40-74.9`, autonomous `>=75`.
+- `DataFreshness` is seed-driven via `delegation.composite.data_freshness`.
+- Code-gen no longer scores Stack Overflow daily use; it uses the five-input output-share, value-share, workflow-reliance, agentic-delegation, and tool-reach method.
 
-## Safe Refresh Workflow
+## Refresh Workflow
 
-Do not update scores directly in `seed/seed.json` without creating or updating an explicit run snapshot.
+The 2026 Q2 run followed this pattern, and future score updates should keep the same separation between source refresh, scoring, run snapshotting, and generated artifacts. Do not update scores directly in `seed/seed.json` without creating or updating an explicit run snapshot.
 
 1. Lock the existing baseline if it is not already materialized:
 
@@ -56,7 +67,7 @@ Do not update scores directly in `seed/seed.json` without creating or updating a
 
 2. Refresh source values in `seed/overrides.yaml` or collectors, keeping citations and evidence grades in `research/2026-source-ledger.csv`.
 3. Run the collector and generator.
-4. Append the new current run after the refreshed scores are present:
+4. Append the new current run after the refreshed scores are present. Example from the 2026 Q2 run:
 
    ```sh
    ./curve-snapshot-run \
@@ -70,7 +81,7 @@ Do not update scores directly in `seed/seed.json` without creating or updating a
      -data-freshness "2026 Q2"
    ```
 
-5. Regenerate Parquet and rebuild the frontend/server. The visualizations should show the recalculated public curve, while archived publication baselines remain available in the run data for audit.
+5. Regenerate Parquet and rebuild the frontend/server. The visualizations should show the current-method public curve, while archived publication baselines remain available in the run data for audit.
 
 ## Evidence Grades
 
@@ -117,13 +128,13 @@ Relevant extracts for source selection:
 
 ### content-mod
 
-Current state: mostly fresh through Q3/H1 2025, but `DSA Cross-Platform Automated Rate` is displayed and ignored by scoring.
+Implemented state: current v2 scoring uses Meta Q3 2025 automated detection, YouTube Jul-Sep 2025 automated flagging, and TikTok H2 2025 automated enforcement. X and cross-platform DSA data are retained as context, not displayed current indicators.
 
-Recommended lock:
+Locked approach:
 
-- Keep Meta, YouTube/Google, TikTok, and X as direct platform transparency sources.
+- Keep Meta, YouTube/Google, and TikTok as direct platform transparency score sources.
+- Keep X on hold until a comparable 2025/2026 global report is found.
 - Promote DSA only if we can reproduce a stable, cross-platform automated-decision extraction. Otherwise keep DSA as context/display only.
-- Refresh all platform values to the latest available 2025 or 2026 reporting period.
 
 Candidate sources:
 
@@ -135,17 +146,18 @@ Candidate sources:
 
 Extraction note: `research/2026-evidence/content-mod.md`.
 
-Decision: keep current source family, but rename indicators to match source semantics before the next scored run. YouTube is best described as automated flagging, TikTok requires a choice between EU DSA automated enforcement and global CGER proactive removal, Meta needs a 2025 methodology-break note, and X should stay on hold until a comparable 2025 global report is found. Promote DSA only after tokened extraction and run-level snapshots exist.
+Decision: use Meta, YouTube, and TikTok as the current scored source family, with indicator names matched to source semantics. YouTube is scored as automated flagging, TikTok is scored using EU DSA automated enforcement, and Meta carries a 2025 methodology-break note. X stays on hold until a comparable 2025 global report is found. Promote cross-platform DSA only after tokened extraction and run-level snapshots exist.
 
 ### algo-trade
 
-Current state: one displayed signal is from 2021. Direct AI-vs-algorithmic trading measurement remains weak.
+Implemented state: current v2 scoring uses BIS 2025 FX electronic trading share and Coalition Greenwich current internal-AI trade-execution adoption. Broad U.S. equities, options, and stale EU equity proxies are demoted from the current score.
 
-Recommended lock:
+Locked approach:
 
-- Keep SEC/FINRA market structure and BIS FX as anchors.
+- Keep BIS FX as the scored market-execution automation anchor.
+- Keep Coalition Greenwich as the narrow AI-specific trade-execution adoption source.
+- Keep SEC/FINRA market structure as context.
 - Keep Cboe for options market structure/volume, but avoid converting ordinary options volume into AI delegation.
-- Keep a survey source such as Coalition Greenwich/The TRADE for institutional algo adoption if the methodology is available.
 - Do not import generic "AI trading market size" vendor estimates into the composite.
 
 Candidate sources:
@@ -158,15 +170,15 @@ Candidate sources:
 
 Extraction note: `research/2026-evidence/algo-trade.md`.
 
-Decision: targeted source refresh plus methodology cleanup. BIS can refresh an FX electronic-trading share, but the indicator should be renamed before scoring. SEC and Cboe should remain market-automation context unless a direct algorithmic-execution share is found. The current `Institutional AI Adoption` value appears to be expected impact on algorithm optimization rather than adoption; replace it with Coalition Greenwich current-use or current-plus-planned internal-AI trade-execution adoption during the scored run. Demote options and stale EU equity signals unless better direct sources are found.
+Decision: targeted source refresh plus methodology cleanup. BIS is scored as `FX Electronic Trading Share`, not as AI-specific trading. SEC and Cboe remain market-automation context unless a direct algorithmic-execution share is found. The prior `Institutional AI Adoption` value appeared to be expected impact on algorithm optimization rather than adoption; it is replaced with Coalition Greenwich 15% current internal-AI trade-execution adoption. Options and stale EU equity signals are demoted unless better direct sources are found.
 
 ### code-gen
 
-Current state: high-value domain for a 2026 refresh. Existing sources mix acceptance, adoption, OSS proxy, and install inventory.
+Implemented state: current v2 scoring is 48.1 under a five-input method covering output share, technical-work value share, workflow reliance, agentic task delegation, and tool ecosystem reach. Stack Overflow daily use is retired from scoring and retained only as bridge adoption context.
 
 Extraction note: see `research/2026-evidence/code-gen.md`.
 
-Recommended lock:
+Locked approach:
 
 - Keep METR as `Technical Work AI Value Share`.
 - Blend Sonar 2026 and GitLab 2026 as `AI-Generated Code Output Share`.
@@ -199,36 +211,38 @@ Candidate sources:
 - Debt Behind the AI Boom arXiv study.
 - VS Code Marketplace API.
 
-Decision: update the current code-gen contract to a five-input frame: output share from Sonar plus GitLab, technical-work value share from METR, workflow reliance from DORA plus JetBrains, agentic task delegation from Anthropic's assisted-versus-fully-delegated split plus the arXiv GitHub trace study, and low-weight tool ecosystem reach from VS Code Marketplace. The resulting `code-gen` score is 48.1, essentially unchanged from 48.2, because high workflow reliance is counterbalanced by still-lower evidence for fully delegated agentic tasks. Delivery and reliability sources should be used as guardrails or uncertainty modifiers so the curve does not confuse generated-code volume with net delegated work. Implementation note: see `research/2026-code-gen-method-prototype.md`.
+Decision: update the current code-gen contract to a five-input frame: output share from Sonar plus GitLab, technical-work value share from METR, workflow reliance from DORA plus JetBrains, agentic task delegation from Anthropic's assisted-versus-fully-delegated split plus the arXiv GitHub trace study, and low-weight tool ecosystem reach from VS Code Marketplace. The resulting `code-gen` score is 48.1, essentially unchanged from the pre-refresh 48.2, because high workflow reliance is counterbalanced by still-lower evidence for fully delegated agentic tasks. Delivery and reliability sources should be used as guardrails or uncertainty modifiers so the curve does not confuse generated-code volume with net delegated work. Implementation note: see `research/2026-code-gen-method-prototype.md`.
 
 ### support
 
-Current state: all displayed indicators are 2025, survey/proxy heavy.
+Implemented state: current v2 scoring uses Salesforce current cases handled by AI, an existing bot deflection source, Sinch production AI customer communications agents, and Intercom mature support deployment. Survey/proxy limitations remain explicit.
 
-Recommended lock:
+Locked approach:
 
-- Keep Zendesk, Intercom, and Salesforce as core source families.
+- Keep Salesforce and Intercom as core source families.
+- Keep Zendesk or comparable operational telemetry as a future deflection-refresh target.
 - Prefer resolved-case or deflection-rate measures over broad "using AI" metrics.
 - Add Gartner or AI Index productivity figures as context only unless tied to support resolution/deflection.
-- Consider Intercom 2026 as a stronger operational maturity source, but validate whether it provides a direct resolution or mature deployment percentage.
+- Keep Sinch production and rollback evidence as a reliability caveat, not an uncaveated positive adoption measure.
 
 Candidate sources:
 
 - Intercom 2026 Customer Service Transformation Report.
 - Zendesk 2026 CX Trends report.
 - Salesforce customer service trends/state-of-service materials.
+- Sinch AI Production Paradox.
 - Gartner 2026 support workforce/AI implementation survey.
 - Stanford HAI 2026 economy chapter for productivity context.
 
 Extraction note: `research/2026-evidence/support.md`.
 
-Decision: keep support as a high-priority score-refresh domain, but rename `AI Resolution Rate` to `Cases Handled by AI` unless a true autonomous-resolution source is found. Add Sinch as production/reliability context and avoid counting rollback-prone deployment as positive impact without a methodology decision.
+Decision: rename `AI Resolution Rate` to `Cases Handled by AI`, add Sinch as production/reliability context, and keep rollback-prone deployment caveated. Avoid projected 2027 values in the current score.
 
 ### credit
 
-Current state: one bank decisioning signal is H2 2024, one UK source is displayed but unscored.
+Implemented state: current v2 scoring uses a blended Upstart-plus-TransUnion personal-loan fintech automation proxy and a conservative bank AI credit-decisioning signal. UK financial-services AI credit-risk data remains context.
 
-Recommended lock:
+Locked approach:
 
 - Keep Upstart/fintech filings as the best direct automation source.
 - Keep TransUnion CIIR for personal-loan market denominator, but avoid overextending personal-loan fintech share to all credit without an explicit blending rule.
@@ -244,13 +258,13 @@ Candidate sources:
 
 Extraction note: `research/2026-evidence/credit.md`.
 
-Decision: lock Upstart plus TransUnion, but do not use the raw 91% Upstart platform automation rate as a broad market value. The current candidate is `91% * 42% = 38.2%` for a personal-loan fintech automation proxy. If that blended proxy is scored, demote `Fintech Lending Market Share` to denominator/context to avoid double counting. Treat bank AI adoption as cautious context unless a credit-decisioning deployment measure is found.
+Decision: lock Upstart plus TransUnion, but do not use the raw 91% Upstart platform automation rate as a broad market value. Score `91% * 42% = 38.2%` as a personal-loan fintech automation proxy. Treat `FinTech Personal Loan Origination Share` as the denominator inside that proxy, not as an independent scored indicator. Treat bank AI adoption as cautious context unless a credit-decisioning deployment measure is found.
 
 ### medical-dx
 
-Current state: many displayed medical signals are stale or unscored; active scoring uses four indicators.
+Implemented state: current v2 scoring uses the FDA AI-enabled device count, radiology/imaging AI adoption, AMA assistive diagnosis use, and pathology AI adoption. Clinical-note automation and diagnostic benchmarks remain context.
 
-Recommended lock:
+Locked approach:
 
 - Keep FDA AI-enabled device list as a primary source, but use it as capacity/deployment proxy, not actual clinical diagnosis share.
 - Keep radiology, diagnosis, and pathology adoption as separate workflow penetration indicators.
@@ -267,15 +281,16 @@ Candidate sources:
 
 Extraction note: `research/2026-evidence/medical-dx.md`.
 
-Decision: refresh FDA from the direct CSV and use AMA 2026 `assistive diagnosis` as the best near-term diagnosis-use candidate. Keep radiology pending until a comparable deployment survey is locked, keep pathology low-confidence, and keep note automation plus diagnostic benchmarks out of the diagnosis score.
+Decision: refresh FDA from the direct CSV, use AMA 2026 `assistive diagnosis` as the diagnosis-use score input, use KLAS as the current radiology/imaging adoption score input, keep pathology low-confidence, and keep note automation plus diagnostic benchmarks out of the diagnosis score.
 
 ### legal-ai
 
-Current state: mostly 2024-2025 adoption measures; direct delegated legal decision-making remains low and hard to observe.
+Implemented state: current v2 scoring uses Thomson Reuters legal-organization GenAI adoption, Clio solo/small-firm AI legal-work adoption, and ABA AI-assisted document review. Direct delegated legal decision-making remains hard to observe.
 
-Recommended lock:
+Locked approach:
 
-- Keep BigLaw and solo/small adoption split.
+- Replace the old BigLaw-specific adoption label with a broader legal-organization GenAI adoption indicator.
+- Keep solo/small adoption split from broad legal-organization adoption.
 - Add Thomson Reuters 2026 as a stronger cross-professional and legal-sector anchor.
 - Keep document review/TAR as the most directly delegated legal workflow.
 - Do not score legal reasoning benchmark performance as delegation.
@@ -289,15 +304,15 @@ Candidate sources:
 
 Extraction note: `research/2026-evidence/legal-ai.md`.
 
-Decision: refresh solo/small adoption with Clio 2026, use Thomson Reuters 2026 for broad legal workflow context, and keep ABA/TAR as the direct document-review workflow anchor. Do not score Thomson's raw 74% document-review use-case share without a denominator adjustment. Revisit whether `AI Tool Adoption (BigLaw)` should become `Large and Mid Law Firm AI Adoption` unless a direct 2026 BigLaw source is locked.
+Decision: replace `AI Tool Adoption (BigLaw)` with `Legal Organization GenAI Adoption`, refresh solo/small adoption with Clio 2026, use Thomson Reuters 2026 for broad legal workflow context, and keep ABA/TAR as the direct document-review workflow anchor. Do not score Thomson's raw 74% document-review use-case share without a denominator adjustment.
 
 ### hire
 
-Current state: active scoring has a name mismatch and reweights around two configured indicators. Several displayed hiring indicators are not scored.
+Implemented state: current v2 scoring fixes the old indicator-name mismatch and uses talent-acquisition adoption, screening use-case adoption, broad AI across hiring processes, and AI assessment platform reach.
 
-Recommended lock:
+Locked approach:
 
-- Fix the indicator contract before collection: decide whether the first scored indicator is `Orgs Using AI in Recruiting` or `Orgs Using AI Screening`.
+- Use `Orgs Using AI in Talent Acquisition` as the canonical org-level adoption indicator.
 - Use one org-level adoption metric, one application/screening metric, and one platform-reach metric.
 - Add 2026 HR/recruiting reports where they measure screening, scheduling, or candidate communication automation.
 
@@ -310,15 +325,15 @@ Candidate sources:
 
 Extraction note: `research/2026-evidence/hire.md`.
 
-Decision: high-priority cleanup domain. Do not collect until naming and inclusion choices are fixed. Fix the indicator contract in methodology v2, not as a silent current-score correction. Prefer a canonical `Orgs Using AI in Talent Acquisition` indicator, rename `AI-Screened Applications` unless an application-level denominator is found, and keep `AI Assessment Platform Reach` low-confidence until refreshed multi-vendor volume is available. The strongest 2026 workflow signal is ICIMS/Aptitude screening use-case adoption at 58%, while SHRM provides a conservative broad-market guardrail at 27% recruiting-practice AI use.
+Decision: high-priority cleanup domain. The implemented v2 contract uses `Orgs Using AI in Talent Acquisition`, replaces `AI-Screened Applications` with `AI Screening Use Case Adoption`, adds `Broad AI Across Hiring Processes`, and keeps `AI Assessment Platform Reach` low-confidence until refreshed multi-vendor volume is available. The strongest 2026 workflow signal is ICIMS/Aptitude screening use-case adoption at 58%, while SHRM provides a conservative broad-market guardrail at 27% recruiting-practice AI use.
 
 ### education
 
-Current state: one 2026 Turnitin-style signal is displayed, but core scoring is mostly 2025.
+Implemented state: current v2 scoring uses student AI schoolwork use, AI-graded assessments, teacher AI work use, and a low-weight student AI-written-output signal.
 
-Recommended lock:
+Locked approach:
 
-- Replace or supplement `Students Using AI Tutors` with a broader student schoolwork-use indicator if the scope is "AI influence in education" rather than tutoring specifically.
+- Replace `Students Using AI Tutors` with the broader `Students Using AI for Schoolwork` indicator.
 - Keep AI grading/assessment as a separate direct delegation indicator.
 - Keep faculty AI teaching use as workflow penetration.
 - Treat AI detection flags as evidence of student output, not delegated assessment, unless tied to institutional enforcement decisions.
@@ -334,24 +349,24 @@ Candidate sources:
 
 Extraction note: `research/2026-evidence/education.md`.
 
-Decision: rename or split the student indicator before scoring. Use Pew for K-12 schoolwork depth, HAI for broad cross-level context, OECD for teacher workflow, and keep grading plus AI-written-output signals separate until direct assessment-automation usage is found.
+Decision: rename the student indicator to `Students Using AI for Schoolwork`. Use Pew for K-12 schoolwork depth, HAI for broad cross-level context, OECD for teacher workflow, and keep grading plus AI-written-output signals separate. `Student Papers 80%+ AI-Written` is scored as a low-weight output-share signal, not as assessment delegation.
 
-## Proposed Source Lock Gates
+## Future Source Lock Gates
 
-Before changing `seed/seed.json`, complete these gates:
+For future score changes, complete these gates before updating `seed/seed.json`:
 
 1. One row per candidate source in `research/2026-source-ledger.csv`.
 2. For every scored indicator, record `source_url`, `published_at`, `measurement_period`, `evidence_grade`, `confidence`, and `included_in_score`.
 3. For each displayed-but-unscored indicator, explicitly choose `score`, `display_only`, or `drop`.
-4. Fix the hiring indicator-name mismatch.
+4. Recheck indicator-name contracts against `internal/collect/score.go`.
 5. Align methodology copy with code thresholds or change the thresholds deliberately.
-6. Decide whether `DataFreshness` is derived from source ledger dates rather than hardcoded.
-7. Recompute the current 2025 score from current locked sources before adding 2026 values, to separate methodology drift from data drift.
+6. Decide whether `DataFreshness` should be derived from source ledger dates rather than set in the run snapshot.
+7. Recompute the prior public baseline from current locked sources before adding new values, to separate methodology drift from data drift.
 
-## Near-Term Worklist
+## Maintenance Worklist
 
-1. Build a source-ledger schema into the repo, either as CSV/YAML or by extending seed metadata.
-2. Populate exact latest URLs and extracted values for each locked source.
-3. Add `included_in_score` and `source_url` metadata to data export so public users can distinguish scored inputs from contextual indicators.
-4. Run a dry recomputation with the same current values but cleaned source contracts.
-5. Only then apply 2026 refreshed values and compare deltas.
+1. Promote the source ledger from research CSV into structured seed or export metadata.
+2. Add `included_in_score`, `source_url`, `measurement_period`, evidence grade, and confidence metadata to the public data export.
+3. Add run-level source snapshots so future updates can show which sources changed between public analysis runs.
+4. Recheck low-confidence proxy indicators before the next score update, especially AI assessment platform reach, production support-agent deployment, and AI-assisted diagnosis rate.
+5. Decide whether `DataFreshness` should be computed from source-ledger dates once source metadata is first-class.

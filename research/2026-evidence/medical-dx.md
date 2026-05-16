@@ -1,28 +1,33 @@
 # Medical Diagnosis 2026 Evidence Extraction
 
-Status: source refresh notes only; no score update yet.
+Status: implemented for the 2026 Q2 source refresh.
 Prepared: 2026-05-16.
 
 ## Current Scoring Contract
 
-Current `medical-dx` score: 25.1.
+Current `medical-dx` score: 32.3.
 
 Configured indicators:
 
-- `FDA-Cleared Diagnostic AI Devices`: 10% weight.
-- `Radiology AI Adoption`: 35% weight.
+- `FDA AI-Enabled Medical Devices`: 10% weight, normalized from 0 to 2,000 devices.
+- `Radiology or Imaging AI Adoption`: 35% weight.
 - `AI-Assisted Diagnosis Rate`: 30% weight.
 - `Pathology AI Adoption`: 25% weight.
 
 Current observations:
 
-- `FDA-Cleared Diagnostic AI Devices`: 1,016 devices, freshness 2025.
-- `Radiology AI Adoption`: 30%, freshness 2025.
-- `AI-Assisted Diagnosis Rate`: 12%, freshness 2025.
+- `FDA AI-Enabled Medical Devices`: 1,430 devices, freshness 2026-05-16, normalized to 71.5.
+- `Radiology or Imaging AI Adoption`: 50%, freshness 2025.
+- `AI-Assisted Diagnosis Rate`: 17%, freshness 2026.
 - `Pathology AI Adoption`: 10%, freshness 2025.
-- Display-only context includes autonomous diabetic retinopathy screening, European radiologist clinical use, health systems with imaging AI deployed, and physicians using AI for diagnosis.
 
-The current contract is useful but mixes three different quantities: regulatory capacity, professional workflow adoption, and diagnostic delegation. The 2026 refresh should keep those quantities separate and avoid treating benchmark diagnostic performance as clinical deployment.
+The current score calculates as:
+
+```text
+0.10 * 71.5 + 0.35 * 50.0 + 0.30 * 17.0 + 0.25 * 10.0 = 32.3
+```
+
+The implemented 2026 Q2 contract keeps regulatory capacity, imaging workflow adoption, diagnosis-specific physician use, and pathology adoption separate. Benchmark diagnostic performance remains context rather than clinical deployment.
 
 ## Extracted Candidate Sources
 
@@ -47,7 +52,7 @@ Important caveats:
 
 - The FDA says the list is not comprehensive; it is based primarily on AI-related terms in public authorization summaries and classifications.
 - The list identifies devices authorized for marketing, not installed devices, clinician use, patient encounters, or autonomous diagnosis.
-- The current score's normalization max of 1,200 will saturate if the full 1,430-device count is used unchanged.
+- The current v2 normalization max is 2,000 devices, so the full 1,430-device count normalizes to 71.5 rather than saturating.
 
 Recommendation: refresh the device count from the FDA CSV, but rename the indicator to `FDA AI-Enabled Medical Devices` or use a diagnostic/radiology-relevant subset. Do not interpret count growth as clinical delegation growth without a usage denominator.
 
@@ -93,7 +98,7 @@ Relevant values:
 - 70% expect AI to offload or replace some clinical tasks, while 73% expect administrative workload reduction.
 - Nearly half would never or rarely want patients using AI to interpret pathology results or radiology reports/images without physician involvement.
 
-Recommendation: use the 17% assistive-diagnosis value as the leading candidate to refresh `AI-Assisted Diagnosis Rate`. Keep the broader 81%/72% physician-use values out of the diagnosis score because they include administrative and documentation workflows.
+Recommendation: use the 17% assistive-diagnosis value as the current `AI-Assisted Diagnosis Rate` score input. Keep the broader 81%/72% physician-use values out of the diagnosis score because they include administrative and documentation workflows.
 
 ### Doximity 2026 State of AI in Medicine
 
@@ -189,23 +194,23 @@ Relevant values:
 
 Recommendation: keep `Pathology AI Adoption` as hold/pending unless a representative clinical pathology deployment survey is found. The latest sources show interest and localized use, but not a clean global or U.S. clinical adoption percentage comparable to radiology.
 
-## Proposed Medical-Dx Source Lock
+## Implemented Medical-Dx Source Lock
 
-Proposed v2 scoring candidates:
+Current v2 scoring inputs and retained candidates:
 
-| Indicator | Suggested role | Evidence grade | Confidence | Notes |
+| Indicator | Role | Evidence grade | Confidence | Notes |
 | --- | --- | --- | --- | --- |
-| FDA AI-Enabled Medical Devices | low-weight capacity input | A/C | high for count | Direct FDA count is 1,430 as of 2026-05-16; count saturates current normalization and is not usage |
+| FDA AI-Enabled Medical Devices | low-weight capacity input | A/C | high for count | Direct FDA count is 1,430 as of 2026-05-16; normalized to 71.5 on a 0-2,000 device scale |
 | Radiology or Imaging AI Adoption | score input | B | medium | KLAS nearly 50% non-U.S. organization adoption; need U.S. or physician-level comparator if possible |
 | AI-Assisted Diagnosis Rate | score input | A | high | AMA 2026 assistive diagnosis is 17%; broader physician AI use should not be substituted |
 | Pathology AI Adoption | hold or low confidence score input | C | low | Current sources show cautious and uneven adoption; representative direct deployment source still missing |
 | Clinical Note AI Automation | context only | B | high | Strong workflow automation signal but outside diagnosis |
 | AI Diagnostic Benchmark Performance | context only | B | high | Important capability signal but not clinical delegation |
 
-Near-term decision:
+Implementation decision:
 
-- Use AMA 17% to refresh diagnosis-specific physician use if scoring proceeds before stronger sources are found.
-- Refresh FDA count from direct FDA CSV, but decide whether the indicator should be all AI-enabled medical devices or a diagnostic/radiology subset.
-- Keep KLAS as radiology/imaging adoption context and look for a U.S. or radiologist-level update before changing the radiology score.
+- Use AMA 17% as the diagnosis-specific physician-use score input.
+- Use the direct FDA CSV count as a low-weight capacity input while preserving the caveat that it is not a usage denominator.
+- Use KLAS 50% as the current radiology/imaging adoption score input and keep looking for a U.S. or radiologist-level update.
 - Keep pathology pending; do not replace it with digital pathology readiness or general pathology ChatGPT use.
 - Keep clinical-note automation, Google health AI-overview prevalence, and diagnostic benchmark performance out of the diagnosis score unless the domain is broadened beyond clinical diagnosis.

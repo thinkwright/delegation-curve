@@ -1,6 +1,6 @@
 # Code Generation 2026 Evidence Extraction
 
-Status: source refresh notes only; no score update yet.
+Status: implemented for the 2026 Q2 source refresh.
 Prepared: 2026-05-16.
 
 ## Current Scoring Contract
@@ -363,11 +363,11 @@ Relevant values:
 
 Recommendation: use as a quality and maintenance guardrail. It is not a direct measure of AI-assisted commit share and should not remain a primary scoring input unless a clearer AI-attribution method is available.
 
-## Proposed Code-Gen Source Lock
+## Implemented Code-Gen Source Lock
 
 Current v2 scoring inputs and retained candidates:
 
-| Indicator | Suggested role | Evidence grade | Confidence | Notes |
+| Indicator | Role | Evidence grade | Confidence | Notes |
 | --- | --- | --- | --- | --- |
 | AI-Generated Code Output Share | score input | B/C | medium | Sonar 42% committed-code estimate blended with GitLab 34% code-source-share estimate; Augment 48% retained as AI-forward upper context |
 | Technical Work AI Value Share | score input | C | medium | METR 50% converted March 2026 value share |
@@ -381,7 +381,7 @@ Current v2 scoring inputs and retained candidates:
 | Professional Developer Daily AI Use | retired from scoring | D | medium | Stack Overflow 50.6% daily professional developer use; self-selected adoption proxy |
 | GitClear code quality/churn | context only | D | medium | quality guardrail rather than delegation share |
 
-Near-term decision:
+Implementation decision:
 
 - Update the score contract and current `code-gen` score to 48.1.
 - Treat Sonar and GitLab as the current output-share blend; keep Augment as AI-forward context.
