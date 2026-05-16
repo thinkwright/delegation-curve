@@ -19,8 +19,9 @@ The source set should be locked before score edits begin.
 
 Local state:
 
-- `seed/seed.json` generated at `2026-03-02T08:36:54Z`.
+- Original score snapshot generated at `2026-03-02T08:36:54Z`; the seed file has since been rewritten only to materialize run history.
 - composite last updated `2026-03-02`, `data_year: 2025`.
+- The current 2024 and 2025 curve points are now materialized as explicit `analysis_runs` so the next refresh can append a new run instead of overwriting the historical baseline.
 - 9 domains, 46 displayed sub-indicators, 42 displayed data-source rows.
 - Active scoring config uses 32 configured indicators, but only 31 are present by exact name in the current seed.
 - 15 displayed indicators are currently not included in scoring.
@@ -41,7 +42,35 @@ Important local drift to fix before scoring:
 - `hire` config expects `Orgs Using AI Screening`, but the seed displays `Orgs Using AI in Recruiting`. This causes the configured 40% hiring indicator to be missing and the score to reweight around the remaining two configured indicators.
 - `content-mod`, `algo-trade`, `credit`, `medical-dx`, `legal-ai`, `hire`, and `education` display additional indicators that are not scored.
 - The methodology page says status tiers are nominal `<30`, elevated `30-60`, autonomous `>60`, but the code classifies nominal `<40`, elevated `40-74.9`, autonomous `>=75`.
-- `DataFreshness` is hardcoded to `Q4 2025` in `internal/transform/composite.go`.
+- `DataFreshness` is now seed-driven via `delegation.composite.data_freshness`.
+
+## Safe Refresh Workflow
+
+Do not update scores directly in `seed/seed.json` without creating or updating an explicit run snapshot.
+
+1. Lock the existing baseline if it is not already materialized:
+
+   ```sh
+   make snapshot-baseline
+   ```
+
+2. Refresh source values in `seed/overrides.yaml` or collectors, keeping citations and evidence grades in `research/2026-source-ledger.csv`.
+3. Run the collector and generator.
+4. Append the new current run after the refreshed scores are present:
+
+   ```sh
+   ./curve-snapshot-run \
+     -seed seed/seed.json \
+     -run-id 2026-q2 \
+     -label "2026 Q2 source refresh" \
+     -measurement-period "2026 Q2" \
+     -measurement-year 2026 \
+     -published-at YYYY-MM-DD \
+     -methodology-version delegation-curve-v2 \
+     -data-freshness "2026 Q2"
+   ```
+
+5. Regenerate Parquet and rebuild the frontend/server. The visualizations should then show both the current March 2026 publication baseline and the new 2026 refresh point.
 
 ## Evidence Grades
 
