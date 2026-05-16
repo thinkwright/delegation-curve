@@ -42,11 +42,11 @@
 	<meta property="og:title" content="AI Delegation Scores by Domain — AI Delegation Curve" />
 	<meta property="og:description" content="AI influence scores ranked across 9 consequential domains, using normalized indicators from public sources and research." />
 	<meta property="og:url" content="https://curve.thinkwright.ai/delegation" />
-	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "BreadcrumbList",

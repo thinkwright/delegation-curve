@@ -17,6 +17,9 @@ cmd/server/static/
 seed/collect.log.json
 seed/*.bak
 
+# Local research notes
+research/
+
 # OS
 .DS_Store
 

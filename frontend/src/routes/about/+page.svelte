@@ -18,12 +18,12 @@
 	<meta property="og:title" content="Methodology — How We Measure AI Influence" />
 	<meta property="og:description" content="Open methodology for estimating AI influence: indicator normalization, weighting, source quality, and curve maintenance." />
 	<meta property="og:url" content="https://curve.thinkwright.ai/about" />
-	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "BreadcrumbList",
