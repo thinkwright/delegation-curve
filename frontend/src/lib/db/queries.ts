@@ -43,6 +43,7 @@ export const Q = {
 		SELECT run_id, label, published_at, measurement_period, measurement_year,
 		       methodology_version, composite_score, notes, is_current
 		FROM analysis_runs
+		WHERE is_public_series = true
 		ORDER BY measurement_year, published_at, run_id
 	`,
 
@@ -54,6 +55,7 @@ export const Q = {
 		FROM domain_scores d
 		JOIN analysis_runs r ON d.run_id = r.run_id
 		WHERE d.domain_id = '${safe(domainId)}'
+		  AND r.is_public_series = true
 		ORDER BY r.measurement_year, r.published_at, r.run_id
 	`,
 };

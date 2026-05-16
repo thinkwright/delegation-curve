@@ -71,6 +71,7 @@ type AnalysisRunJSON struct {
 	CompositeScore     float64 `json:"composite_score"`
 	Notes              string  `json:"notes,omitempty"`
 	IsCurrent          bool    `json:"is_current,omitempty"`
+	IsPublicSeries     *bool   `json:"is_public_series,omitempty"`
 }
 
 type DomainScoreJSON struct {

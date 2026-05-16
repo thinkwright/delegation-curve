@@ -53,6 +53,17 @@
 	</p>
 </div>
 
+<!-- Curve Maintenance -->
+<div class="px-4 py-6 hairline-b">
+	<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-3">Curve Maintenance</p>
+	<p class="text-sm leading-relaxed mb-4">
+		The public curve is maintained as a single current-method estimate over time. When sources or scoring contracts improve, prior points may be recalculated so the headline movement compares like with like.
+	</p>
+	<p class="text-sm leading-relaxed">
+		Older published baselines are retained in the dataset for audit, but the main chart uses the latest comparable series.
+	</p>
+</div>
+
 <!-- Delegation Curve Methodology -->
 <div class="px-4 py-6 hairline-b">
 	<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-3">The Delegation Curve</p>
@@ -130,7 +141,7 @@
 		</div>
 		<div class="flex gap-3">
 			<span class="text-base font-mono font-bold tabular-nums shrink-0 text-neutral-300">04</span>
-			<p class="text-sm leading-relaxed"><strong>Methodology versioning</strong> — when weights change, both old and new curves are shown.</p>
+			<p class="text-sm leading-relaxed"><strong>Comparable history</strong> — public prior points are recalculated when needed; archived publication baselines remain available for audit.</p>
 		</div>
 		<div class="flex gap-3">
 			<span class="text-base font-mono font-bold tabular-nums shrink-0 text-neutral-300">05</span>
