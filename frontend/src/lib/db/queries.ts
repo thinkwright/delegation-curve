@@ -37,4 +37,23 @@ export const Q = {
 		FROM data_sources
 		WHERE domain_id = '${safe(domainId)}'
 	`,
+
+	// Composite run history, one row per analysis run.
+	analysisRuns: `
+		SELECT run_id, label, published_at, measurement_period, measurement_year,
+		       methodology_version, composite_score, notes, is_current
+		FROM analysis_runs
+		ORDER BY measurement_year, published_at, run_id
+	`,
+
+	// Domain score history joined to run metadata.
+	domainRunHistory: (domainId: string) => `
+		SELECT r.run_id, r.label, r.published_at, r.measurement_period,
+		       r.measurement_year, r.methodology_version, d.score, r.notes,
+		       r.is_current
+		FROM domain_scores d
+		JOIN analysis_runs r ON d.run_id = r.run_id
+		WHERE d.domain_id = '${safe(domainId)}'
+		ORDER BY r.measurement_year, r.published_at, r.run_id
+	`,
 };

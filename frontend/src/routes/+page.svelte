@@ -9,6 +9,17 @@
 	let composite = $state<CompositeData | null>(null);
 	let error = $state<string | null>(null);
 	$effect(() => { getMeta().then(d => { composite = d; }).catch(e => { error = e.message; }); });
+
+	const delegationScores = $derived(
+		composite?.delegation.runHistory?.length
+			? composite.delegation.runHistory.map((p) => p.score)
+			: composite?.delegation.trend ?? []
+	);
+	const delegationPeriods = $derived(
+		composite?.delegation.runHistory?.length
+			? composite.delegation.runHistory.map((p) => p.measurementPeriod)
+			: undefined
+	);
 </script>
 
 <svelte:head>
@@ -92,38 +103,43 @@
 
 <!-- Curve Chart -->
 <div class="px-4 pb-2 hairline-b">
-	<CurveChart data={composite.delegation.trend} height={160} endYear={composite.delegation.dataYear} />
+	<CurveChart
+		data={delegationScores}
+		labels={delegationPeriods}
+		height={160}
+		endYear={composite.delegation.dataYear}
+	/>
 </div>
 
 <!-- Metric Grid -->
 <div class="grid grid-cols-2">
 	<MetricCard
 		label="Domains Tracked"
-		value="{composite.domainsTracked}"
-		subtitle="{4} Tier 1 · {5} Tier 2/3"
+		value={composite.domainsTracked}
+		subtitle="4 Tier 1 · 5 Tier 2/3"
 		icon="grid_view"
-		href="{base}/delegation"
+		href={`${base}/delegation`}
 	/>
 	<MetricCard
 		label="Prior Year"
-		value="{composite.delegation.previous}"
-		subtitle="{composite.delegation.dataYear - 1} composite"
+		value={composite.delegation.previous}
+		subtitle={`${composite.delegation.dataYear - 1} composite`}
 		icon="history"
-		href="{base}/delegation"
+		href={`${base}/delegation`}
 	/>
 	<MetricCard
 		label="Highest Domain"
-		value="{composite.highestDomain.score}"
-		subtitle="{composite.highestDomain.name}"
+		value={composite.highestDomain.score}
+		subtitle={composite.highestDomain.name}
 		icon="trending_up"
-		href="{base}/delegation/{composite.highestDomain.name.toLowerCase()}"
+		href={`${base}/delegation/${composite.highestDomain.name.toLowerCase()}`}
 	/>
 	<MetricCard
 		label="Data Freshness"
-		value="{composite.dataFreshness}"
-		subtitle="Last updated {composite.delegation.lastUpdated}"
+		value={composite.dataFreshness}
+		subtitle={`Last updated ${composite.delegation.lastUpdated}`}
 		icon="schedule"
-		href="{base}/about"
+		href={`${base}/about`}
 	/>
 </div>
 

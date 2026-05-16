@@ -11,6 +11,9 @@ const TABLES = [
 	'delegation',
 	'sub_indicators',
 	'data_sources',
+	'analysis_runs',
+	'domain_scores',
+	'indicator_observations',
 ];
 
 export function getInitError(): Error | null { return _initError; }

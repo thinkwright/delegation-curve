@@ -51,14 +51,14 @@ func TestComputeDomainScore_NonePresent(t *testing.T) {
 func TestComputeDomainScore_CodeGen(t *testing.T) {
 	cfg := CodeGenConfig()
 	values := map[string]float64{
-		"Copilot Code Acceptance":  48.2,
-		"Developer AI Tool Usage":  82.0,
+		"Copilot Code Acceptance":   48.2,
+		"Developer AI Tool Usage":   82.0,
 		"AI-Assisted Commits (OSS)": 31.5,
 		"IDE AI Extension Installs": 80.7,
 	}
 	got := ComputeDomainScore(values, cfg)
-	// (48.2*0.35 + 82.0*0.15 + 31.5*0.40 + 80.7*0.10) / 1.0
-	expected := 48.2*0.35 + 82.0*0.15 + 31.5*0.40 + 80.7*0.10
+	// Uses the current CodeGenConfig weights.
+	expected := 48.2*0.50 + 82.0*0.15 + 31.5*0.25 + 80.7*0.10
 	if math.Abs(got-expected) > 0.01 {
 		t.Errorf("got %v, want ~%v", got, expected)
 	}
@@ -93,8 +93,8 @@ func TestAllDomainIndicatorWeightsSumToOne(t *testing.T) {
 func TestComputeDomainScore_ContentMod(t *testing.T) {
 	cfg := ContentModConfig()
 	values := map[string]float64{
-		"Meta Automated Detection":  95.2,
-		"Google Automated Removal":  92.8,
+		"Meta Automated Detection":   95.2,
+		"Google Automated Removal":   92.8,
 		"TikTok Automated Detection": 94.1,
 		"X/Twitter Automated Action": 88.6,
 	}
@@ -108,9 +108,9 @@ func TestComputeDomainScore_ContentMod(t *testing.T) {
 func TestComputeDomainScore_AlgoTrade(t *testing.T) {
 	cfg := AlgoTradeConfig()
 	values := map[string]float64{
-		"US Equities Algo Volume":  73.2,
-		"FX Algo Trading":         61.4,
-		"Options Algo Volume":     58.9,
+		"US Equities Algo Volume":   73.2,
+		"FX Algo Trading":           61.4,
+		"Options Algo Volume":       58.9,
 		"Institutional AI Adoption": 78.0,
 	}
 	got := ComputeDomainScore(values, cfg)
@@ -168,9 +168,9 @@ func TestComputeDomainScore_MedicalDx(t *testing.T) {
 func TestComputeDomainScore_LegalAI(t *testing.T) {
 	cfg := LegalAIConfig()
 	values := map[string]float64{
-		"AI Tool Adoption (BigLaw)":    42.0,
+		"AI Tool Adoption (BigLaw)":     42.0,
 		"AI Tool Adoption (Solo/Small)": 18.5,
-		"AI-Assisted Document Review":  52.0,
+		"AI-Assisted Document Review":   52.0,
 	}
 	got := ComputeDomainScore(values, cfg)
 	expected := 42.0*0.40 + 18.5*0.30 + 52.0*0.30

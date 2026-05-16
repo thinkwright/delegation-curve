@@ -45,3 +45,42 @@ type MetaRow struct {
 	LastUpdated         string  `parquet:"last_updated,zstd"`
 	DataYear            int32   `parquet:"data_year"`
 }
+
+// AnalysisRunRow — one row per published or derived analysis run.
+type AnalysisRunRow struct {
+	RunID              string  `parquet:"run_id,zstd"`
+	Label              string  `parquet:"label,zstd"`
+	PublishedAt        string  `parquet:"published_at,zstd"`
+	MeasurementPeriod  string  `parquet:"measurement_period,zstd"`
+	MeasurementYear    int32   `parquet:"measurement_year"`
+	MethodologyVersion string  `parquet:"methodology_version,zstd"`
+	CompositeScore     float64 `parquet:"composite_score"`
+	Notes              string  `parquet:"notes,zstd"`
+	IsCurrent          bool    `parquet:"is_current"`
+}
+
+// DomainScoreRow — one row per domain per analysis run.
+type DomainScoreRow struct {
+	RunID    string  `parquet:"run_id,zstd"`
+	DomainID string  `parquet:"domain_id,zstd"`
+	Score    float64 `parquet:"score"`
+	Weight   float64 `parquet:"weight"`
+	Status   string  `parquet:"status,zstd"`
+}
+
+// IndicatorObservationRow — source-level observations for a run.
+type IndicatorObservationRow struct {
+	RunID           string  `parquet:"run_id,zstd"`
+	DomainID        string  `parquet:"domain_id,zstd"`
+	IndicatorName   string  `parquet:"indicator_name,zstd"`
+	RawValue        float64 `parquet:"raw_value"`
+	NormalizedValue float64 `parquet:"normalized_value"`
+	Unit            string  `parquet:"unit,zstd"`
+	Weight          float64 `parquet:"weight"`
+	IncludedInScore bool    `parquet:"included_in_score"`
+	Source          string  `parquet:"source,zstd"`
+	SourceURL       string  `parquet:"source_url,zstd"`
+	Freshness       string  `parquet:"freshness,zstd"`
+	EvidenceGrade   string  `parquet:"evidence_grade,zstd"`
+	Confidence      string  `parquet:"confidence,zstd"`
+}

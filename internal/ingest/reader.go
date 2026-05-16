@@ -9,8 +9,11 @@ import (
 )
 
 type Seed struct {
-	GeneratedAt string         `json:"generated_at"`
-	Delegation  DelegationSeed `json:"delegation"`
+	GeneratedAt           string                     `json:"generated_at"`
+	Delegation            DelegationSeed             `json:"delegation"`
+	AnalysisRuns          []AnalysisRunJSON          `json:"analysis_runs,omitempty"`
+	DomainScores          []DomainScoreJSON          `json:"domain_scores,omitempty"`
+	IndicatorObservations []IndicatorObservationJSON `json:"indicator_observations,omitempty"`
 }
 
 type DelegationSeed struct {
@@ -54,6 +57,42 @@ type DataSourceJSON struct {
 	Name    string `json:"name"`
 	Cadence string `json:"cadence"`
 	Type    string `json:"type"`
+}
+
+type AnalysisRunJSON struct {
+	RunID              string  `json:"run_id"`
+	Label              string  `json:"label"`
+	PublishedAt        string  `json:"published_at"`
+	MeasurementPeriod  string  `json:"measurement_period"`
+	MeasurementYear    int     `json:"measurement_year"`
+	MethodologyVersion string  `json:"methodology_version"`
+	CompositeScore     float64 `json:"composite_score"`
+	Notes              string  `json:"notes,omitempty"`
+	IsCurrent          bool    `json:"is_current,omitempty"`
+}
+
+type DomainScoreJSON struct {
+	RunID    string  `json:"run_id"`
+	DomainID string  `json:"domain_id"`
+	Score    float64 `json:"score"`
+	Weight   float64 `json:"weight"`
+	Status   string  `json:"status"`
+}
+
+type IndicatorObservationJSON struct {
+	RunID           string  `json:"run_id"`
+	DomainID        string  `json:"domain_id"`
+	IndicatorName   string  `json:"indicator_name"`
+	RawValue        float64 `json:"raw_value"`
+	NormalizedValue float64 `json:"normalized_value"`
+	Unit            string  `json:"unit"`
+	Weight          float64 `json:"weight"`
+	IncludedInScore bool    `json:"included_in_score"`
+	Source          string  `json:"source"`
+	SourceURL       string  `json:"source_url,omitempty"`
+	Freshness       string  `json:"freshness"`
+	EvidenceGrade   string  `json:"evidence_grade,omitempty"`
+	Confidence      string  `json:"confidence,omitempty"`
 }
 
 func ReadSeed(path string) (*Seed, error) {

@@ -5,6 +5,7 @@ import type {
 	CompositeData,
 	DelegationDomain,
 	DataSource,
+	ScorePoint,
 } from '$lib/data/types';
 
 export async function getMeta(): Promise<CompositeData> {
@@ -31,10 +32,11 @@ export async function getDomains(): Promise<DelegationDomain[]> {
 }
 
 export async function getDomainDetail(id: string): Promise<DelegationDomain | null> {
-	const [domainRows, subRows, sourceRows] = await Promise.all([
+	const [domainRows, subRows, sourceRows, historyRows] = await Promise.all([
 		query(Q.delegationById(id)),
 		query(Q.subIndicators(id)),
-		query(Q.dataSources(id))
+		query(Q.dataSources(id)),
+		query(Q.domainRunHistory(id))
 	]);
 	if (!domainRows.length) return null;
 	const r = domainRows[0];
@@ -48,6 +50,7 @@ export async function getDomainDetail(id: string): Promise<DelegationDomain | nu
 		status: r.status as 'nominal' | 'elevated' | 'autonomous',
 		weight: r.weight as number,
 		tier: r.tier as 1 | 2 | 3,
+		runHistory: historyRows.map(scorePointFromRow),
 		subIndicators: subRows.map((s) => ({
 			name: s.name as string,
 			value: s.value as number,
@@ -61,5 +64,19 @@ export async function getDomainDetail(id: string): Promise<DelegationDomain | nu
 			type: s.type as DataSource['type']
 		})),
 		description: r.description as string
+	};
+}
+
+function scorePointFromRow(r: Record<string, unknown>): ScorePoint {
+	return {
+		runId: r.run_id as string,
+		label: r.label as string,
+		publishedAt: r.published_at as string,
+		measurementPeriod: r.measurement_period as string,
+		measurementYear: r.measurement_year as number,
+		methodologyVersion: r.methodology_version as string,
+		score: r.score as number,
+		notes: r.notes as string,
+		isCurrent: r.is_current as boolean
 	};
 }
