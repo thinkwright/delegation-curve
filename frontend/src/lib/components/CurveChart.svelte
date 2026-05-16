@@ -77,6 +77,14 @@
 
 	const lastValue = $derived(data[data.length - 1] ?? 0);
 	const lastY = $derived(toY(lastValue));
+	const points = $derived(() => data.map((value, index) => ({
+		value,
+		index,
+		x: toX(index, data.length),
+		y: toY(value),
+		label: xLabels()[index] ?? String(index + 1),
+		isCurrent: index === data.length - 1
+	})));
 </script>
 
 <div class="w-full" style="height: {height}px;">
@@ -102,8 +110,29 @@
 			<!-- Line -->
 			<path d={linePath()} fill="none" stroke={color} stroke-width="2" vector-effect="non-scaling-stroke" />
 
-			<!-- Current value dot -->
-			<rect x={chartW - 3} y={lastY - 3} width="6" height="6" fill={color} />
+			<!-- Analysis run markers -->
+			{#each points() as point}
+				{#if !point.isCurrent}
+					<g>
+						<title>{point.label}: {point.value.toFixed(1)}</title>
+						<circle
+							cx={point.x}
+							cy={point.y}
+							r="2.75"
+							fill="var(--color-background)"
+							stroke={color}
+							stroke-width="1.5"
+							vector-effect="non-scaling-stroke"
+						/>
+					</g>
+				{/if}
+			{/each}
+
+			<!-- Current value marker -->
+			<g>
+				<title>{xLabels()[data.length - 1] ?? 'Current'}: {lastValue.toFixed(1)}</title>
+				<rect x={chartW - 3} y={lastY - 3} width="6" height="6" fill={color} />
+			</g>
 		</g>
 	</svg>
 </div>
