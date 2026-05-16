@@ -28,6 +28,16 @@
 	const delta = $derived(domain ? domain.score - domain.previousScore : 0);
 	const tierLabel = $derived(domain ? `Tier ${domain.tier}` : '');
 	const weightLabel = $derived(domain ? `${(domain.weight * 100).toFixed(0)}% of composite` : '');
+	const domainScores = $derived(
+		domain?.runHistory?.length
+			? domain.runHistory.map((p) => p.score)
+			: domain?.trend ?? []
+	);
+	const domainPeriods = $derived(
+		domain?.runHistory?.length
+			? domain.runHistory.map((p) => p.measurementPeriod)
+			: undefined
+	);
 </script>
 
 <svelte:head>
@@ -97,7 +107,8 @@
 <div class="px-4 pb-2 hairline-b">
 	<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-2">Historical Trend</p>
 	<CurveChart
-		data={domain.trend}
+		data={domainScores}
+		labels={domainPeriods}
 		height={180}
 		color={domain.status === 'autonomous' ? 'var(--color-rose)' : 'var(--color-primary)'}
 		endYear={dataYear}

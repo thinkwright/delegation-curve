@@ -2,6 +2,7 @@
 curve-generate
 curve-collect
 curve-server
+.tools/
 
 # Frontend
 frontend/node_modules/
