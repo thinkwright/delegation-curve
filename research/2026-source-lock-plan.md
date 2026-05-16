@@ -241,7 +241,9 @@ Candidate sources:
 - RSNA/radiology adoption surveys.
 - CAP/pathology digital pathology adoption sources.
 
-Decision: refresh FDA and adoption surveys; do not mix clinical-note automation into diagnosis score.
+Extraction note: `research/2026-evidence/medical-dx.md`.
+
+Decision: refresh FDA from the direct CSV and use AMA 2026 `assistive diagnosis` as the best near-term diagnosis-use candidate. Keep radiology pending until a comparable deployment survey is locked, keep pathology low-confidence, and keep note automation plus diagnostic benchmarks out of the diagnosis score.
 
 ### legal-ai
 
