@@ -1,7 +1,9 @@
 # Binaries
 curve-generate
 curve-collect
+curve-snapshot-run
 curve-server
+.tools/
 
 # Frontend
 frontend/node_modules/
@@ -14,6 +16,9 @@ cmd/server/static/
 # Seed (operational logs)
 seed/collect.log.json
 seed/*.bak
+
+# Local research notes
+research/
 
 # OS
 .DS_Store

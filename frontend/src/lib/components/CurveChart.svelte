@@ -1,18 +1,20 @@
 <script lang="ts">
-	import { generatePath, generateAreaPath } from '$lib/utils/sparkline';
+	import { generatePath } from '$lib/utils/sparkline';
 
 	let {
 		data,
+		labels,
 		height = 160,
 		color = 'var(--color-primary)',
 		showGrid = true,
 		endYear
 	}: {
 		data: number[];
+		labels?: string[];
 		height?: number;
 		color?: string;
 		showGrid?: boolean;
-		endYear: number;
+		endYear?: number;
 	} = $props();
 
 	const width = 320;
@@ -41,6 +43,10 @@
 	// For 2-point data, use a cubic bezier; otherwise use the standard polyline
 	const linePath = $derived(() => {
 		const { min, max } = yRange();
+		if (data.length === 1) {
+			const y = toY(data[0]);
+			return `M0,${y.toFixed(1)} L${chartW},${y.toFixed(1)}`;
+		}
 		if (data.length === 2) {
 			const y0 = toY(data[0]);
 			const y1 = toY(data[1]);
@@ -61,12 +67,24 @@
 		return Array.from({ length: 5 }, (_, i) => Math.round(min + i * step));
 	});
 
-	// Derive year labels from data length: each point = one year, ending at endYear.
-	const startYear = $derived(endYear - data.length + 1);
-	const years = $derived(Array.from({ length: data.length }, (_, i) => startYear + i));
+	// Prefer explicit run labels, with year labels retained for legacy trend arrays.
+	const startYear = $derived((endYear ?? new Date().getUTCFullYear()) - data.length + 1);
+	const xLabels = $derived(() => {
+		if (labels?.length === data.length) return labels;
+		return Array.from({ length: data.length }, (_, i) => String(startYear + i));
+	});
+	const toX = (index: number, total: number) => total <= 1 ? chartW : (index / (total - 1)) * chartW;
 
 	const lastValue = $derived(data[data.length - 1] ?? 0);
 	const lastY = $derived(toY(lastValue));
+	const points = $derived(() => data.map((value, index) => ({
+		value,
+		index,
+		x: toX(index, data.length),
+		y: toY(value),
+		label: xLabels()[index] ?? String(index + 1),
+		isCurrent: index === data.length - 1
+	})));
 </script>
 
 <div class="w-full" style="height: {height}px;">
@@ -80,9 +98,9 @@
 					<text x="-4" y={y + 3} text-anchor="end" class="text-[8px] fill-neutral-400" font-family="'JetBrains Mono', monospace">{tick}</text>
 				{/each}
 				<!-- X labels -->
-				{#each years as year, i}
-					{@const x = (i / (years.length - 1)) * chartW}
-					<text x={x} y={chartH + 16} text-anchor="middle" class="text-[8px] fill-neutral-400" font-family="'JetBrains Mono', monospace">{year}</text>
+				{#each xLabels() as label, i}
+					{@const x = toX(i, xLabels().length)}
+					<text x={x} y={chartH + 16} text-anchor="middle" class="text-[8px] fill-neutral-400" font-family="'JetBrains Mono', monospace">{label}</text>
 				{/each}
 			{/if}
 
@@ -92,8 +110,29 @@
 			<!-- Line -->
 			<path d={linePath()} fill="none" stroke={color} stroke-width="2" vector-effect="non-scaling-stroke" />
 
-			<!-- Current value dot -->
-			<rect x={chartW - 3} y={lastY - 3} width="6" height="6" fill={color} />
+			<!-- Analysis run markers -->
+			{#each points() as point}
+				{#if !point.isCurrent}
+					<g>
+						<title>{point.label}: {point.value.toFixed(1)}</title>
+						<circle
+							cx={point.x}
+							cy={point.y}
+							r="2.75"
+							fill="var(--color-background)"
+							stroke={color}
+							stroke-width="1.5"
+							vector-effect="non-scaling-stroke"
+						/>
+					</g>
+				{/if}
+			{/each}
+
+			<!-- Current value marker -->
+			<g>
+				<title>{xLabels()[data.length - 1] ?? 'Current'}: {lastValue.toFixed(1)}</title>
+				<rect x={chartW - 3} y={lastY - 3} width="6" height="6" fill={color} />
+			</g>
 		</g>
 	</svg>
 </div>

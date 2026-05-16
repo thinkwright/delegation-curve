@@ -31,19 +31,19 @@
 	<meta property="og:title" content="Data — Raw Seed Data" />
 	<meta property="og:description" content="Raw seed data underlying the AI Delegation Curve. Composite scores, domain scores, sub-indicators, and trend history." />
 	<meta property="og:url" content="https://curve.thinkwright.ai/data" />
-	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		"@context": "https://schema.org",
 		"@graph": [
 			{
 				"@type": "Dataset",
 				"name": "AI Delegation Curve Seed Data",
-				"description": "Composite scores, domain scores, sub-indicators, data sources, and trend history for the AI Delegation Curve — measuring AI decision-making influence across 9 domains.",
+				"description": "Composite scores, domain scores, sub-indicators, data sources, and trend history for the AI Delegation Curve — estimating AI influence across 9 consequential domains.",
 				"url": "https://curve.thinkwright.ai/data",
 				"license": "https://creativecommons.org/licenses/by/4.0/",
 				"creator": { "@type": "Organization", "name": "ThinkWright", "url": "https://thinkwright.ai" },
@@ -52,7 +52,7 @@
 					"encodingFormat": "application/json",
 					"contentUrl": "https://curve.thinkwright.ai/seed.json"
 				},
-				"temporalCoverage": "2024/2025",
+				"temporalCoverage": "2024/2026",
 				"keywords": ["AI autonomy", "AI delegation", "AI decision-making", "AI governance", "composite index"]
 			},
 			{
@@ -107,11 +107,11 @@
 		</div>
 		<div class="flex gap-3">
 			<span class="font-mono text-xs text-sage shrink-0 w-20">score</span>
-			<span class="text-neutral-500">0-100 scale representing AI decision-making influence</span>
+			<span class="text-neutral-500">0-100 scale estimating AI influence and delegated workflow share</span>
 		</div>
 		<div class="flex gap-3">
 			<span class="font-mono text-xs text-sage shrink-0 w-20">trend</span>
-			<span class="text-neutral-500">Array of historical scores (one per data year)</span>
+			<span class="text-neutral-500">Array of public curve scores over time</span>
 		</div>
 	</div>
 </div>

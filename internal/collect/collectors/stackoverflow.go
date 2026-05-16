@@ -19,7 +19,7 @@ func (c *StackOverflowCollector) DomainID() string { return "code-gen" }
 
 func (c *StackOverflowCollector) Collect(_ context.Context) ([]collect.CollectResult, error) {
 	return []collect.CollectResult{{
-		IndicatorName: "Developer AI Tool Usage",
+		IndicatorName: "Professional Developer Daily AI Use",
 		DomainID:      "code-gen",
 		SourceName:    "Stack Overflow Survey",
 		Err:           fmt.Errorf("manual source: update overrides.yaml from survey.stackoverflow.co"),

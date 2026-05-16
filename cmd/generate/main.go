@@ -31,6 +31,7 @@ func main() {
 	fmt.Fprintln(os.Stderr, "Transforming...")
 	delegationRows, subRows, sourceRows := transform.Delegation(seed.Delegation.Domains)
 	metaRow := transform.Meta(seed)
+	runRows, domainScoreRows, indicatorRows := transform.History(seed)
 
 	// 3. Export
 	fmt.Fprintf(os.Stderr, "Writing Parquet to %s/\n", *output)
@@ -42,6 +43,13 @@ func main() {
 		{"sub_indicators", func() error { return export.WriteTable[schema.SubIndicatorRow](*output, "sub_indicators", subRows) }},
 		{"data_sources", func() error { return export.WriteTable[schema.DataSourceRow](*output, "data_sources", sourceRows) }},
 		{"meta", func() error { return export.WriteTable[schema.MetaRow](*output, "meta", []schema.MetaRow{metaRow}) }},
+		{"analysis_runs", func() error { return export.WriteTable[schema.AnalysisRunRow](*output, "analysis_runs", runRows) }},
+		{"domain_scores", func() error {
+			return export.WriteTable[schema.DomainScoreRow](*output, "domain_scores", domainScoreRows)
+		}},
+		{"indicator_observations", func() error {
+			return export.WriteTable[schema.IndicatorObservationRow](*output, "indicator_observations", indicatorRows)
+		}},
 	}
 
 	for _, t := range tables {
@@ -59,6 +67,7 @@ func main() {
 			"previous":    metaRow.DelegationPrevious,
 			"delta":       metaRow.DelegationDelta,
 			"trend":       json.RawMessage(metaRow.DelegationTrend),
+			"runHistory":  compositeRunHistory(runRows),
 			"lastUpdated": metaRow.LastUpdated,
 			"dataYear":    metaRow.DataYear,
 		},
@@ -79,5 +88,37 @@ func main() {
 		os.Exit(1)
 	}
 
+	seedBytes, err := os.ReadFile(*input)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error reading seed for static copy: %v\n", err)
+		os.Exit(1)
+	}
+	staticSeedPath := filepath.Join(filepath.Dir(*output), "seed.json")
+	if err := os.WriteFile(staticSeedPath, seedBytes, 0o644); err != nil {
+		fmt.Fprintf(os.Stderr, "Error writing static seed.json: %v\n", err)
+		os.Exit(1)
+	}
+
 	fmt.Fprintln(os.Stderr, "Done.")
+}
+
+func compositeRunHistory(rows []schema.AnalysisRunRow) []map[string]any {
+	history := make([]map[string]any, 0, len(rows))
+	for _, r := range rows {
+		if !r.IsPublicSeries {
+			continue
+		}
+		history = append(history, map[string]any{
+			"runId":              r.RunID,
+			"label":              r.Label,
+			"publishedAt":        r.PublishedAt,
+			"measurementPeriod":  r.MeasurementPeriod,
+			"measurementYear":    r.MeasurementYear,
+			"methodologyVersion": r.MethodologyVersion,
+			"score":              r.CompositeScore,
+			"notes":              r.Notes,
+			"isCurrent":          r.IsCurrent,
+		})
+	}
+	return history
 }

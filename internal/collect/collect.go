@@ -136,7 +136,7 @@ func updateDomain(
 	normalizedValues := map[string]float64{}
 
 	for _, indCfg := range dcfg.Indicators {
-		raw, unit, freshness, method, errMsg := resolveValue(
+		raw, unit, source, freshness, method, errMsg := resolveValue(
 			indCfg.Name, dcfg.DomainID, results, overrides, domain.SubIndicators,
 		)
 
@@ -154,14 +154,14 @@ func updateDomain(
 		if method != "missing" {
 			normalized := Normalize(raw, indCfg.NormConfig)
 			normalizedValues[indCfg.Name] = normalized
-			updateSubIndicator(domain, indCfg.Name, raw, unit, indCfg.SourceName, freshness)
+			updateSubIndicator(domain, indCfg.Name, raw, unit, source, freshness)
 			fmt.Fprintf(os.Stderr, "    %s: %.2f %s [%s] → normalized %.1f\n",
 				indCfg.Name, raw, unit, method, normalized)
 		}
 
 		entry := LogEntry{
 			IndicatorName: indCfg.Name,
-			SourceName:    indCfg.SourceName,
+			SourceName:    source,
 			Value:         raw,
 			Unit:          unit,
 			Freshness:     freshness,
@@ -178,7 +178,11 @@ func updateDomain(
 
 	fmt.Fprintf(os.Stderr, "  %s score: %.1f → %.1f\n", dcfg.DomainID, domain.Score, newScore)
 
-	domain.PreviousScore = domain.Score
+	filterSubIndicatorsToConfig(domain, dcfg.Indicators)
+
+	if ShouldAppendTrend(prevLog.RunAt) {
+		domain.PreviousScore = domain.Score
+	}
 	domain.Score = newScore
 	domain.Trend = UpdateTrend(domain.Trend, newScore, prevLog.RunAt, 84)
 	domain.Status = ClassifyStatus(newScore)
@@ -193,11 +197,11 @@ func resolveValue(
 	results []CollectResult,
 	overrides OverrideFile,
 	existingSubs []ingest.SubIndicatorJSON,
-) (value float64, unit string, freshness string, method string, errMsg string) {
+) (value float64, unit string, source string, freshness string, method string, errMsg string) {
 	// 1. Try collected results (auto).
 	for _, r := range results {
 		if r.IndicatorName == name && r.DomainID == domainID && r.Err == nil {
-			return r.RawValue, r.Unit, r.Freshness, "auto", ""
+			return r.RawValue, r.Unit, r.SourceName, r.Freshness, "auto", ""
 		}
 	}
 
@@ -205,7 +209,7 @@ func resolveValue(
 	if entries, ok := overrides[domainID]; ok {
 		for _, e := range entries {
 			if e.Name == name {
-				return e.Value, e.Unit, e.Freshness, "override", ""
+				return e.Value, e.Unit, e.Source, e.Freshness, "override", ""
 			}
 		}
 	}
@@ -213,11 +217,11 @@ func resolveValue(
 	// 3. Fall back to existing seed value (cached — last known good).
 	for _, si := range existingSubs {
 		if si.Name == name {
-			return si.Value, si.Unit, si.Freshness, "cached", "no collector or override available"
+			return si.Value, si.Unit, si.Source, si.Freshness, "cached", "no collector or override available"
 		}
 	}
 
-	return 0, "", "", "missing", "no value found from any source"
+	return 0, "", "", "", "missing", "no value found from any source"
 }
 
 // updateComposite recomputes the composite delegation score as the weighted
@@ -244,16 +248,18 @@ func updateComposite(seed *ingest.Seed, configs []DomainConfig, prevLog *Collect
 	composite = math.Round(composite*10) / 10
 
 	prev := seed.Delegation.Composite.Current
-	seed.Delegation.Composite.Previous = prev
+	if ShouldAppendTrend(prevLog.RunAt) {
+		seed.Delegation.Composite.Previous = prev
+	}
 	seed.Delegation.Composite.Current = composite
-	seed.Delegation.Composite.Delta = math.Round((composite-prev)*10) / 10
+	seed.Delegation.Composite.Delta = math.Round((composite-seed.Delegation.Composite.Previous)*10) / 10
 	seed.Delegation.Composite.Trend = UpdateTrend(
 		seed.Delegation.Composite.Trend, composite, prevLog.RunAt, 84,
 	)
 	seed.Delegation.Composite.LastUpdated = time.Now().UTC().Format("2006-01-02")
 
 	fmt.Fprintf(os.Stderr, "\n  Composite score: %.1f → %.1f (Δ%.1f)\n",
-		prev, composite, composite-prev)
+		prev, composite, seed.Delegation.Composite.Delta)
 }
 
 // updateSubIndicator updates an existing sub-indicator in the domain, or appends it.
@@ -274,4 +280,19 @@ func updateSubIndicator(domain *ingest.DomainJSON, name string, value float64, u
 		Source:    source,
 		Freshness: freshness,
 	})
+}
+
+func filterSubIndicatorsToConfig(domain *ingest.DomainJSON, indicators []IndicatorConfig) {
+	byName := make(map[string]ingest.SubIndicatorJSON, len(domain.SubIndicators))
+	for _, si := range domain.SubIndicators {
+		byName[si.Name] = si
+	}
+
+	filtered := make([]ingest.SubIndicatorJSON, 0, len(indicators))
+	for _, ind := range indicators {
+		if si, ok := byName[ind.Name]; ok {
+			filtered = append(filtered, si)
+		}
+	}
+	domain.SubIndicators = filtered
 }

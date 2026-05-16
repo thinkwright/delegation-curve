@@ -30,9 +30,6 @@ func main() {
 		collectors.NewAlgoTradeCollector(),
 		// code-gen
 		collectors.NewVSCodeCollector(),
-		collectors.NewStackOverflowCollector(),
-		collectors.NewOctoverseCollector(),
-		collectors.NewGitClearCollector(),
 		// support
 		collectors.NewSupportCollector(),
 		// credit

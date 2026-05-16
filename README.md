@@ -25,7 +25,7 @@ seed/seed.json          Raw data (manual overrides + collected values)
   cmd/collect           Automated data collection pipeline
   cmd/generate          Transform → Parquet export
         |
-  frontend/static/data  8 Parquet files (~27 KB total)
+  frontend/static/data  Parquet tables for scores, sources, and run history
         |
   frontend/             SvelteKit 5 SPA with DuckDB-WASM for in-browser queries
         |
@@ -58,6 +58,9 @@ make test
 # Collect fresh data for a single domain
 make collect-contentmod
 
+# Materialize the current legacy baseline before a new analysis run
+make snapshot-baseline
+
 # Full collection + rebuild
 make pipeline
 ```
@@ -76,9 +79,11 @@ The Dockerfile runs a 3-stage build: Node (frontend) → Go (embed static assets
 
 **Collection** (`cmd/collect`): Each domain has a collector that fetches from public sources. Manual overrides in `seed/overrides.yaml` fill gaps where APIs aren't available, with citations for every value.
 
+**Run snapshots** (`cmd/snapshot-run`): Materializes historical runs into `seed.json` before score refreshes. Use this to preserve the existing curve point, then append a new run after source refresh and score generation.
+
 **Scoring** (`internal/collect/score.go`): Raw values are min-max normalized against historical baselines and theoretical ceilings. Domain scores are weighted averages of their indicators. The composite is a weighted average across domains.
 
-**Export** (`cmd/generate`): Transforms seed data into 8 Parquet tables consumed by the frontend via DuckDB-WASM.
+**Export** (`cmd/generate`): Transforms seed data into Parquet tables consumed by the frontend via DuckDB-WASM, including `analysis_runs`, `domain_scores`, and `indicator_observations` for Keeling Curve-style history.
 
 ## License
 

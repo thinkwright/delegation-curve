@@ -50,31 +50,37 @@ func CodeGenConfig() DomainConfig {
 		DomainID:    "code-gen",
 		DomainName:  "CODE-GEN",
 		FullName:    "Software Development",
-		Description: "Percentage of production code substantially generated or influenced by AI coding assistants.",
+		Description: "Share of software engineering output, workflow reliance, and agentic task delegation substantially influenced by AI coding systems.",
 		Weight:      0.15,
 		Tier:        1,
 		Indicators: []IndicatorConfig{
 			{
-				Name:       "Copilot Code Acceptance",
-				Weight:     0.50,
+				Name:       "AI-Generated Code Output Share",
+				Weight:     0.30,
 				NormConfig: NormConfig{Method: DirectPercent},
-				SourceName: "GitHub Octoverse",
+				SourceName: "Sonar and GitLab",
 			},
 			{
-				Name:       "Developer AI Tool Usage",
-				Weight:     0.15,
-				NormConfig: NormConfig{Method: DirectPercent},
-				SourceName: "Stack Overflow Survey",
-			},
-			{
-				Name:       "AI-Assisted Commits (OSS)",
+				Name:       "Technical Work AI Value Share",
 				Weight:     0.25,
 				NormConfig: NormConfig{Method: DirectPercent},
-				SourceName: "GitClear Analysis",
+				SourceName: "METR AI Usage Survey",
 			},
 			{
-				Name:       "IDE AI Extension Installs",
-				Weight:     0.10,
+				Name:       "AI Workflow Reliance",
+				Weight:     0.25,
+				NormConfig: NormConfig{Method: DirectPercent},
+				SourceName: "DORA and JetBrains",
+			},
+			{
+				Name:       "Agentic Task Delegation",
+				Weight:     0.15,
+				NormConfig: NormConfig{Method: DirectPercent},
+				SourceName: "Anthropic and arXiv",
+			},
+			{
+				Name:       "Tool Ecosystem Reach",
+				Weight:     0.05,
 				NormConfig: NormConfig{Method: LogScale, LogMin: 0, LogMax: 2.3}, // value stored in millions: 1M→0, 200M→2.3
 				SourceName: "VS Code Marketplace",
 				Cadence:    Continuous,
@@ -89,14 +95,13 @@ func ContentModConfig() DomainConfig {
 		DomainID:    "content-mod",
 		DomainName:  "CONTENT-MOD",
 		FullName:    "Content Moderation",
-		Description: "Percentage of content moderation decisions made or assisted by AI systems.",
+		Description: "Share of platform content moderation detection, flagging, or enforcement actions handled by automated systems before or without human review.",
 		Weight:      0.10,
 		Tier:        1,
 		Indicators: []IndicatorConfig{
-			{Name: "Meta Automated Detection", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Meta Transparency Report", Cadence: Quarterly},
-			{Name: "Google Automated Removal", Weight: 0.25, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Google Transparency Report", Cadence: Quarterly},
-			{Name: "TikTok Automated Detection", Weight: 0.25, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "TikTok Transparency Report", Cadence: Quarterly},
-			{Name: "X/Twitter Automated Action", Weight: 0.20, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "X Transparency Report"},
+			{Name: "Meta Automated Detection", Weight: 0.375, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Meta Transparency Report", Cadence: Quarterly},
+			{Name: "YouTube Automated Flagging", Weight: 0.3125, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "YouTube Transparency Report", Cadence: Quarterly},
+			{Name: "TikTok Automated Enforcement", Weight: 0.3125, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "TikTok DSA Transparency Report", Cadence: Quarterly},
 		},
 	}
 }
@@ -107,14 +112,12 @@ func AlgoTradeConfig() DomainConfig {
 		DomainID:    "algo-trade",
 		DomainName:  "ALGO-TRADE",
 		FullName:    "Algorithmic Trading",
-		Description: "Percentage of financial trading volume executed by AI/algorithmic systems.",
+		Description: "Financial-market automation score combining FX electronic trading share with current buy-side internal-AI trade-execution adoption.",
 		Weight:      0.15,
 		Tier:        1,
 		Indicators: []IndicatorConfig{
-			{Name: "US Equities Algo Volume", Weight: 0.35, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "SEC Market Structure"},
-			{Name: "FX Algo Trading", Weight: 0.25, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "BIS Triennial Survey"},
-			{Name: "Options Algo Volume", Weight: 0.20, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "CBOE Data"},
-			{Name: "Institutional AI Adoption", Weight: 0.20, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Greenwich Associates"},
+			{Name: "FX Electronic Trading Share", Weight: 0.55, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "BIS Triennial Survey"},
+			{Name: "Buy-Side AI Trade Execution Adoption", Weight: 0.45, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Coalition Greenwich"},
 		},
 	}
 }
@@ -125,14 +128,14 @@ func SupportConfig() DomainConfig {
 		DomainID:    "support",
 		DomainName:  "SUPPORT",
 		FullName:    "Customer Support",
-		Description: "Percentage of customer support interactions handled or assisted by AI.",
+		Description: "Share of customer support cases, deflection, production communications agents, and mature support operations involving AI systems.",
 		Weight:      0.15,
 		Tier:        1,
 		Indicators: []IndicatorConfig{
-			{Name: "AI Resolution Rate", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Zendesk CX Trends"},
-			{Name: "Bot Deflection Rate", Weight: 0.25, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Intercom Trends"},
-			{Name: "Orgs Using AI Support", Weight: 0.25, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Salesforce State of Service"},
-			{Name: "AI Copilot Adoption (Agents)", Weight: 0.20, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Zendesk/Salesforce Reports"},
+			{Name: "Cases Handled by AI", Weight: 0.45, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Salesforce State of Service"},
+			{Name: "Bot Deflection Rate", Weight: 0.20, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Intercom Trends"},
+			{Name: "Production AI Customer Communications Agents", Weight: 0.25, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Sinch AI Production Paradox"},
+			{Name: "Mature AI Support Deployment", Weight: 0.10, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Intercom Customer Service Transformation"},
 		},
 	}
 }
@@ -143,12 +146,11 @@ func CreditConfig() DomainConfig {
 		DomainID:    "credit",
 		DomainName:  "CREDIT",
 		FullName:    "Credit & Lending",
-		Description: "Degree of AI involvement in credit underwriting and lending decisions.",
+		Description: "Degree of AI involvement in credit underwriting and lending decisions, with platform automation adjusted by product-market denominators.",
 		Weight:      0.10,
 		Tier:        2,
 		Indicators: []IndicatorConfig{
-			{Name: "AI-Underwritten Loan Volume", Weight: 0.40, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Fintech Filings", Cadence: Quarterly},
-			{Name: "Fintech Lending Market Share", Weight: 0.15, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Industry Reports", Cadence: Quarterly},
+			{Name: "AI-Underwritten Personal Loan Proxy", Weight: 0.55, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Upstart and TransUnion", Cadence: Quarterly},
 			{Name: "AI Credit Decisioning (Banks)", Weight: 0.45, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "OCC Survey"},
 		},
 	}
@@ -160,12 +162,12 @@ func MedicalDxConfig() DomainConfig {
 		DomainID:    "medical-dx",
 		DomainName:  "MEDICAL-DX",
 		FullName:    "Medical Diagnosis",
-		Description: "Degree of AI involvement in clinical diagnosis and medical imaging interpretation.",
+		Description: "AI involvement in clinical diagnosis and imaging, combining FDA-cleared AI device capacity, imaging AI adoption, physician assistive-diagnosis use, and pathology adoption.",
 		Weight:      0.12,
 		Tier:        2,
 		Indicators: []IndicatorConfig{
-			{Name: "FDA-Cleared Diagnostic AI Devices", Weight: 0.10, NormConfig: NormConfig{Method: LinearClamp, Min: 0, Max: 1200}, SourceName: "FDA AI/ML Database", Cadence: Continuous},
-			{Name: "Radiology AI Adoption", Weight: 0.35, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "RSNA Survey"},
+			{Name: "FDA AI-Enabled Medical Devices", Weight: 0.10, NormConfig: NormConfig{Method: LinearClamp, Min: 0, Max: 2000}, SourceName: "FDA AI-Enabled Medical Devices", Cadence: Continuous},
+			{Name: "Radiology or Imaging AI Adoption", Weight: 0.35, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "KLAS Global Imaging AI"},
 			{Name: "AI-Assisted Diagnosis Rate", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "AMA Survey"},
 			{Name: "Pathology AI Adoption", Weight: 0.25, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "CAP Survey"},
 		},
@@ -178,12 +180,12 @@ func LegalAIConfig() DomainConfig {
 		DomainID:    "legal-ai",
 		DomainName:  "LEGAL-AI",
 		FullName:    "Legal Research & Review",
-		Description: "Degree of AI adoption in legal research, document review, and court proceedings.",
+		Description: "AI adoption and workflow use in legal research, document review, and legal work, anchored by organization surveys and document-review evidence.",
 		Weight:      0.08,
 		Tier:        2,
 		Indicators: []IndicatorConfig{
-			{Name: "AI Tool Adoption (BigLaw)", Weight: 0.40, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "ALM Survey"},
-			{Name: "AI Tool Adoption (Solo/Small)", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Clio Legal Trends"},
+			{Name: "Legal Organization GenAI Adoption", Weight: 0.40, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Thomson Reuters"},
+			{Name: "Solo and Small Firms Using AI for Legal Work", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Clio Legal Trends"},
 			{Name: "AI-Assisted Document Review", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "EDRM/Relativity Survey"},
 		},
 	}
@@ -195,13 +197,14 @@ func HireConfig() DomainConfig {
 		DomainID:    "hire",
 		DomainName:  "HIRE",
 		FullName:    "Recruitment & Screening",
-		Description: "Degree of AI involvement in hiring, screening, and employment decisions.",
+		Description: "AI involvement in talent acquisition, combining organization adoption, screening use-case adoption, broad process coverage, and assessment platform reach.",
 		Weight:      0.08,
 		Tier:        2,
 		Indicators: []IndicatorConfig{
-			{Name: "Orgs Using AI Screening", Weight: 0.40, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "SHRM Survey"},
-			{Name: "AI-Screened Applications", Weight: 0.35, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "SHRM/LinkedIn Data"},
-			{Name: "AI Assessment Platform Reach", Weight: 0.25, NormConfig: NormConfig{Method: LinearClamp, Min: 0, Max: 300}, SourceName: "Platform Aggregation"},
+			{Name: "Orgs Using AI in Talent Acquisition", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "ICIMS/Aptitude"},
+			{Name: "AI Screening Use Case Adoption", Weight: 0.35, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "ICIMS/Aptitude"},
+			{Name: "Broad AI Across Hiring Processes", Weight: 0.15, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "ICIMS/Aptitude"},
+			{Name: "AI Assessment Platform Reach", Weight: 0.20, NormConfig: NormConfig{Method: LinearClamp, Min: 0, Max: 300}, SourceName: "Platform Aggregation"},
 		},
 	}
 }
@@ -212,13 +215,14 @@ func EducationConfig() DomainConfig {
 		DomainID:    "education",
 		DomainName:  "EDUCATION",
 		FullName:    "Education & Assessment",
-		Description: "Degree of AI adoption in tutoring, assessment, and academic integrity monitoring.",
+		Description: "AI influence across student schoolwork, assessment and grading, teacher workflow, and AI-written student output.",
 		Weight:      0.07,
 		Tier:        3,
 		Indicators: []IndicatorConfig{
-			{Name: "Students Using AI Tutors", Weight: 0.35, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Educause Survey"},
-			{Name: "AI-Graded Assessments", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Gradescope/EdTech Reports"},
-			{Name: "Faculty Using AI in Teaching", Weight: 0.35, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "AAUP/Educause Survey"},
+			{Name: "Students Using AI for Schoolwork", Weight: 0.40, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Pew Research Center"},
+			{Name: "AI-Graded Assessments", Weight: 0.20, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Gradescope/EdTech Reports"},
+			{Name: "Teachers Using AI for Work", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "OECD Digital Education Outlook"},
+			{Name: "Student Papers 80%+ AI-Written", Weight: 0.10, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Turnitin AI Writing"},
 		},
 	}
 }
@@ -276,9 +280,7 @@ func UpdateTrend(existing []float64, newScore float64, lastRunAt time.Time, maxP
 	result := make([]float64, len(existing))
 	copy(result, existing)
 
-	daysSinceLastRun := time.Since(lastRunAt).Hours() / 24
-
-	if daysSinceLastRun < 25 && len(result) > 0 {
+	if !ShouldAppendTrend(lastRunAt) && len(result) > 0 {
 		result[len(result)-1] = newScore
 		return result
 	}
@@ -288,4 +290,12 @@ func UpdateTrend(existing []float64, newScore float64, lastRunAt time.Time, maxP
 		result = result[len(result)-maxPoints:]
 	}
 	return result
+}
+
+// ShouldAppendTrend reports whether a new score should become a new curve point.
+func ShouldAppendTrend(lastRunAt time.Time) bool {
+	if lastRunAt.IsZero() {
+		return true
+	}
+	return time.Since(lastRunAt).Hours()/24 >= 25
 }

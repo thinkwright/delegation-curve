@@ -1,32 +1,35 @@
 {
-  "generated_at": "2026-03-02T08:36:54Z",
+  "generated_at": "2026-05-16T21:58:47Z",
   "delegation": {
     "composite": {
-      "current": 46.0,
-      "previous": 39.7,
-      "delta": 6.3,
+      "current": 45.8,
+      "previous": 37.7,
+      "delta": 8.1,
       "trend": [
-        39.7,
-        46.0
+        31.5,
+        37.7,
+        45.8
       ],
-      "last_updated": "2026-03-02",
-      "data_year": 2025
+      "last_updated": "2026-05-16",
+      "data_year": 2026,
+      "data_freshness": "2026 Q2"
     },
     "domains": [
       {
         "id": "content-mod",
         "name": "CONTENT-MOD",
         "full_name": "Content Moderation",
-        "score": 93,
-        "previous_score": 88.5,
+        "score": 96.1,
+        "previous_score": 94.1,
         "trend": [
-          88.5,
-          93
+          89.6,
+          94.1,
+          96.1
         ],
         "status": "autonomous",
         "weight": 0.1,
         "tier": 1,
-        "description": "Percentage of content policy enforcement decisions made by automated systems before human review. Sourced from platform transparency reports mandated under the EU Digital Services Act.",
+        "description": "Share of platform content moderation detection, flagging, or enforcement actions handled by automated systems before or without human review.",
         "sub_indicators": [
           {
             "name": "Meta Automated Detection",
@@ -36,32 +39,18 @@
             "freshness": "Q3 2025"
           },
           {
-            "name": "Google Automated Removal",
-            "value": 92.8,
+            "name": "YouTube Automated Flagging",
+            "value": 99.5,
             "unit": "%",
-            "source": "Google Transparency Report",
-            "freshness": "Q3 2025"
+            "source": "YouTube Transparency Report",
+            "freshness": "Jul-Sep 2025"
           },
           {
-            "name": "TikTok Automated Detection",
-            "value": 94.1,
+            "name": "TikTok Automated Enforcement",
+            "value": 93.8,
             "unit": "%",
-            "source": "TikTok Transparency Report",
-            "freshness": "Q3 2025"
-          },
-          {
-            "name": "X/Twitter Automated Action",
-            "value": 88.6,
-            "unit": "%",
-            "source": "X Transparency Report",
-            "freshness": "H1 2025"
-          },
-          {
-            "name": "DSA Cross-Platform Automated Rate",
-            "value": 96.1,
-            "unit": "%",
-            "source": "EU DSA Transparency Database",
-            "freshness": "H2 2023"
+            "source": "TikTok DSA H2 2025",
+            "freshness": "H2 2025"
           }
         ],
         "data_sources": [
@@ -71,24 +60,14 @@
             "type": "transparency-report"
           },
           {
-            "name": "Google Transparency Report",
+            "name": "YouTube Transparency Report",
             "cadence": "Quarterly",
             "type": "transparency-report"
           },
           {
-            "name": "TikTok Transparency Report",
-            "cadence": "Quarterly",
-            "type": "transparency-report"
-          },
-          {
-            "name": "X Transparency Report",
+            "name": "TikTok DSA Transparency Report",
             "cadence": "Semi-annual",
             "type": "transparency-report"
-          },
-          {
-            "name": "EU DSA Transparency Database",
-            "cadence": "Continuous",
-            "type": "database"
           }
         ]
       },
@@ -96,78 +75,43 @@
         "id": "algo-trade",
         "name": "ALGO-TRADE",
         "full_name": "Algorithmic Trading",
-        "score": 68.4,
-        "previous_score": 63.5,
+        "score": 39.2,
+        "previous_score": 39.2,
         "trend": [
-          63.5,
-          68.4
+          34.3,
+          39.2,
+          39.2
         ],
-        "status": "elevated",
+        "status": "nominal",
         "weight": 0.15,
         "tier": 1,
-        "description": "Proportion of financial market trading volume executed by algorithmic and AI-driven systems. Covers US equities, FX, and derivatives markets.",
+        "description": "Financial-market automation score combining FX electronic trading share with current buy-side internal-AI trade-execution adoption.",
         "sub_indicators": [
           {
-            "name": "US Equities Algo Volume",
-            "value": 73.2,
-            "unit": "%",
-            "source": "SEC Market Structure",
-            "freshness": "Q3 2025"
-          },
-          {
-            "name": "FX Algo Trading",
-            "value": 61.4,
+            "name": "FX Electronic Trading Share",
+            "value": 59,
             "unit": "%",
             "source": "BIS Triennial Survey",
+            "freshness": "April 2025"
+          },
+          {
+            "name": "Buy-Side AI Trade Execution Adoption",
+            "value": 15,
+            "unit": "%",
+            "source": "Coalition Greenwich",
             "freshness": "2025"
-          },
-          {
-            "name": "Options Algo Volume",
-            "value": 58.9,
-            "unit": "%",
-            "source": "CBOE Data",
-            "freshness": "Q3 2025"
-          },
-          {
-            "name": "Institutional AI Adoption",
-            "value": 78,
-            "unit": "%",
-            "source": "Greenwich Associates",
-            "freshness": "2025"
-          },
-          {
-            "name": "EU Equity Algo Volume",
-            "value": 51,
-            "unit": "%",
-            "source": "ESMA MiFID II Report",
-            "freshness": "2021"
           }
         ],
         "data_sources": [
           {
-            "name": "SEC / FINRA Market Structure Reports",
-            "cadence": "Quarterly",
-            "type": "filing"
-          },
-          {
             "name": "BIS Triennial Survey",
-            "cadence": "Annual",
+            "cadence": "Triennial",
             "type": "survey"
           },
           {
-            "name": "CBOE Exchange Data",
-            "cadence": "Continuous",
-            "type": "api"
-          },
-          {
-            "name": "Greenwich Associates Survey",
+            "name": "Coalition Greenwich",
             "cadence": "Annual",
             "type": "survey"
-          },
-          {
-            "name": "ESMA Market Structure Report",
-            "cadence": "Annual",
-            "type": "filing"
           }
         ]
       },
@@ -175,66 +119,74 @@
         "id": "code-gen",
         "name": "CODE-GEN",
         "full_name": "Software Development",
-        "score": 46.6,
-        "previous_score": 41,
+        "score": 48.1,
+        "previous_score": 32.6,
         "trend": [
-          41,
-          46.6
+          27,
+          32.6,
+          48.1
         ],
         "status": "elevated",
         "weight": 0.15,
         "tier": 1,
-        "description": "Percentage of production code substantially generated or influenced by AI coding assistants. Measured through IDE telemetry, developer surveys, and code analysis.",
+        "description": "Share of software engineering output, workflow reliance, and agentic task delegation substantially influenced by AI coding systems.",
         "sub_indicators": [
           {
-            "name": "Copilot Code Acceptance",
-            "value": 48.2,
+            "name": "AI-Generated Code Output Share",
+            "value": 39.2,
             "unit": "%",
-            "source": "GitHub Octoverse",
-            "freshness": "2025"
+            "source": "Sonar and GitLab",
+            "freshness": "2026"
           },
           {
-            "name": "Developer AI Tool Usage",
-            "value": 41,
+            "name": "Technical Work AI Value Share",
+            "value": 50,
             "unit": "%",
-            "source": "Stack Overflow Dev Survey 2025",
-            "freshness": "2025"
+            "source": "METR AI Usage Survey",
+            "freshness": "Mar 2026"
           },
           {
-            "name": "AI-Assisted Commits (OSS)",
-            "value": 31.5,
+            "name": "AI Workflow Reliance",
+            "value": 67.7,
             "unit": "%",
-            "source": "GitClear Analysis",
-            "freshness": "2025"
+            "source": "DORA and JetBrains",
+            "freshness": "2025/2026"
           },
           {
-            "name": "IDE AI Extension Installs",
-            "value": 87.42808,
+            "name": "Agentic Task Delegation",
+            "value": 17.7,
+            "unit": "%",
+            "source": "Anthropic and arXiv",
+            "freshness": "2025/2026"
+          },
+          {
+            "name": "Tool Ecosystem Reach",
+            "value": 90.134995,
             "unit": "M",
             "source": "VS Code Marketplace",
-            "freshness": "2026-03-02"
+            "freshness": "2026-05-16"
           }
         ],
         "data_sources": [
           {
-            "name": "GitHub Octoverse / Copilot Blog",
-            "cadence": "Annual + ad hoc",
-            "type": "scrape"
-          },
-          {
-            "name": "Stack Overflow Developer Survey",
+            "name": "Sonar and GitLab",
             "cadence": "Annual",
             "type": "survey"
           },
           {
-            "name": "JetBrains Developer Ecosystem",
+            "name": "METR AI Usage Survey",
             "cadence": "Annual",
             "type": "survey"
           },
           {
-            "name": "GitClear Code Quality Report",
+            "name": "DORA and JetBrains",
             "cadence": "Annual",
-            "type": "scrape"
+            "type": "survey"
+          },
+          {
+            "name": "Anthropic and arXiv",
+            "cadence": "Annual",
+            "type": "research"
           },
           {
             "name": "VS Code Marketplace",
@@ -247,22 +199,23 @@
         "id": "support",
         "name": "SUPPORT",
         "full_name": "Customer Support",
-        "score": 45.9,
-        "previous_score": 36.4,
+        "score": 40.5,
+        "previous_score": 37,
         "trend": [
-          36.4,
-          45.9
+          27.5,
+          37,
+          40.5
         ],
         "status": "elevated",
         "weight": 0.15,
         "tier": 1,
-        "description": "Percentage of customer service interactions resolved by AI without human handoff. Measured through platform analytics, industry surveys, and vendor reports.",
+        "description": "Share of customer support cases, deflection, production communications agents, and mature support operations involving AI systems.",
         "sub_indicators": [
           {
-            "name": "AI Resolution Rate",
-            "value": 41,
+            "name": "Cases Handled by AI",
+            "value": 30,
             "unit": "%",
-            "source": "Zendesk CX Trends",
+            "source": "Salesforce State of Service",
             "freshness": "2025"
           },
           {
@@ -273,23 +226,23 @@
             "freshness": "2025"
           },
           {
-            "name": "Orgs Using AI Support",
-            "value": 63,
+            "name": "Production AI Customer Communications Agents",
+            "value": 62,
             "unit": "%",
-            "source": "Salesforce State of Service",
-            "freshness": "2025"
+            "source": "Sinch AI Production Paradox",
+            "freshness": "2026"
           },
           {
-            "name": "AI Copilot Adoption (Agents)",
-            "value": 24,
+            "name": "Mature AI Support Deployment",
+            "value": 10,
             "unit": "%",
-            "source": "Zendesk/Salesforce Reports",
-            "freshness": "2025"
+            "source": "Intercom Customer Service Transformation",
+            "freshness": "Q4 2025"
           }
         ],
         "data_sources": [
           {
-            "name": "Zendesk CX Trends Report",
+            "name": "Salesforce State of Service",
             "cadence": "Annual",
             "type": "survey"
           },
@@ -299,12 +252,12 @@
             "type": "survey"
           },
           {
-            "name": "Salesforce State of Service",
+            "name": "Sinch AI Production Paradox",
             "cadence": "Annual",
             "type": "survey"
           },
           {
-            "name": "Zendesk / Salesforce Agent AI Reports",
+            "name": "Intercom Customer Service Transformation",
             "cadence": "Annual",
             "type": "survey"
           }
@@ -314,66 +267,43 @@
         "id": "credit",
         "name": "CREDIT",
         "full_name": "Credit & Lending",
-        "score": 28.9,
-        "previous_score": 23.4,
+        "score": 30,
+        "previous_score": 27.7,
         "trend": [
-          23.4,
-          28.9
+          22.2,
+          27.7,
+          30
         ],
         "status": "nominal",
         "weight": 0.1,
         "tier": 2,
-        "description": "Proportion of consumer and commercial lending decisions influenced by AI/ML underwriting models. Tracked through regulatory filings, fintech disclosures, and industry surveys.",
+        "description": "Degree of AI involvement in credit underwriting and lending decisions, with platform automation adjusted by product-market denominators.",
         "sub_indicators": [
           {
-            "name": "AI-Underwritten Loan Volume",
-            "value": 34,
+            "name": "AI-Underwritten Personal Loan Proxy",
+            "value": 38.2,
             "unit": "%",
-            "source": "Fintech Filings",
+            "source": "Upstart and TransUnion",
             "freshness": "2025"
-          },
-          {
-            "name": "Fintech Lending Market Share",
-            "value": 42,
-            "unit": "%",
-            "source": "Industry Reports",
-            "freshness": "Q3 2025"
           },
           {
             "name": "AI Credit Decisioning (Banks)",
             "value": 20,
             "unit": "%",
-            "source": "OCC Survey",
+            "source": "McKinsey Credit Risk Survey",
             "freshness": "H2 2024"
-          },
-          {
-            "name": "UK Firms Using AI Credit Risk",
-            "value": 16,
-            "unit": "%",
-            "source": "BoE/FCA AI Survey",
-            "freshness": "2024"
           }
         ],
         "data_sources": [
           {
-            "name": "Fintech Market Reports",
+            "name": "Upstart and TransUnion",
             "cadence": "Quarterly",
-            "type": "report"
+            "type": "filing/report"
           },
           {
-            "name": "Upstart / Zest AI Public Filings",
-            "cadence": "Quarterly",
-            "type": "filing"
-          },
-          {
-            "name": "OCC / Fed Credit Risk Surveys",
+            "name": "McKinsey Credit Risk Survey",
             "cadence": "Annual",
             "type": "survey"
-          },
-          {
-            "name": "Bank of England / FCA AI Survey",
-            "cadence": "Annual",
-            "type": "regulatory"
           }
         ]
       },
@@ -381,99 +311,67 @@
         "id": "medical-dx",
         "name": "MEDICAL-DX",
         "full_name": "Medical Diagnosis",
-        "score": 25.1,
-        "previous_score": 20.2,
+        "score": 32.3,
+        "previous_score": 21.7,
         "trend": [
-          20.2,
-          25.1
+          16.8,
+          21.7,
+          32.3
         ],
         "status": "nominal",
         "weight": 0.12,
         "tier": 2,
-        "description": "Percentage of clinical diagnostic decisions assisted or made by AI systems. Measured at the practitioner level: 12% of physicians report using AI for diagnosis (AMA), while 50% of U.S. health systems have deployed at least one imaging AI tool (KLAS). The gap between deployment and actual diagnostic usage remains large \u2014 autonomous AI retinal screening has penetrated only 2.2% of eligible imaging despite years of FDA clearance.",
+        "description": "AI involvement in clinical diagnosis and imaging, combining FDA-cleared AI device capacity, imaging AI adoption, physician assistive-diagnosis use, and pathology adoption.",
         "sub_indicators": [
           {
-            "name": "Physicians Using AI for Diagnosis",
-            "value": 12,
-            "unit": "%",
-            "source": "AMA Physician Sentiment Survey",
-            "freshness": "2024"
+            "name": "FDA AI-Enabled Medical Devices",
+            "value": 1430,
+            "unit": "devices",
+            "source": "FDA AI-Enabled Medical Devices",
+            "freshness": "2026-05-16"
           },
           {
-            "name": "Health Systems with Imaging AI Deployed",
+            "name": "Radiology or Imaging AI Adoption",
             "value": 50,
             "unit": "%",
-            "source": "KLAS Imaging AI Report",
-            "freshness": "2024"
-          },
-          {
-            "name": "European Radiologists Using AI Clinically",
-            "value": 48,
-            "unit": "%",
-            "source": "ESR/EuroAIM Survey",
-            "freshness": "2024"
-          },
-          {
-            "name": "FDA-Cleared Diagnostic AI Devices",
-            "value": 1016,
-            "unit": "devices",
-            "source": "FDA AI/ML Database",
-            "freshness": "2025"
-          },
-          {
-            "name": "Autonomous AI DR Screening Penetration",
-            "value": 2.2,
-            "unit": "%",
-            "source": "Medicare Claims Data",
-            "freshness": "2023"
-          },
-          {
-            "name": "Radiology AI Adoption",
-            "value": 30,
-            "unit": "%",
-            "source": "RSNA Survey",
+            "source": "KLAS Global Imaging AI",
             "freshness": "2025"
           },
           {
             "name": "AI-Assisted Diagnosis Rate",
-            "value": 12,
+            "value": 17,
             "unit": "%",
-            "source": "AMA Survey",
-            "freshness": "2025"
+            "source": "AMA Physician AI Sentiment Survey",
+            "freshness": "2026"
           },
           {
             "name": "Pathology AI Adoption",
             "value": 10,
             "unit": "%",
-            "source": "CAP Survey",
+            "source": "Pathology AI adoption surveys",
             "freshness": "2025"
           }
         ],
         "data_sources": [
           {
-            "name": "AMA Physician Sentiment Survey",
-            "cadence": "Annual",
-            "type": "survey"
-          },
-          {
-            "name": "KLAS Imaging AI Report",
-            "cadence": "Annual",
-            "type": "report"
-          },
-          {
-            "name": "ESR/EuroAIM Radiology AI Survey",
-            "cadence": "Annual",
-            "type": "survey"
-          },
-          {
-            "name": "FDA AI/ML Device Database",
+            "name": "FDA AI-Enabled Medical Devices",
             "cadence": "Continuous",
             "type": "database"
           },
           {
-            "name": "Medicare Claims Data (CPT 92229)",
+            "name": "KLAS Global Imaging AI",
             "cadence": "Annual",
-            "type": "filing"
+            "type": "report"
+          },
+          {
+            "name": "AMA Physician AI Sentiment Survey",
+            "cadence": "Annual",
+            "type": "survey"
+          },
+          {
+            "name": "Pathology AI adoption surveys",
+            "cadence": "Annual",
+            "type": "survey"
           }
         ]
       },
@@ -481,69 +379,53 @@
         "id": "legal-ai",
         "name": "LEGAL-AI",
         "full_name": "Legal Research & Review",
-        "score": 29,
-        "previous_score": 18.4,
+        "score": 46.3,
+        "previous_score": 29,
         "trend": [
           18.4,
-          29
+          29,
+          46.3
         ],
-        "status": "nominal",
+        "status": "elevated",
         "weight": 0.08,
         "tier": 2,
-        "description": "Proportion of legal research, document review, and contract analysis substantially performed by AI tools. Measured through legal industry surveys and vendor adoption data.",
+        "description": "AI adoption and workflow use in legal research, document review, and legal work, anchored by organization surveys and document-review evidence.",
         "sub_indicators": [
           {
-            "name": "AI Tool Adoption (BigLaw)",
-            "value": 42,
+            "name": "Legal Organization GenAI Adoption",
+            "value": 40,
             "unit": "%",
-            "source": "ALM Survey",
-            "freshness": "2025"
+            "source": "Thomson Reuters AI in Professional Services",
+            "freshness": "2026"
           },
           {
-            "name": "AI Tool Adoption (Solo/Small)",
-            "value": 18.5,
+            "name": "Solo and Small Firms Using AI for Legal Work",
+            "value": 73,
             "unit": "%",
-            "source": "Clio Legal Trends",
-            "freshness": "2025"
+            "source": "Clio Solo and Small Law Firms 2026",
+            "freshness": "2026"
           },
           {
             "name": "AI-Assisted Document Review",
-            "value": 22,
+            "value": 28,
             "unit": "%",
-            "source": "EDRM/Relativity Survey",
-            "freshness": "2024"
-          },
-          {
-            "name": "Lawyers Using AI Tools",
-            "value": 30.2,
-            "unit": "%",
-            "source": "ABA Legal Technology Survey",
+            "source": "ABA Litigation and TAR TechReport",
             "freshness": "2024"
           }
         ],
         "data_sources": [
           {
-            "name": "Clio Legal Trends Report",
+            "name": "Thomson Reuters AI in Professional Services",
             "cadence": "Annual",
             "type": "survey"
           },
           {
-            "name": "ALM / American Lawyer Survey",
+            "name": "Clio Solo and Small Law Firms",
             "cadence": "Annual",
             "type": "survey"
           },
           {
-            "name": "Thomson Reuters Institute",
-            "cadence": "Quarterly",
-            "type": "survey"
-          },
-          {
-            "name": "EDRM/Relativity TAR Survey",
-            "cadence": "Annual",
-            "type": "survey"
-          },
-          {
-            "name": "ABA Legal Technology Survey Report",
+            "name": "ABA Litigation and TAR TechReport",
             "cadence": "Annual",
             "type": "survey"
           }
@@ -553,87 +435,57 @@
         "id": "hire",
         "name": "HIRE",
         "full_name": "Recruitment & Screening",
-        "score": 36.8,
-        "previous_score": 31.8,
+        "score": 49,
+        "previous_score": 38.1,
         "trend": [
-          31.8,
-          36.8
+          33.1,
+          38.1,
+          49
         ],
-        "status": "nominal",
+        "status": "elevated",
         "weight": 0.08,
         "tier": 2,
-        "description": "Percentage of hiring decisions involving AI screening, assessment, or ranking of candidates. Adoption is growing fast \u2014 51% of organizations now use AI in recruiting, up from 26% a year earlier \u2014 but the growth is wide and shallow. Most AI use is in low-stakes tasks like writing job descriptions (66% of AI-using recruiters) rather than consequential decisions like automated candidate rejection. Only 14% of organizations have deeply integrated AI into their talent acquisition stack. The score reflects this gap between adoption breadth and decision-making depth.",
+        "description": "AI involvement in talent acquisition, combining organization adoption, screening use-case adoption, broad process coverage, and assessment platform reach.",
         "sub_indicators": [
           {
-            "name": "Orgs Using AI in Recruiting",
-            "value": 51,
-            "unit": "%",
-            "source": "SHRM 2025 Talent Trends",
-            "freshness": "Feb 2025"
-          },
-          {
-            "name": "HR Pros Using AI for Recruiting",
+            "name": "Orgs Using AI in Talent Acquisition",
             "value": 69,
             "unit": "%",
-            "source": "SHRM 2025 Talent Trends",
-            "freshness": "Feb 2025"
+            "source": "ICIMS/Aptitude AI Adoption Report",
+            "freshness": "2026"
           },
           {
-            "name": "AI-Using Recruiters Screening Resumes",
-            "value": 44,
+            "name": "AI Screening Use Case Adoption",
+            "value": 58,
             "unit": "%",
-            "source": "SHRM 2025 Talent Trends",
-            "freshness": "Feb 2025"
+            "source": "ICIMS/Aptitude AI Adoption Report",
+            "freshness": "2026"
           },
           {
-            "name": "AI Assessment Volume",
-            "value": 80,
-            "unit": "M/yr",
-            "source": "HireVue Platform Data",
-            "freshness": "Q1 2024"
-          },
-          {
-            "name": "Deep TA Stack AI Integration",
-            "value": 14,
+            "name": "Broad AI Across Hiring Processes",
+            "value": 18,
             "unit": "%",
-            "source": "Mercer TA Survey",
-            "freshness": "Feb 2024"
-          },
-          {
-            "name": "AI-Screened Applications",
-            "value": 44,
-            "unit": "%",
-            "source": "SHRM/LinkedIn Data",
-            "freshness": "Q1 2025"
+            "source": "ICIMS/Aptitude AI Adoption Report",
+            "freshness": "2026"
           },
           {
             "name": "AI Assessment Platform Reach",
             "value": 80,
             "unit": "M/yr",
-            "source": "Platform Aggregation",
+            "source": "Vendor Disclosures",
             "freshness": "2025"
           }
         ],
         "data_sources": [
           {
-            "name": "SHRM 2025 Talent Trends Report",
+            "name": "ICIMS/Aptitude AI Adoption Report",
             "cadence": "Annual",
             "type": "survey"
           },
           {
-            "name": "HireVue Global AI in Hiring Report",
+            "name": "Vendor Disclosures",
             "cadence": "Annual",
             "type": "report"
-          },
-          {
-            "name": "Mercer Strategic AI in TA Survey",
-            "cadence": "Annual",
-            "type": "survey"
-          },
-          {
-            "name": "Employ Recruiter Nation Report",
-            "cadence": "Annual",
-            "type": "survey"
           }
         ]
       },
@@ -641,81 +493,1371 @@
         "id": "education",
         "name": "EDUCATION",
         "full_name": "Education & Assessment",
-        "score": 19.4,
-        "previous_score": 13.8,
+        "score": 35.8,
+        "previous_score": 18,
         "trend": [
-          13.8,
-          19.4
+          12.4,
+          18,
+          35.8
         ],
         "status": "nominal",
         "weight": 0.07,
         "tier": 3,
-        "description": "Proportion of educational assessment, tutoring, and grading decisions involving AI systems. Uniquely multi-dimensional: AI delegation occurs on both sides of the classroom. Students delegate writing and problem-solving to AI (15% of submissions are now substantially AI-generated), while teachers independently delegate grading and feedback to AI (10.7% across OECD countries). These represent distinct actors with different incentives, making this domain harder to measure than most.",
+        "description": "AI influence across student schoolwork, assessment and grading, teacher workflow, and AI-written student output.",
         "sub_indicators": [
           {
-            "name": "Students Using AI Tutors",
-            "value": 18.5,
+            "name": "Students Using AI for Schoolwork",
+            "value": 54,
             "unit": "%",
-            "source": "Educause Survey",
-            "freshness": "2025"
+            "source": "Pew Research Center",
+            "freshness": "2026"
           },
           {
             "name": "AI-Graded Assessments",
             "value": 8,
             "unit": "%",
-            "source": "Gradescope/EdTech Reports",
+            "source": "Gradescope / Turnitin",
             "freshness": "2025"
           },
           {
-            "name": "Faculty Using AI in Teaching",
-            "value": 30,
+            "name": "Teachers Using AI for Work",
+            "value": 37,
             "unit": "%",
-            "source": "AAUP/Educause Survey",
-            "freshness": "2025"
-          },
-          {
-            "name": "Teachers Using AI for Grading",
-            "value": 10.7,
-            "unit": "%",
-            "source": "OECD TALIS 2024",
+            "source": "OECD Digital Education Outlook",
             "freshness": "2024"
           },
           {
             "name": "Student Papers 80%+ AI-Written",
             "value": 15,
             "unit": "%",
-            "source": "Turnitin AI Detection",
+            "source": "Turnitin AI Writing",
             "freshness": "2026"
           }
         ],
         "data_sources": [
           {
-            "name": "Educause / ITHC Survey",
+            "name": "Pew Research Center",
             "cadence": "Annual",
             "type": "survey"
           },
           {
-            "name": "Gradescope / EdTech Adoption Reports",
+            "name": "Gradescope / Turnitin",
             "cadence": "Annual",
             "type": "report"
           },
           {
-            "name": "AAUP Faculty AI Survey",
-            "cadence": "Annual",
-            "type": "survey"
-          },
-          {
-            "name": "Turnitin AI Writing Reports",
-            "cadence": "Annual",
-            "type": "report"
-          },
-          {
-            "name": "OECD TALIS Survey",
+            "name": "OECD Digital Education Outlook",
             "cadence": "Triennial",
-            "type": "survey"
+            "type": "report"
+          },
+          {
+            "name": "Turnitin AI Writing",
+            "cadence": "Annual",
+            "type": "report"
           }
         ]
       }
     ]
-  }
+  },
+  "analysis_runs": [
+    {
+      "run_id": "legacy-2024",
+      "label": "2024 published baseline",
+      "published_at": "",
+      "measurement_period": "2024",
+      "measurement_year": 2024,
+      "methodology_version": "legacy-trend-v1",
+      "composite_score": 39.7,
+      "notes": "Archived published baseline from the original scoring series; retained for audit but not used in the headline comparison.",
+      "is_public_series": false
+    },
+    {
+      "run_id": "current-method-2024",
+      "label": "2024 recalculated history",
+      "published_at": "2026-05-16",
+      "measurement_period": "2024",
+      "measurement_year": 2024,
+      "methodology_version": "delegation-curve-v2",
+      "composite_score": 31.5,
+      "notes": "Backcast using the 2026 scoring frame. Source-level coverage is limited; 2024 values preserve the original 2024-to-2025 domain movement from the recalculated 2025 anchor.",
+      "is_public_series": true
+    },
+    {
+      "run_id": "legacy-2025",
+      "label": "2025 published baseline",
+      "published_at": "2026-03-02",
+      "measurement_period": "2025",
+      "measurement_year": 2025,
+      "methodology_version": "legacy-trend-v1",
+      "composite_score": 46,
+      "notes": "Archived March 2026 publication baseline from the original scoring series; retained for audit but not used as the headline prior after the 2026 source refresh.",
+      "is_public_series": false
+    },
+    {
+      "run_id": "current-method-2025",
+      "label": "2025 recalculated baseline",
+      "published_at": "2026-05-16",
+      "measurement_period": "2025",
+      "measurement_year": 2025,
+      "methodology_version": "delegation-curve-v2",
+      "composite_score": 37.7,
+      "notes": "Recalculated with the 2026 source and scoring rules so the 2026 update is compared using the same measuring stick. The archived March 2026 published score was 46.0 under the prior scoring series.",
+      "is_public_series": true
+    },
+    {
+      "run_id": "2026-q2",
+      "label": "2026 Q2 source refresh",
+      "published_at": "2026-05-16",
+      "measurement_period": "2026 Q2",
+      "measurement_year": 2026,
+      "methodology_version": "delegation-curve-v2",
+      "composite_score": 45.8,
+      "notes": "2026 source refresh in the recalculated public series. Algorithmic trading is scored from BIS FX electronic execution and Coalition Greenwich internal-AI trade-execution adoption rather than broad market-automation proxies. Code-gen uses a five-input output share, value share, workflow reliance, agentic delegation, and tool reach method.",
+      "is_current": true,
+      "is_public_series": true
+    }
+  ],
+  "domain_scores": [
+    {
+      "run_id": "2026-q2",
+      "domain_id": "algo-trade",
+      "score": 39.2,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "code-gen",
+      "score": 48.1,
+      "weight": 0.15,
+      "status": "elevated"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "content-mod",
+      "score": 96.1,
+      "weight": 0.1,
+      "status": "autonomous"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "credit",
+      "score": 30,
+      "weight": 0.1,
+      "status": "nominal"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "education",
+      "score": 35.8,
+      "weight": 0.07,
+      "status": "nominal"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "hire",
+      "score": 49,
+      "weight": 0.08,
+      "status": "elevated"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "legal-ai",
+      "score": 46.3,
+      "weight": 0.08,
+      "status": "elevated"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "medical-dx",
+      "score": 32.3,
+      "weight": 0.12,
+      "status": "nominal"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "support",
+      "score": 40.5,
+      "weight": 0.15,
+      "status": "elevated"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "algo-trade",
+      "score": 34.3,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "code-gen",
+      "score": 27,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "content-mod",
+      "score": 89.6,
+      "weight": 0.1,
+      "status": "autonomous"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "credit",
+      "score": 22.2,
+      "weight": 0.1,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "education",
+      "score": 12.4,
+      "weight": 0.07,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "hire",
+      "score": 33.1,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "legal-ai",
+      "score": 18.4,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "medical-dx",
+      "score": 16.8,
+      "weight": 0.12,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "support",
+      "score": 27.5,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "algo-trade",
+      "score": 39.2,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "code-gen",
+      "score": 32.6,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "content-mod",
+      "score": 94.1,
+      "weight": 0.1,
+      "status": "autonomous"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "credit",
+      "score": 27.7,
+      "weight": 0.1,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "education",
+      "score": 18,
+      "weight": 0.07,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "hire",
+      "score": 38.1,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "legal-ai",
+      "score": 29,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "medical-dx",
+      "score": 21.7,
+      "weight": 0.12,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "support",
+      "score": 37,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "legacy-2024",
+      "domain_id": "algo-trade",
+      "score": 63.5,
+      "weight": 0.15,
+      "status": "elevated"
+    },
+    {
+      "run_id": "legacy-2024",
+      "domain_id": "code-gen",
+      "score": 41,
+      "weight": 0.15,
+      "status": "elevated"
+    },
+    {
+      "run_id": "legacy-2024",
+      "domain_id": "content-mod",
+      "score": 88.5,
+      "weight": 0.1,
+      "status": "autonomous"
+    },
+    {
+      "run_id": "legacy-2024",
+      "domain_id": "credit",
+      "score": 23.4,
+      "weight": 0.1,
+      "status": "nominal"
+    },
+    {
+      "run_id": "legacy-2024",
+      "domain_id": "education",
+      "score": 13.8,
+      "weight": 0.07,
+      "status": "nominal"
+    },
+    {
+      "run_id": "legacy-2024",
+      "domain_id": "hire",
+      "score": 31.8,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "legacy-2024",
+      "domain_id": "legal-ai",
+      "score": 18.4,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "legacy-2024",
+      "domain_id": "medical-dx",
+      "score": 20.2,
+      "weight": 0.12,
+      "status": "nominal"
+    },
+    {
+      "run_id": "legacy-2024",
+      "domain_id": "support",
+      "score": 36.4,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "algo-trade",
+      "score": 68.4,
+      "weight": 0.15,
+      "status": "elevated"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "code-gen",
+      "score": 46.6,
+      "weight": 0.15,
+      "status": "elevated"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "content-mod",
+      "score": 93,
+      "weight": 0.1,
+      "status": "autonomous"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "credit",
+      "score": 28.9,
+      "weight": 0.1,
+      "status": "nominal"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "education",
+      "score": 19.4,
+      "weight": 0.07,
+      "status": "nominal"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "hire",
+      "score": 36.8,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "legal-ai",
+      "score": 29,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "medical-dx",
+      "score": 25.1,
+      "weight": 0.12,
+      "status": "nominal"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "support",
+      "score": 45.9,
+      "weight": 0.15,
+      "status": "elevated"
+    }
+  ],
+  "indicator_observations": [
+    {
+      "run_id": "2026-q2",
+      "domain_id": "algo-trade",
+      "indicator_name": "Buy-Side AI Trade Execution Adoption",
+      "raw_value": 15,
+      "normalized_value": 15,
+      "unit": "%",
+      "weight": 0.45,
+      "included_in_score": true,
+      "source": "Coalition Greenwich",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "algo-trade",
+      "indicator_name": "FX Electronic Trading Share",
+      "raw_value": 59,
+      "normalized_value": 59,
+      "unit": "%",
+      "weight": 0.55,
+      "included_in_score": true,
+      "source": "BIS Triennial Survey",
+      "freshness": "April 2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "code-gen",
+      "indicator_name": "AI Workflow Reliance",
+      "raw_value": 67.7,
+      "normalized_value": 67.7,
+      "unit": "%",
+      "weight": 0.25,
+      "included_in_score": true,
+      "source": "DORA and JetBrains",
+      "freshness": "2025/2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "code-gen",
+      "indicator_name": "AI-Generated Code Output Share",
+      "raw_value": 39.2,
+      "normalized_value": 39.2,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "Sonar and GitLab",
+      "freshness": "2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "code-gen",
+      "indicator_name": "Agentic Task Delegation",
+      "raw_value": 17.7,
+      "normalized_value": 17.7,
+      "unit": "%",
+      "weight": 0.15,
+      "included_in_score": true,
+      "source": "Anthropic and arXiv",
+      "freshness": "2025/2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "code-gen",
+      "indicator_name": "Technical Work AI Value Share",
+      "raw_value": 50,
+      "normalized_value": 50,
+      "unit": "%",
+      "weight": 0.25,
+      "included_in_score": true,
+      "source": "METR AI Usage Survey",
+      "freshness": "Mar 2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "code-gen",
+      "indicator_name": "Tool Ecosystem Reach",
+      "raw_value": 90.134995,
+      "normalized_value": 84.99536691206892,
+      "unit": "M",
+      "weight": 0.05,
+      "included_in_score": true,
+      "source": "VS Code Marketplace",
+      "freshness": "2026-05-16"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "content-mod",
+      "indicator_name": "Meta Automated Detection",
+      "raw_value": 95.2,
+      "normalized_value": 95.2,
+      "unit": "%",
+      "weight": 0.375,
+      "included_in_score": true,
+      "source": "Meta Transparency Report",
+      "freshness": "Q3 2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "content-mod",
+      "indicator_name": "TikTok Automated Enforcement",
+      "raw_value": 93.8,
+      "normalized_value": 93.8,
+      "unit": "%",
+      "weight": 0.3125,
+      "included_in_score": true,
+      "source": "TikTok DSA H2 2025",
+      "freshness": "H2 2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "content-mod",
+      "indicator_name": "YouTube Automated Flagging",
+      "raw_value": 99.5,
+      "normalized_value": 99.5,
+      "unit": "%",
+      "weight": 0.3125,
+      "included_in_score": true,
+      "source": "YouTube Transparency Report",
+      "freshness": "Jul-Sep 2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "credit",
+      "indicator_name": "AI Credit Decisioning (Banks)",
+      "raw_value": 20,
+      "normalized_value": 20,
+      "unit": "%",
+      "weight": 0.45,
+      "included_in_score": true,
+      "source": "McKinsey Credit Risk Survey",
+      "freshness": "H2 2024"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "credit",
+      "indicator_name": "AI-Underwritten Personal Loan Proxy",
+      "raw_value": 38.2,
+      "normalized_value": 38.2,
+      "unit": "%",
+      "weight": 0.55,
+      "included_in_score": true,
+      "source": "Upstart and TransUnion",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "education",
+      "indicator_name": "AI-Graded Assessments",
+      "raw_value": 8,
+      "normalized_value": 8,
+      "unit": "%",
+      "weight": 0.2,
+      "included_in_score": true,
+      "source": "Gradescope / Turnitin",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "education",
+      "indicator_name": "Student Papers 80%+ AI-Written",
+      "raw_value": 15,
+      "normalized_value": 15,
+      "unit": "%",
+      "weight": 0.1,
+      "included_in_score": true,
+      "source": "Turnitin AI Writing",
+      "freshness": "2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "education",
+      "indicator_name": "Students Using AI for Schoolwork",
+      "raw_value": 54,
+      "normalized_value": 54,
+      "unit": "%",
+      "weight": 0.4,
+      "included_in_score": true,
+      "source": "Pew Research Center",
+      "freshness": "2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "education",
+      "indicator_name": "Teachers Using AI for Work",
+      "raw_value": 37,
+      "normalized_value": 37,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "OECD Digital Education Outlook",
+      "freshness": "2024"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "hire",
+      "indicator_name": "AI Assessment Platform Reach",
+      "raw_value": 80,
+      "normalized_value": 26.666666666666668,
+      "unit": "M/yr",
+      "weight": 0.2,
+      "included_in_score": true,
+      "source": "Vendor Disclosures",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "hire",
+      "indicator_name": "AI Screening Use Case Adoption",
+      "raw_value": 58,
+      "normalized_value": 58,
+      "unit": "%",
+      "weight": 0.35,
+      "included_in_score": true,
+      "source": "ICIMS/Aptitude AI Adoption Report",
+      "freshness": "2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "hire",
+      "indicator_name": "Broad AI Across Hiring Processes",
+      "raw_value": 18,
+      "normalized_value": 18,
+      "unit": "%",
+      "weight": 0.15,
+      "included_in_score": true,
+      "source": "ICIMS/Aptitude AI Adoption Report",
+      "freshness": "2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "hire",
+      "indicator_name": "Orgs Using AI in Talent Acquisition",
+      "raw_value": 69,
+      "normalized_value": 69,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "ICIMS/Aptitude AI Adoption Report",
+      "freshness": "2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "legal-ai",
+      "indicator_name": "AI-Assisted Document Review",
+      "raw_value": 28,
+      "normalized_value": 28,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "ABA Litigation and TAR TechReport",
+      "freshness": "2024"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "legal-ai",
+      "indicator_name": "Legal Organization GenAI Adoption",
+      "raw_value": 40,
+      "normalized_value": 40,
+      "unit": "%",
+      "weight": 0.4,
+      "included_in_score": true,
+      "source": "Thomson Reuters AI in Professional Services",
+      "freshness": "2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "legal-ai",
+      "indicator_name": "Solo and Small Firms Using AI for Legal Work",
+      "raw_value": 73,
+      "normalized_value": 73,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "Clio Solo and Small Law Firms 2026",
+      "freshness": "2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "medical-dx",
+      "indicator_name": "AI-Assisted Diagnosis Rate",
+      "raw_value": 17,
+      "normalized_value": 17,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "AMA Physician AI Sentiment Survey",
+      "freshness": "2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "medical-dx",
+      "indicator_name": "FDA AI-Enabled Medical Devices",
+      "raw_value": 1430,
+      "normalized_value": 71.5,
+      "unit": "devices",
+      "weight": 0.1,
+      "included_in_score": true,
+      "source": "FDA AI-Enabled Medical Devices",
+      "freshness": "2026-05-16"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "medical-dx",
+      "indicator_name": "Pathology AI Adoption",
+      "raw_value": 10,
+      "normalized_value": 10,
+      "unit": "%",
+      "weight": 0.25,
+      "included_in_score": true,
+      "source": "Pathology AI adoption surveys",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "medical-dx",
+      "indicator_name": "Radiology or Imaging AI Adoption",
+      "raw_value": 50,
+      "normalized_value": 50,
+      "unit": "%",
+      "weight": 0.35,
+      "included_in_score": true,
+      "source": "KLAS Global Imaging AI",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "support",
+      "indicator_name": "Bot Deflection Rate",
+      "raw_value": 52.3,
+      "normalized_value": 52.3,
+      "unit": "%",
+      "weight": 0.2,
+      "included_in_score": true,
+      "source": "Intercom Trends",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "support",
+      "indicator_name": "Cases Handled by AI",
+      "raw_value": 30,
+      "normalized_value": 30,
+      "unit": "%",
+      "weight": 0.45,
+      "included_in_score": true,
+      "source": "Salesforce State of Service",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "support",
+      "indicator_name": "Mature AI Support Deployment",
+      "raw_value": 10,
+      "normalized_value": 10,
+      "unit": "%",
+      "weight": 0.1,
+      "included_in_score": true,
+      "source": "Intercom Customer Service Transformation",
+      "freshness": "Q4 2025"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "support",
+      "indicator_name": "Production AI Customer Communications Agents",
+      "raw_value": 62,
+      "normalized_value": 62,
+      "unit": "%",
+      "weight": 0.25,
+      "included_in_score": true,
+      "source": "Sinch AI Production Paradox",
+      "freshness": "2026"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "algo-trade",
+      "indicator_name": "EU Equity Algo Volume",
+      "raw_value": 51,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "ESMA MiFID II Report",
+      "freshness": "2021"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "algo-trade",
+      "indicator_name": "FX Algo Trading",
+      "raw_value": 61.4,
+      "normalized_value": 61.4,
+      "unit": "%",
+      "weight": 0.25,
+      "included_in_score": true,
+      "source": "BIS Triennial Survey",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "algo-trade",
+      "indicator_name": "Institutional AI Adoption",
+      "raw_value": 78,
+      "normalized_value": 78,
+      "unit": "%",
+      "weight": 0.2,
+      "included_in_score": true,
+      "source": "Greenwich Associates",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "algo-trade",
+      "indicator_name": "Options Algo Volume",
+      "raw_value": 58.9,
+      "normalized_value": 58.9,
+      "unit": "%",
+      "weight": 0.2,
+      "included_in_score": true,
+      "source": "CBOE Data",
+      "freshness": "Q3 2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "algo-trade",
+      "indicator_name": "US Equities Algo Volume",
+      "raw_value": 73.2,
+      "normalized_value": 73.2,
+      "unit": "%",
+      "weight": 0.35,
+      "included_in_score": true,
+      "source": "SEC Market Structure",
+      "freshness": "Q3 2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "code-gen",
+      "indicator_name": "AI-Assisted Commits (OSS)",
+      "raw_value": 31.5,
+      "normalized_value": 31.5,
+      "unit": "%",
+      "weight": 0.25,
+      "included_in_score": true,
+      "source": "GitClear Analysis",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "code-gen",
+      "indicator_name": "Copilot Code Acceptance",
+      "raw_value": 48.2,
+      "normalized_value": 48.2,
+      "unit": "%",
+      "weight": 0.5,
+      "included_in_score": true,
+      "source": "GitHub Octoverse",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "code-gen",
+      "indicator_name": "Developer AI Tool Usage",
+      "raw_value": 41,
+      "normalized_value": 41,
+      "unit": "%",
+      "weight": 0.15,
+      "included_in_score": true,
+      "source": "Stack Overflow Dev Survey 2025",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "code-gen",
+      "indicator_name": "IDE AI Extension Installs",
+      "raw_value": 87.42808,
+      "normalized_value": 84.41960613008965,
+      "unit": "M",
+      "weight": 0.1,
+      "included_in_score": true,
+      "source": "VS Code Marketplace",
+      "freshness": "2026-03-02"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "content-mod",
+      "indicator_name": "DSA Cross-Platform Automated Rate",
+      "raw_value": 96.1,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "EU DSA Transparency Database",
+      "freshness": "H2 2023"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "content-mod",
+      "indicator_name": "Google Automated Removal",
+      "raw_value": 92.8,
+      "normalized_value": 92.8,
+      "unit": "%",
+      "weight": 0.25,
+      "included_in_score": true,
+      "source": "Google Transparency Report",
+      "freshness": "Q3 2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "content-mod",
+      "indicator_name": "Meta Automated Detection",
+      "raw_value": 95.2,
+      "normalized_value": 95.2,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "Meta Transparency Report",
+      "freshness": "Q3 2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "content-mod",
+      "indicator_name": "TikTok Automated Detection",
+      "raw_value": 94.1,
+      "normalized_value": 94.1,
+      "unit": "%",
+      "weight": 0.25,
+      "included_in_score": true,
+      "source": "TikTok Transparency Report",
+      "freshness": "Q3 2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "content-mod",
+      "indicator_name": "X/Twitter Automated Action",
+      "raw_value": 88.6,
+      "normalized_value": 88.6,
+      "unit": "%",
+      "weight": 0.2,
+      "included_in_score": true,
+      "source": "X Transparency Report",
+      "freshness": "H1 2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "credit",
+      "indicator_name": "AI Credit Decisioning (Banks)",
+      "raw_value": 20,
+      "normalized_value": 20,
+      "unit": "%",
+      "weight": 0.45,
+      "included_in_score": true,
+      "source": "OCC Survey",
+      "freshness": "H2 2024"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "credit",
+      "indicator_name": "AI-Underwritten Loan Volume",
+      "raw_value": 34,
+      "normalized_value": 34,
+      "unit": "%",
+      "weight": 0.4,
+      "included_in_score": true,
+      "source": "Fintech Filings",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "credit",
+      "indicator_name": "Fintech Lending Market Share",
+      "raw_value": 42,
+      "normalized_value": 42,
+      "unit": "%",
+      "weight": 0.15,
+      "included_in_score": true,
+      "source": "Industry Reports",
+      "freshness": "Q3 2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "credit",
+      "indicator_name": "UK Firms Using AI Credit Risk",
+      "raw_value": 16,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "BoE/FCA AI Survey",
+      "freshness": "2024"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "education",
+      "indicator_name": "AI-Graded Assessments",
+      "raw_value": 8,
+      "normalized_value": 8,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "Gradescope/EdTech Reports",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "education",
+      "indicator_name": "Faculty Using AI in Teaching",
+      "raw_value": 30,
+      "normalized_value": 30,
+      "unit": "%",
+      "weight": 0.35,
+      "included_in_score": true,
+      "source": "AAUP/Educause Survey",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "education",
+      "indicator_name": "Student Papers 80%+ AI-Written",
+      "raw_value": 15,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "Turnitin AI Detection",
+      "freshness": "2026"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "education",
+      "indicator_name": "Students Using AI Tutors",
+      "raw_value": 18.5,
+      "normalized_value": 18.5,
+      "unit": "%",
+      "weight": 0.35,
+      "included_in_score": true,
+      "source": "Educause Survey",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "education",
+      "indicator_name": "Teachers Using AI for Grading",
+      "raw_value": 10.7,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "OECD TALIS 2024",
+      "freshness": "2024"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "hire",
+      "indicator_name": "AI Assessment Platform Reach",
+      "raw_value": 80,
+      "normalized_value": 26.666666666666668,
+      "unit": "M/yr",
+      "weight": 0.25,
+      "included_in_score": true,
+      "source": "Platform Aggregation",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "hire",
+      "indicator_name": "AI Assessment Volume",
+      "raw_value": 80,
+      "normalized_value": 0,
+      "unit": "M/yr",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "HireVue Platform Data",
+      "freshness": "Q1 2024"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "hire",
+      "indicator_name": "AI-Screened Applications",
+      "raw_value": 44,
+      "normalized_value": 44,
+      "unit": "%",
+      "weight": 0.35,
+      "included_in_score": true,
+      "source": "SHRM/LinkedIn Data",
+      "freshness": "Q1 2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "hire",
+      "indicator_name": "AI-Using Recruiters Screening Resumes",
+      "raw_value": 44,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "SHRM 2025 Talent Trends",
+      "freshness": "Feb 2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "hire",
+      "indicator_name": "Deep TA Stack AI Integration",
+      "raw_value": 14,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "Mercer TA Survey",
+      "freshness": "Feb 2024"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "hire",
+      "indicator_name": "HR Pros Using AI for Recruiting",
+      "raw_value": 69,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "SHRM 2025 Talent Trends",
+      "freshness": "Feb 2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "hire",
+      "indicator_name": "Orgs Using AI in Recruiting",
+      "raw_value": 51,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "SHRM 2025 Talent Trends",
+      "freshness": "Feb 2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "legal-ai",
+      "indicator_name": "AI Tool Adoption (BigLaw)",
+      "raw_value": 42,
+      "normalized_value": 42,
+      "unit": "%",
+      "weight": 0.4,
+      "included_in_score": true,
+      "source": "ALM Survey",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "legal-ai",
+      "indicator_name": "AI Tool Adoption (Solo/Small)",
+      "raw_value": 18.5,
+      "normalized_value": 18.5,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "Clio Legal Trends",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "legal-ai",
+      "indicator_name": "AI-Assisted Document Review",
+      "raw_value": 22,
+      "normalized_value": 22,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "EDRM/Relativity Survey",
+      "freshness": "2024"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "legal-ai",
+      "indicator_name": "Lawyers Using AI Tools",
+      "raw_value": 30.2,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "ABA Legal Technology Survey",
+      "freshness": "2024"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "medical-dx",
+      "indicator_name": "AI-Assisted Diagnosis Rate",
+      "raw_value": 12,
+      "normalized_value": 12,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "AMA Survey",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "medical-dx",
+      "indicator_name": "Autonomous AI DR Screening Penetration",
+      "raw_value": 2.2,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "Medicare Claims Data",
+      "freshness": "2023"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "medical-dx",
+      "indicator_name": "European Radiologists Using AI Clinically",
+      "raw_value": 48,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "ESR/EuroAIM Survey",
+      "freshness": "2024"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "medical-dx",
+      "indicator_name": "FDA-Cleared Diagnostic AI Devices",
+      "raw_value": 1016,
+      "normalized_value": 84.66666666666667,
+      "unit": "devices",
+      "weight": 0.1,
+      "included_in_score": true,
+      "source": "FDA AI/ML Database",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "medical-dx",
+      "indicator_name": "Health Systems with Imaging AI Deployed",
+      "raw_value": 50,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "KLAS Imaging AI Report",
+      "freshness": "2024"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "medical-dx",
+      "indicator_name": "Pathology AI Adoption",
+      "raw_value": 10,
+      "normalized_value": 10,
+      "unit": "%",
+      "weight": 0.25,
+      "included_in_score": true,
+      "source": "CAP Survey",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "medical-dx",
+      "indicator_name": "Physicians Using AI for Diagnosis",
+      "raw_value": 12,
+      "normalized_value": 0,
+      "unit": "%",
+      "weight": 0,
+      "included_in_score": false,
+      "source": "AMA Physician Sentiment Survey",
+      "freshness": "2024"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "medical-dx",
+      "indicator_name": "Radiology AI Adoption",
+      "raw_value": 30,
+      "normalized_value": 30,
+      "unit": "%",
+      "weight": 0.35,
+      "included_in_score": true,
+      "source": "RSNA Survey",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "support",
+      "indicator_name": "AI Copilot Adoption (Agents)",
+      "raw_value": 24,
+      "normalized_value": 24,
+      "unit": "%",
+      "weight": 0.2,
+      "included_in_score": true,
+      "source": "Zendesk/Salesforce Reports",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "support",
+      "indicator_name": "AI Resolution Rate",
+      "raw_value": 41,
+      "normalized_value": 41,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "Zendesk CX Trends",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "support",
+      "indicator_name": "Bot Deflection Rate",
+      "raw_value": 52.3,
+      "normalized_value": 52.3,
+      "unit": "%",
+      "weight": 0.25,
+      "included_in_score": true,
+      "source": "Intercom Trends",
+      "freshness": "2025"
+    },
+    {
+      "run_id": "legacy-2025",
+      "domain_id": "support",
+      "indicator_name": "Orgs Using AI Support",
+      "raw_value": 63,
+      "normalized_value": 63,
+      "unit": "%",
+      "weight": 0.25,
+      "included_in_score": true,
+      "source": "Salesforce State of Service",
+      "freshness": "2025"
+    }
+  ]
 }

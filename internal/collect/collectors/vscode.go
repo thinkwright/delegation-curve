@@ -54,7 +54,7 @@ func (c *VSCodeCollector) Collect(ctx context.Context) ([]collect.CollectResult,
 	// Fail only if we got zero extensions at all.
 	if totalInstalls == 0 && len(fetchErrors) == len(c.extensions) {
 		return []collect.CollectResult{{
-			IndicatorName: "IDE AI Extension Installs",
+			IndicatorName: "Tool Ecosystem Reach",
 			DomainID:      "code-gen",
 			SourceName:    "VS Code Marketplace",
 			Err:           fmt.Errorf("all extensions failed: %v", fetchErrors),
@@ -63,7 +63,7 @@ func (c *VSCodeCollector) Collect(ctx context.Context) ([]collect.CollectResult,
 
 	millions := float64(totalInstalls) / 1_000_000
 	return []collect.CollectResult{{
-		IndicatorName: "IDE AI Extension Installs",
+		IndicatorName: "Tool Ecosystem Reach",
 		DomainID:      "code-gen",
 		RawValue:      millions,
 		Unit:          "M",

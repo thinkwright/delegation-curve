@@ -12,6 +12,18 @@ export interface DataSource {
 	type: 'transparency-report' | 'survey' | 'api' | 'filing' | 'scrape';
 }
 
+export interface ScorePoint {
+	runId: string;
+	label: string;
+	publishedAt: string;
+	measurementPeriod: string;
+	measurementYear: number;
+	methodologyVersion: string;
+	score: number;
+	notes?: string;
+	isCurrent?: boolean;
+}
+
 export interface DelegationDomain {
 	id: string;
 	name: string;
@@ -19,6 +31,7 @@ export interface DelegationDomain {
 	score: number;
 	previousScore: number;
 	trend: number[];
+	runHistory?: ScorePoint[];
 	status: 'nominal' | 'elevated' | 'autonomous';
 	weight: number;
 	tier: 1 | 2 | 3;
@@ -33,6 +46,7 @@ export interface CompositeData {
 		previous: number;
 		delta: number;
 		trend: number[];
+		runHistory?: ScorePoint[];
 		lastUpdated: string;
 		dataYear: number;
 	};

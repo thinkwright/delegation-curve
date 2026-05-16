@@ -2,6 +2,7 @@ package transform
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/thinkwright/delegation-curve/internal/ingest"
 	"github.com/thinkwright/delegation-curve/internal/schema"
@@ -20,6 +21,11 @@ func Meta(seed *ingest.Seed) schema.MetaRow {
 		}
 	}
 
+	freshness := seed.Delegation.Composite.DataFreshness
+	if freshness == "" {
+		freshness = fmt.Sprintf("%d", seed.Delegation.Composite.DataYear)
+	}
+
 	return schema.MetaRow{
 		DelegationComposite: seed.Delegation.Composite.Current,
 		DelegationPrevious:  seed.Delegation.Composite.Previous,
@@ -28,7 +34,7 @@ func Meta(seed *ingest.Seed) schema.MetaRow {
 		DomainsTracked:      int32(len(seed.Delegation.Domains)),
 		HighestDomainName:   highName,
 		HighestDomainScore:  highScore,
-		DataFreshness:       "Q4 2025",
+		DataFreshness:       freshness,
 		LastUpdated:         seed.Delegation.Composite.LastUpdated,
 		DataYear:            int32(seed.Delegation.Composite.DataYear),
 	}
