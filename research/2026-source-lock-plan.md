@@ -170,7 +170,10 @@ Recommended lock:
 
 - Add METR as `Technical Work AI Value Share` or `AI-Attributable Technical Output Value`.
 - Add Sonar 2026 as `AI-Generated or Assisted Committed Code` if we accept survey-based committed-code estimates.
-- Keep Stack Overflow 2025 as adoption/daily-use context; do not use it as output share unless the question maps directly to output.
+- Treat Stack Overflow 2025 as a bridge adoption source only. Its developer-community sample is useful but self-selected, and daily use is not an output or reliance measure.
+- Prototype DORA 2025 as `AI Workflow Reliance`, using its moderate-to-heavy reliance and time-spent measures.
+- Use JetBrains AI Pulse 2026 to triangulate professional work usage and specialized agent/editor adoption.
+- Use Anthropic Claude Code and Alphabet internal-code claims as frontier benchmarks or narrative callouts, not as population score inputs.
 - Keep VS Code Marketplace as a weak but continuously refreshable stock metric.
 - Keep GitClear only if the report can be refreshed and the definition remains stable.
 
@@ -180,9 +183,12 @@ Candidate sources:
 - Sonar 2026 State of Code Developer Survey.
 - Stack Overflow 2025 Developer Survey AI section.
 - DORA 2025 State of AI-assisted Software Development.
+- JetBrains AI Pulse 2026.
+- Anthropic Claude Code product and documentation.
+- Alphabet Q3 2025 earnings-call code-generation benchmark.
 - VS Code Marketplace API.
 
-Decision: add METR and consider Sonar; reduce conceptual weight on install counts.
+Decision: keep the current 48.2 score unchanged for now. The next code-gen method iteration should test whether DORA workflow reliance can replace Stack Overflow daily-use, with JetBrains as triangulation and frontier-company evidence displayed separately from the central population score.
 
 ### support
 
