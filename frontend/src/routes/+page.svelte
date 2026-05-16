@@ -20,6 +20,23 @@
 			? composite.delegation.runHistory.map((p) => p.measurementPeriod)
 			: undefined
 	);
+	const currentRun = $derived(
+		composite?.delegation.runHistory?.find((p) => p.isCurrent)
+			?? composite?.delegation.runHistory?.[composite.delegation.runHistory.length - 1]
+			?? null
+	);
+	const priorRun = $derived(() => {
+		const history = composite?.delegation.runHistory ?? [];
+		if (!currentRun) return null;
+		const index = history.findIndex((p) => p.runId === currentRun.runId);
+		return index > 0 ? history[index - 1] : null;
+	});
+	const isMethodologyBreak = $derived(
+		Boolean(currentRun && priorRun() && currentRun.methodologyVersion !== priorRun()?.methodologyVersion)
+	);
+	const methodologyShort = $derived(
+		currentRun?.methodologyVersion.replace('delegation-curve-', '').toUpperCase() ?? ''
+	);
 </script>
 
 <svelte:head>
@@ -82,7 +99,7 @@
 		</div>
 		<div class="flex items-center gap-1.5 mt-1">
 			<div class="w-2 h-2 bg-sage animate-pulse"></div>
-			<span class="text-[10px] font-bold uppercase tracking-wider text-neutral-400">Measuring</span>
+			<span class="text-[10px] font-bold uppercase tracking-wider text-neutral-400">{composite.dataFreshness}</span>
 		</div>
 	</div>
 
@@ -90,14 +107,24 @@
 	<div class="flex items-end gap-3 mb-1">
 		<span class="text-[96px] font-black font-mono tabular-nums tracking-tighter leading-none">{composite.delegation.current}</span>
 		<div class="flex flex-col mb-4">
-			<span class="text-lg font-mono font-bold text-sage tabular-nums">{formatDelta(composite.delegation.delta)}%</span>
-			<span class="text-[10px] font-mono text-neutral-400 uppercase">vs prior</span>
+			{#if isMethodologyBreak}
+				<span class="text-lg font-mono font-bold text-neutral-500 tabular-nums">{methodologyShort}</span>
+				<span class="text-[10px] font-mono text-neutral-400 uppercase">baseline</span>
+			{:else}
+				<span class="text-lg font-mono font-bold text-sage tabular-nums">{formatDelta(composite.delegation.delta)}%</span>
+				<span class="text-[10px] font-mono text-neutral-400 uppercase">vs prior</span>
+			{/if}
 		</div>
 	</div>
 
 	<p class="text-xs text-neutral-500 leading-relaxed max-w-xs">
 		What percentage of consequential decisions are made or influenced by AI? A weighted composite of {composite.domainsTracked} decision domains.
 	</p>
+	{#if isMethodologyBreak}
+		<p class="text-[10px] text-neutral-500 leading-relaxed max-w-xs mt-2">
+			Methodology changed in this run, so the 2025 point remains on the curve but the headline is treated as a new baseline rather than a like-for-like decline.
+		</p>
+	{/if}
 	<p class="text-[10px] font-mono text-neutral-400 uppercase mt-2">Data through {composite.delegation.dataYear}</p>
 </div>
 
@@ -121,9 +148,9 @@
 		href={`${base}/delegation`}
 	/>
 	<MetricCard
-		label="Prior Year"
+		label="Prior Run"
 		value={composite.delegation.previous}
-		subtitle={`${composite.delegation.dataYear - 1} composite`}
+		subtitle={isMethodologyBreak && priorRun() ? `${priorRun()?.measurementPeriod} · previous methodology` : `${composite.delegation.dataYear - 1} composite`}
 		icon="history"
 		href={`${base}/delegation`}
 	/>
