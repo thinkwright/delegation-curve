@@ -42,12 +42,15 @@ collect-hire: build-collect
 collect-education: build-collect
 	$(COLLECT_CMD) -domain education
 
-pipeline: collect generate frontend
+pipeline:
+	$(MAKE) collect
+	$(MAKE) generate
+	$(MAKE) server
 
 generate: build
 	./$(BINARY) -input seed/seed.json -output frontend/static/data
 
-frontend: generate
+frontend:
 	cd frontend && npm ci && npm run build
 
 compress-static:
@@ -62,7 +65,7 @@ server: frontend
 run-server: server
 	./$(SERVER_BIN) -port 8080
 
-dev: generate
+dev:
 	cd frontend && npm run dev
 
 deploy:

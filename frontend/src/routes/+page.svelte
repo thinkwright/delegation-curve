@@ -41,12 +41,12 @@
 	<meta property="og:title" content="AI Delegation Curve — Tracking AI influence in consequential work" />
 	<meta property="og:description" content="A composite index estimating AI influence and delegated workflow share across 9 consequential domains." />
 	<meta property="og:url" content="https://curve.thinkwright.ai" />
-	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		"@context": "https://schema.org",
 		"@graph": [
