@@ -51,14 +51,15 @@ func TestComputeDomainScore_NonePresent(t *testing.T) {
 func TestComputeDomainScore_CodeGen(t *testing.T) {
 	cfg := CodeGenConfig()
 	values := map[string]float64{
-		"Copilot Code Acceptance":  48.2,
-		"Developer AI Tool Usage":  82.0,
-		"AI-Assisted Commits (OSS)": 31.5,
-		"IDE AI Extension Installs": 80.7,
+		"AI-Generated Code Output Share": 39.2,
+		"Technical Work AI Value Share":  50.0,
+		"AI Workflow Reliance":           67.7,
+		"Agentic Task Delegation":        17.7,
+		"Tool Ecosystem Reach":           84.4,
 	}
 	got := ComputeDomainScore(values, cfg)
-	// (48.2*0.35 + 82.0*0.15 + 31.5*0.40 + 80.7*0.10) / 1.0
-	expected := 48.2*0.35 + 82.0*0.15 + 31.5*0.40 + 80.7*0.10
+	// Uses the current CodeGenConfig weights.
+	expected := 39.2*0.30 + 50.0*0.25 + 67.7*0.25 + 17.7*0.15 + 84.4*0.05
 	if math.Abs(got-expected) > 0.01 {
 		t.Errorf("got %v, want ~%v", got, expected)
 	}
@@ -93,13 +94,12 @@ func TestAllDomainIndicatorWeightsSumToOne(t *testing.T) {
 func TestComputeDomainScore_ContentMod(t *testing.T) {
 	cfg := ContentModConfig()
 	values := map[string]float64{
-		"Meta Automated Detection":  95.2,
-		"Google Automated Removal":  92.8,
-		"TikTok Automated Detection": 94.1,
-		"X/Twitter Automated Action": 88.6,
+		"Meta Automated Detection":     95.2,
+		"YouTube Automated Flagging":   99.5,
+		"TikTok Automated Enforcement": 93.8,
 	}
 	got := ComputeDomainScore(values, cfg)
-	expected := 95.2*0.30 + 92.8*0.25 + 94.1*0.25 + 88.6*0.20
+	expected := 95.2*0.375 + 99.5*0.3125 + 93.8*0.3125
 	if math.Abs(got-expected) > 0.01 {
 		t.Errorf("content-mod: got %v, want ~%v", got, expected)
 	}
@@ -108,13 +108,11 @@ func TestComputeDomainScore_ContentMod(t *testing.T) {
 func TestComputeDomainScore_AlgoTrade(t *testing.T) {
 	cfg := AlgoTradeConfig()
 	values := map[string]float64{
-		"US Equities Algo Volume":  73.2,
-		"FX Algo Trading":         61.4,
-		"Options Algo Volume":     58.9,
-		"Institutional AI Adoption": 78.0,
+		"FX Electronic Trading Share":          59.0,
+		"Buy-Side AI Trade Execution Adoption": 15.0,
 	}
 	got := ComputeDomainScore(values, cfg)
-	expected := 73.2*0.35 + 61.4*0.25 + 58.9*0.20 + 78.0*0.20
+	expected := 59.0*0.55 + 15.0*0.45
 	if math.Abs(got-expected) > 0.01 {
 		t.Errorf("algo-trade: got %v, want ~%v", got, expected)
 	}
@@ -123,13 +121,13 @@ func TestComputeDomainScore_AlgoTrade(t *testing.T) {
 func TestComputeDomainScore_Support(t *testing.T) {
 	cfg := SupportConfig()
 	values := map[string]float64{
-		"AI Resolution Rate":           41.0,
-		"Bot Deflection Rate":          52.3,
-		"Orgs Using AI Support":        63.0,
-		"AI Copilot Adoption (Agents)": 45.0,
+		"Cases Handled by AI":                          30.0,
+		"Bot Deflection Rate":                          52.3,
+		"Production AI Customer Communications Agents": 62.0,
+		"Mature AI Support Deployment":                 10.0,
 	}
 	got := ComputeDomainScore(values, cfg)
-	expected := 41.0*0.30 + 52.3*0.25 + 63.0*0.25 + 45.0*0.20
+	expected := 30.0*0.45 + 52.3*0.20 + 62.0*0.25 + 10.0*0.10
 	if math.Abs(got-expected) > 0.01 {
 		t.Errorf("support: got %v, want ~%v", got, expected)
 	}
@@ -138,12 +136,11 @@ func TestComputeDomainScore_Support(t *testing.T) {
 func TestComputeDomainScore_Credit(t *testing.T) {
 	cfg := CreditConfig()
 	values := map[string]float64{
-		"AI-Underwritten Loan Volume":   34.2,
-		"Fintech Lending Market Share":  38.0,
-		"AI Credit Decisioning (Banks)": 32.0,
+		"AI-Underwritten Personal Loan Proxy": 38.2,
+		"AI Credit Decisioning (Banks)":       32.0,
 	}
 	got := ComputeDomainScore(values, cfg)
-	expected := 34.2*0.40 + 38.0*0.15 + 32.0*0.45
+	expected := 38.2*0.55 + 32.0*0.45
 	if math.Abs(got-expected) > 0.01 {
 		t.Errorf("credit: got %v, want ~%v", got, expected)
 	}
@@ -151,15 +148,15 @@ func TestComputeDomainScore_Credit(t *testing.T) {
 
 func TestComputeDomainScore_MedicalDx(t *testing.T) {
 	cfg := MedicalDxConfig()
-	// FDA: 950 devices → LinearClamp(0,1200) → 79.17
+	// FDA: 1,430 devices -> LinearClamp(0,2000) -> 71.5
 	values := map[string]float64{
-		"FDA-Cleared Diagnostic AI Devices": 79.17,
-		"Radiology AI Adoption":             30.0,
-		"AI-Assisted Diagnosis Rate":        12.0,
-		"Pathology AI Adoption":             17.0,
+		"FDA AI-Enabled Medical Devices":   71.5,
+		"Radiology or Imaging AI Adoption": 50.0,
+		"AI-Assisted Diagnosis Rate":       17.0,
+		"Pathology AI Adoption":            10.0,
 	}
 	got := ComputeDomainScore(values, cfg)
-	expected := 79.17*0.10 + 30.0*0.35 + 12.0*0.30 + 17.0*0.25
+	expected := 71.5*0.10 + 50.0*0.35 + 17.0*0.30 + 10.0*0.25
 	if math.Abs(got-expected) > 0.01 {
 		t.Errorf("medical-dx: got %v, want ~%v", got, expected)
 	}
@@ -168,12 +165,12 @@ func TestComputeDomainScore_MedicalDx(t *testing.T) {
 func TestComputeDomainScore_LegalAI(t *testing.T) {
 	cfg := LegalAIConfig()
 	values := map[string]float64{
-		"AI Tool Adoption (BigLaw)":    42.0,
-		"AI Tool Adoption (Solo/Small)": 18.5,
-		"AI-Assisted Document Review":  52.0,
+		"Legal Organization GenAI Adoption":            40.0,
+		"Solo and Small Firms Using AI for Legal Work": 73.0,
+		"AI-Assisted Document Review":                  28.0,
 	}
 	got := ComputeDomainScore(values, cfg)
-	expected := 42.0*0.40 + 18.5*0.30 + 52.0*0.30
+	expected := 40.0*0.40 + 73.0*0.30 + 28.0*0.30
 	if math.Abs(got-expected) > 0.01 {
 		t.Errorf("legal-ai: got %v, want ~%v", got, expected)
 	}
@@ -181,14 +178,15 @@ func TestComputeDomainScore_LegalAI(t *testing.T) {
 
 func TestComputeDomainScore_Hire(t *testing.T) {
 	cfg := HireConfig()
-	// AI Assessment Platform Reach: 70 M/yr → LinearClamp(0,300) → 23.33
+	// AI Assessment Platform Reach: 80 M/yr -> LinearClamp(0,300) -> 26.67
 	values := map[string]float64{
-		"Orgs Using AI Screening":      28.0,
-		"AI-Screened Applications":     55.0,
-		"AI Assessment Platform Reach": 23.33,
+		"Orgs Using AI in Talent Acquisition": 69.0,
+		"AI Screening Use Case Adoption":      58.0,
+		"Broad AI Across Hiring Processes":    18.0,
+		"AI Assessment Platform Reach":        26.67,
 	}
 	got := ComputeDomainScore(values, cfg)
-	expected := 28.0*0.40 + 55.0*0.35 + 23.33*0.25
+	expected := 69.0*0.30 + 58.0*0.35 + 18.0*0.15 + 26.67*0.20
 	if math.Abs(got-expected) > 0.01 {
 		t.Errorf("hire: got %v, want ~%v", got, expected)
 	}
@@ -197,12 +195,13 @@ func TestComputeDomainScore_Hire(t *testing.T) {
 func TestComputeDomainScore_Education(t *testing.T) {
 	cfg := EducationConfig()
 	values := map[string]float64{
-		"Students Using AI Tutors":     18.5,
-		"AI-Graded Assessments":        8.0,
-		"Faculty Using AI in Teaching": 26.0,
+		"Students Using AI for Schoolwork": 54.0,
+		"AI-Graded Assessments":            8.0,
+		"Teachers Using AI for Work":       37.0,
+		"Student Papers 80%+ AI-Written":   15.0,
 	}
 	got := ComputeDomainScore(values, cfg)
-	expected := 18.5*0.35 + 8.0*0.30 + 26.0*0.35
+	expected := 54.0*0.40 + 8.0*0.20 + 37.0*0.30 + 15.0*0.10
 	if math.Abs(got-expected) > 0.01 {
 		t.Errorf("education: got %v, want ~%v", got, expected)
 	}
@@ -274,5 +273,17 @@ func TestUpdateTrend_DoesNotMutateOriginal(t *testing.T) {
 	UpdateTrend(existing, 4, time.Time{}, 84)
 	if existing[2] != 3 {
 		t.Errorf("original slice was mutated")
+	}
+}
+
+func TestShouldAppendTrend(t *testing.T) {
+	if !ShouldAppendTrend(time.Time{}) {
+		t.Fatal("zero last run should append")
+	}
+	if ShouldAppendTrend(time.Now().Add(-24 * time.Hour)) {
+		t.Fatal("recent last run should update current point")
+	}
+	if !ShouldAppendTrend(time.Now().Add(-30 * 24 * time.Hour)) {
+		t.Fatal("older last run should append")
 	}
 }

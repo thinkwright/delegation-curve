@@ -19,6 +19,8 @@ RUN go mod download
 
 COPY cmd/server/ ./cmd/server/
 COPY --from=frontend /app/frontend/build ./cmd/server/static/
+RUN find ./cmd/server/static -type f \( -name '*.js' -o -name '*.css' -o -name '*.json' -o -name '*.svg' -o -name '*.xml' -o -name '*.txt' -o -name '*.wasm' \) \
+    -exec sh -c 'for f do gzip -c -9 "$f" > "$f.gz"; done' sh {} +
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
     -ldflags="-w -s" \

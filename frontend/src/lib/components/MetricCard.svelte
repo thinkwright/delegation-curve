@@ -8,7 +8,7 @@
 		href = ''
 	}: {
 		label: string;
-		value: string;
+		value: string | number;
 		subtitle?: string;
 		icon?: string;
 		accent?: string;

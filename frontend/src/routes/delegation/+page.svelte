@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getDomains } from '$lib/db/client';
+	import { getDomains, getMeta } from '$lib/db/client';
 	import type { DelegationDomain } from '$lib/data/types';
 	import DomainRow from '$lib/components/DomainRow.svelte';
 	import FilterBar from '$lib/components/FilterBar.svelte';
@@ -8,8 +8,16 @@
 	let active = $state('All');
 
 	let domains = $state<DelegationDomain[]>([]);
+	let priorPeriodLabel = $state('2025');
 	let error = $state<string | null>(null);
-	$effect(() => { getDomains().then(d => { domains = d; }).catch(e => { error = e.message; }); });
+	$effect(() => {
+		Promise.all([getDomains(), getMeta()])
+			.then(([d, meta]) => {
+				domains = d;
+				priorPeriodLabel = String(meta.delegation.dataYear - 1);
+			})
+			.catch(e => { error = e.message; });
+	});
 
 	const maxDelta = $derived(
 		Math.max(...domains.map(d => d.score - d.previousScore), 1)
@@ -24,20 +32,21 @@
 			? sorted
 			: sorted.filter((d) => d.status === active.toLowerCase())
 	);
+	const priorLabel = $derived(`${priorPeriodLabel} score`);
 </script>
 
 <svelte:head>
 	<title>AI Delegation Scores by Domain — AI Delegation Curve</title>
-	<meta name="description" content="AI delegation scores ranked across 9 decision domains: content moderation, algorithmic trading, AI code generation, customer support automation, AI credit scoring, medical AI diagnostics, legal AI tools, AI hiring systems, and AI in education. Each domain scored 0–100 based on normalized indicators from transparency reports, regulatory filings, and public benchmarks." />
+	<meta name="description" content="AI influence scores ranked across 9 consequential domains: content moderation, algorithmic trading, AI code generation, customer support automation, AI credit scoring, medical AI diagnostics, legal AI tools, AI hiring systems, and AI in education." />
 	<link rel="canonical" href="https://curve.thinkwright.ai/delegation" />
 	<meta property="og:title" content="AI Delegation Scores by Domain — AI Delegation Curve" />
-	<meta property="og:description" content="AI delegation scores ranked across 9 decision domains. See which sectors have delegated the most decision-making power to AI systems." />
+	<meta property="og:description" content="AI influence scores ranked across 9 consequential domains, using normalized indicators from public sources and research." />
 	<meta property="og:url" content="https://curve.thinkwright.ai/delegation" />
-	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=2" />
+	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "BreadcrumbList",
@@ -50,7 +59,7 @@
 
 <div class="px-4 py-8 pb-4">
 	<h2 class="text-4xl font-black tracking-tight uppercase leading-none mb-1">Delegation<br/>Curve</h2>
-	<p class="font-mono text-xs text-neutral-500 uppercase tracking-widest">% of consequential decisions made or influenced by AI</p>
+	<p class="font-mono text-xs text-neutral-500 uppercase tracking-widest">AI influence across consequential domains</p>
 </div>
 
 <FilterBar {filters} {active} onchange={(f) => active = f} />
@@ -69,7 +78,7 @@
 {:else}
 <div class="flex flex-col">
 	{#each filtered as domain (domain.id)}
-		<DomainRow {domain} {maxDelta} />
+		<DomainRow {domain} {maxDelta} {priorLabel} />
 	{/each}
 	{#if filtered.length === 0}
 		<div class="p-8 text-center text-neutral-400 text-sm">No domains match this filter.</div>

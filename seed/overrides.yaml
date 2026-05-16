@@ -4,137 +4,251 @@
 #
 # All values must be sourced from the cited URL. Do not enter prototype/mock data.
 
+content-mod:
+  - name: "Meta Automated Detection"
+    value: 95.2
+    unit: "%"
+    source: "Meta Transparency Report"
+    freshness: "Q3 2025"
+    entered_at: "2026-05-16"
+    note: "Held from prior CSER value pending reproducible table extraction; 2025 policy shift is documented in research/2026-evidence/content-mod.md. https://transparency.meta.com/reports/community-standards-enforcement/"
+
+  - name: "YouTube Automated Flagging"
+    value: 99.5
+    unit: "%"
+    source: "YouTube Transparency Report"
+    freshness: "Jul-Sep 2025"
+    entered_at: "2026-05-16"
+    note: "YouTube Community Guidelines Enforcement visible-change log reports automated flagging at 99.5 percent. https://support.google.com/transparencyreport/answer/9198203?hl=en-GB"
+
+  - name: "TikTok Automated Enforcement"
+    value: 93.8
+    unit: "%"
+    source: "TikTok DSA H2 2025"
+    freshness: "H2 2025"
+    entered_at: "2026-05-16"
+    note: "TikTok DSA H2 2025 report says automated systems actioned 93.8 percent of violating content without human review. https://newsroom.tiktok.com/digital-services-act-our-sixth-transparency-report-on-content-moderation-in-europe?lang=en-150"
+
+algo-trade:
+  - name: "FX Electronic Trading Share"
+    value: 59
+    unit: "%"
+    source: "BIS Triennial Survey"
+    freshness: "April 2025"
+    entered_at: "2026-05-16"
+    note: "BIS execution analysis reports electronic trading accounted for 59 percent of global FX turnover in April 2025. https://www.bis.org/publ/qtrpdf/r_qt2512v.htm"
+
+  - name: "Buy-Side AI Trade Execution Adoption"
+    value: 15
+    unit: "%"
+    source: "Coalition Greenwich"
+    freshness: "2025"
+    entered_at: "2026-05-16"
+    note: "Coalition Greenwich reports 15 percent of North American buy-side equity traders already incorporated internal AI technologies into trade execution workflow; current-plus-planned would be 39 percent but is not used for current scoring. https://www.greenwich.com/market-structure-technology/great-expectations-ai-equity-trading"
+
 code-gen:
-  - name: "Copilot Code Acceptance"
-    value: 48.2
+  - name: "AI-Generated Code Output Share"
+    value: 39.2
     unit: "%"
-    source: "GitHub Octoverse"
-    freshness: "2025"
-    entered_at: "2026-02-28"
-    note: "From github.blog/news-insights/octoverse/octoverse-2024/"
+    source: "Sonar and GitLab"
+    freshness: "2026"
+    entered_at: "2026-05-16"
+    note: "Blended current output-share estimate: 65 percent weight to Sonar 42 percent committed-code estimate and 35 percent weight to GitLab 34 percent code-source-share estimate. https://www.sonarsource.com/blog/state-of-code-developer-survey-report-the-current-reality-of-ai-coding and https://about.gitlab.com/resources/developer-survey/"
 
-  - name: "Developer AI Tool Usage"
-    value: 41
+  - name: "Technical Work AI Value Share"
+    value: 50
     unit: "%"
-    source: "Stack Overflow Dev Survey 2025"
-    freshness: "2025"
-    entered_at: "2026-03-02"
-    note: "41% of all code is now AI-written (84% of devs use AI coding tools daily). Reframed from adoption % to output delegation %. survey.stackoverflow.co/2025/"
+    source: "METR AI Usage Survey"
+    freshness: "Mar 2026"
+    entered_at: "2026-05-16"
+    note: "METR median March 2026 self-reported value multiplier is 2x; converted as (2-1)/2 = 50 percent AI-attributable value share. https://metr.org/blog/2026-05-11-ai-usage-survey/"
 
-  - name: "AI-Assisted Commits (OSS)"
-    value: 31.5
+  - name: "AI Workflow Reliance"
+    value: 67.7
     unit: "%"
-    source: "GitClear Analysis"
-    freshness: "2025"
-    entered_at: "2026-02-28"
-    note: "From gitclear.com 2024 code quality report"
+    source: "DORA and JetBrains"
+    freshness: "2025/2026"
+    entered_at: "2026-05-16"
+    note: "Blended workflow-reliance estimate: 70 percent weight to DORA 65 percent moderate-to-heavy reliance and 30 percent weight to JetBrains 74 percent specialized AI developer-tool adoption. https://blog.google/innovation-and-ai/technology/developers-tools/dora-report-2025/ and https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/"
 
-medical-dx:
-  - name: "FDA-Cleared Diagnostic AI Devices"
-    value: 1016
-    unit: "devices"
-    source: "FDA AI/ML Database"
-    freshness: "2025"
-    entered_at: "2026-02-28"
-    note: "1,039 radiology-specific AI/ML devices out of 1,356 total (77%). Using 1,016 from JAMA Network Open systematic review. theimagingwire.com/2025/12/10/ai-enabled-medical-devices-granted-fda-marketing-authorization/"
+  - name: "Agentic Task Delegation"
+    value: 17.7
+    unit: "%"
+    source: "Anthropic and arXiv"
+    freshness: "2025/2026"
+    entered_at: "2026-05-16"
+    note: "Blended agentic-delegation estimate: 50 percent weight to Anthropic's 0-20 percent fully delegable task midpoint and 50 percent weight to the arXiv GitHub coding-agent adoption midpoint of 25.4 percent. https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf?hsLang=en and https://arxiv.org/abs/2601.18341"
 
-  - name: "Radiology AI Adoption"
+support:
+  - name: "Cases Handled by AI"
     value: 30
     unit: "%"
-    source: "RSNA Survey"
+    source: "Salesforce State of Service"
     freshness: "2025"
-    entered_at: "2026-02-28"
-    note: "~30% of hospital radiology depts using AI in routine workflow. ESR 2024 survey found 48% of radiologists exposed; US hospital-level adoption ~30%. philips.com/a-w/about/news/archive/features/2025/ai-in-radiology"
+    entered_at: "2026-05-16"
+    note: "Salesforce State of Service 7th Edition reports service teams estimate 30 percent of cases are currently handled by AI. https://www.salesforce.com/news/stories/state-of-service-report-announcement-2025/"
 
-  - name: "AI-Assisted Diagnosis Rate"
-    value: 12
+  - name: "Bot Deflection Rate"
+    value: 52.3
     unit: "%"
-    source: "AMA Survey"
+    source: "Intercom Trends"
     freshness: "2025"
-    entered_at: "2026-02-28"
-    note: "12% of physicians use AI specifically for assistive diagnosis (vs 66% for any health AI, mostly admin). AMA Augmented Intelligence Report Feb 2025. ama-assn.org/system/files/physician-ai-sentiment-report.pdf"
+    entered_at: "2026-05-16"
+    note: "Retained from prior locked source because no better direct 2026 operational deflection metric was found; definition remains pending."
 
-  - name: "Pathology AI Adoption"
+  - name: "Production AI Customer Communications Agents"
+    value: 62
+    unit: "%"
+    source: "Sinch AI Production Paradox"
+    freshness: "2026"
+    entered_at: "2026-05-16"
+    note: "Sinch reports 62 percent of enterprises already have AI agents live in production across customer communications. https://sinch.com/news/sinch-releases-ai-production-paradox/"
+
+  - name: "Mature AI Support Deployment"
     value: 10
     unit: "%"
-    source: "CAP TODAY / DeciBio"
-    freshness: "2025"
-    entered_at: "2026-02-28"
-    note: "~10% of academic medical centers use digital pathology for routine primary diagnosis; <1% of community hospitals. CAP TODAY Dec 2024 roundtable citing DeciBio. captodayonline.com/digital-pathology-at-10-adoption-and-in-lab-plans/ Corroborated by KLAS 2026: <15% of orgs have selected a vendor."
+    source: "Intercom Customer Service Transformation"
+    freshness: "Q4 2025"
+    entered_at: "2026-05-16"
+    note: "Intercom reports 10 percent of respondents reached mature deployment where AI is fully integrated into support operations and working at scale. https://www.intercom.com/customer-transformation-report"
 
 credit:
-  - name: "AI-Underwritten Loan Volume"
-    value: 34
+  - name: "AI-Underwritten Personal Loan Proxy"
+    value: 38.2
     unit: "%"
-    source: "TransUnion / Upstart Filings"
+    source: "Upstart and TransUnion"
     freshness: "2025"
-    entered_at: "2026-02-28"
-    note: "Derived: fintech lenders hold 42% of personal loan originations (TransUnion Q3 2025) and are ~91% fully automated (Upstart 10-K FY2024). 42%*0.91=38% for personal loans; blended across all consumer lending ~34%. debanked.com/2025/02/upstart-91-of-loans-fully-automated/"
-
-  - name: "Fintech Lending Market Share"
-    value: 42
-    unit: "%"
-    source: "TransUnion CIIR"
-    freshness: "Q3 2025"
-    entered_at: "2026-02-28"
-    note: "42% of personal loan originations from fintech lenders in Q3 2025, up from 33% a year earlier. newsroom.transunion.com/q3-2025-ciir/"
+    entered_at: "2026-05-16"
+    note: "Candidate blended proxy: 91 percent Upstart fully automated loans times 42 percent TransUnion fintech unsecured personal-loan origination share = 38.2 percent. https://www.sec.gov/Archives/edgar/data/1647639/000164763926000027/upst-20251231.htm and https://newsroom.transunion.com/q4-2025-ciir/"
 
   - name: "AI Credit Decisioning (Banks)"
     value: 20
     unit: "%"
     source: "McKinsey Credit Risk Survey"
     freshness: "H2 2024"
-    entered_at: "2026-02-28"
-    note: "20% of credit risk executives at major banks have deployed at least one gen AI use case; 60% expect to within a year. Survey of 24 institutions incl. 9 of top 10 US banks. mckinsey.com/capabilities/risk-and-resilience/our-insights/embracing-generative-ai-in-credit-risk"
+    entered_at: "2026-05-16"
+    note: "Held from prior source because no credit-specific 2026 bank-decisioning metric was locked; BoE/FCA 2026 roundtables support cautious bank deployment."
+
+medical-dx:
+  - name: "FDA AI-Enabled Medical Devices"
+    value: 1430
+    unit: "devices"
+    source: "FDA AI-Enabled Medical Devices"
+    freshness: "2026-05-16"
+    entered_at: "2026-05-16"
+    note: "Direct local count from FDA CSV download: 1,430 rows in the current AI-enabled medical device list. https://www.fda.gov/media/178541/download?attachment="
+
+  - name: "Radiology or Imaging AI Adoption"
+    value: 50
+    unit: "%"
+    source: "KLAS Global Imaging AI"
+    freshness: "2025"
+    entered_at: "2026-05-16"
+    note: "KLAS Global Imaging AI 2025 reports nearly 50 percent of interviewed non-U.S. organizations use at least one imaging AI solution. https://klasresearch.com/report/global-imaging-ai-2025-looking-at-adoption-and-usage-across-regions/3804"
+
+  - name: "AI-Assisted Diagnosis Rate"
+    value: 17
+    unit: "%"
+    source: "AMA Physician AI Sentiment Survey"
+    freshness: "2026"
+    entered_at: "2026-05-16"
+    note: "AMA 2026 survey reports 17 percent of physicians use AI for assistive diagnosis. https://www.ama-assn.org/sites/ama-assn.org/files/2026-03/physician-ai-sentiment-report_0.pdf"
+
+  - name: "Pathology AI Adoption"
+    value: 10
+    unit: "%"
+    source: "Pathology AI adoption surveys"
+    freshness: "2025"
+    entered_at: "2026-05-16"
+    note: "Held conservative pending representative deployment source; 2025 pathology surveys show uneven and mostly non-diagnostic use. See research/2026-evidence/medical-dx.md."
 
 legal-ai:
-  - name: "AI-Assisted Document Review"
-    value: 22
+  - name: "Legal Organization GenAI Adoption"
+    value: 40
     unit: "%"
-    source: "ABA Legal Technology Survey"
+    source: "Thomson Reuters AI in Professional Services"
+    freshness: "2026"
+    entered_at: "2026-05-16"
+    note: "Thomson Reuters 2026 reports 40 percent of professional-services organizations use GenAI, up from 22 percent. https://www.thomsonreuters.com/content/dam/ewp-m/documents/thomsonreuters/en/pdf/reports/2026-ai-in-professional-services-report.pdf"
+
+  - name: "Solo and Small Firms Using AI for Legal Work"
+    value: 73
+    unit: "%"
+    source: "Clio Solo and Small Law Firms 2026"
+    freshness: "2026"
+    entered_at: "2026-05-16"
+    note: "Average of Clio 2026 values: 71 percent of solo practitioners and 75 percent of small firms use AI to complete legal work. https://www.clio.com/about/press/2026-solo-small-firm-report/"
+
+  - name: "AI-Assisted Document Review"
+    value: 28
+    unit: "%"
+    source: "ABA Litigation and TAR TechReport"
     freshness: "2024"
-    entered_at: "2026-02-28"
-    note: "22% of legal professionals use predictive coding/TAR; 28% use AI-assisted search. ABA 2024 Legal Technology Survey - Litigation and TAR TechReport. americanbar.org/groups/law_practice/resources/tech-report/2024/2024-litigation-and-tar-techreport/"
+    entered_at: "2026-05-16"
+    note: "ABA 2024 Litigation and TAR TechReport reports 28 percent AI-assisted search; predictive coding remains 22 percent. https://www.americanbar.org/groups/law_practice/resources/tech-report/2024/2024-litigation-and-tar-techreport/"
 
 hire:
-  - name: "AI-Screened Applications"
-    value: 44
+  - name: "Orgs Using AI in Talent Acquisition"
+    value: 69
     unit: "%"
-    source: "SHRM 2025 Talent Trends"
-    freshness: "Q1 2025"
-    entered_at: "2026-02-28"
-    note: "44% of organizations use AI specifically to screen resumes (among the 51% using AI in recruiting). Survey of 2,040 HR professionals, Feb 2025. shrm.org/topics-tools/research/2025-talent-trends/ai-in-hr"
+    source: "ICIMS/Aptitude AI Adoption Report"
+    freshness: "2026"
+    entered_at: "2026-05-16"
+    note: "ICIMS/Aptitude 2026 reports 69 percent of companies use AI in some capacity in talent acquisition. https://www.icims.com/company/newsroom/aiadoptionreport2026/"
+
+  - name: "AI Screening Use Case Adoption"
+    value: 58
+    unit: "%"
+    source: "ICIMS/Aptitude AI Adoption Report"
+    freshness: "2026"
+    entered_at: "2026-05-16"
+    note: "ICIMS/Aptitude 2026 reports screening is the most widely adopted AI use case at 58 percent. https://www.icims.com/company/newsroom/aiadoptionreport2026/"
+
+  - name: "Broad AI Across Hiring Processes"
+    value: 18
+    unit: "%"
+    source: "ICIMS/Aptitude AI Adoption Report"
+    freshness: "2026"
+    entered_at: "2026-05-16"
+    note: "ICIMS/Aptitude 2026 reports 18 percent of companies use AI broadly across hiring processes. https://www.icims.com/company/newsroom/aiadoptionreport2026/"
 
   - name: "AI Assessment Platform Reach"
     value: 80
     unit: "M/yr"
     source: "Vendor Disclosures"
     freshness: "2025"
-    entered_at: "2026-02-28"
-    note: "HireVue: ~20M video interviews in Q1 2024 alone (~60-80M annualized), 1,150+ customers. Harver/Pymetrics: 100M+ cumulative. HackerRank: 3M/yr. Conservative aggregate: ~80M/yr. hirevue.com/press-release/human-potential-intelligence"
+    entered_at: "2026-05-16"
+    note: "Held current 80M per year low-confidence platform-reach proxy until a refreshed multi-vendor denominator is found."
 
 education:
+  - name: "Students Using AI for Schoolwork"
+    value: 54
+    unit: "%"
+    source: "Pew Research Center"
+    freshness: "2026"
+    entered_at: "2026-05-16"
+    note: "Pew 2026 reports 54 percent of U.S. teens have used chatbots for schoolwork help. https://www.pewresearch.org/internet/2026/02/24/how-teens-use-and-view-ai/"
+
   - name: "AI-Graded Assessments"
     value: 8
     unit: "%"
     source: "Gradescope / Turnitin"
     freshness: "2025"
-    entered_at: "2026-02-28"
-    note: "Gradescope serves 3.2M students at 2,600 institutions with 700M+ questions graded. ~16% of US higher ed students have access; ~8% actively receive AI grading. turnitin.com/products/gradescope/"
+    entered_at: "2026-05-16"
+    note: "Held from prior locked source because no stronger 2026 direct assessment-automation metric was found."
 
-  - name: "Faculty Using AI in Teaching"
-    value: 30
+  - name: "Teachers Using AI for Work"
+    value: 37
     unit: "%"
-    source: "Tyton Partners"
-    freshness: "2025"
-    entered_at: "2026-02-28"
-    note: "30% of instructors use GenAI weekly or daily; ~40% at least monthly. Tyton Partners 'Time for Class' Spring 2025. Cengage 2024 found 45% 'active use' (broader definition). tytonpartners.com/racing-forward-bridging-the-gap-between-generative-ai-proficiency-and-educational-practice/"
+    source: "OECD Digital Education Outlook"
+    freshness: "2024"
+    entered_at: "2026-05-16"
+    note: "OECD Digital Education Outlook 2026 reports 37 percent of lower-secondary teachers used AI for their job in 2024. https://www.oecd.org/en/publications/2026/01/oecd-digital-education-outlook-2026_940e0dd8.html"
 
-support:
-  - name: "AI Copilot Adoption (Agents)"
-    value: 24
+  - name: "Student Papers 80%+ AI-Written"
+    value: 15
     unit: "%"
-    source: "Deloitte / Salesforce"
-    freshness: "2025"
-    entered_at: "2026-02-28"
-    note: "Deloitte 2024: 17% of contact centers deployed GenAI (survey of 600 leaders). Salesforce State of Service 2025: 30% of cases resolved by AI. Blended estimate for agent-level copilot usage: ~24%. prnewswire.com/news-releases/new-deloitte-digital-research-identifies-effective-behaviors-of-contact-center-service-innovators-302137506.html"
+    source: "Turnitin AI Writing"
+    freshness: "2026"
+    entered_at: "2026-05-16"
+    note: "Turnitin reports approximately 15 percent of essay submissions since October 2025 had greater than 80 percent AI-generated writing. https://www.prnewswire.com/news-releases/turnitin-data-shows-transparency-about-ai-use-benefits-students-and-educators-302695254.html"
