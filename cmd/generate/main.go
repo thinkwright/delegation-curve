@@ -88,6 +88,17 @@ func main() {
 		os.Exit(1)
 	}
 
+	seedBytes, err := os.ReadFile(*input)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error reading seed for static copy: %v\n", err)
+		os.Exit(1)
+	}
+	staticSeedPath := filepath.Join(filepath.Dir(*output), "seed.json")
+	if err := os.WriteFile(staticSeedPath, seedBytes, 0o644); err != nil {
+		fmt.Fprintf(os.Stderr, "Error writing static seed.json: %v\n", err)
+		os.Exit(1)
+	}
+
 	fmt.Fprintln(os.Stderr, "Done.")
 }
 

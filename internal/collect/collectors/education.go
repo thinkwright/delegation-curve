@@ -16,8 +16,9 @@ func (c *EducationCollector) DomainID() string { return "education" }
 
 func (c *EducationCollector) Collect(_ context.Context) ([]collect.CollectResult, error) {
 	return []collect.CollectResult{
-		{IndicatorName: "Students Using AI Tutors", DomainID: "education", SourceName: "Educause Survey", Err: fmt.Errorf("manual source: update overrides.yaml from educause.edu/research-and-publications")},
+		{IndicatorName: "Students Using AI for Schoolwork", DomainID: "education", SourceName: "Pew Research Center", Err: fmt.Errorf("manual source: update overrides.yaml from pewresearch.org")},
 		{IndicatorName: "AI-Graded Assessments", DomainID: "education", SourceName: "Gradescope/EdTech Reports", Err: fmt.Errorf("manual source: update overrides.yaml from Gradescope/edtech automated grading adoption data")},
-		{IndicatorName: "Faculty Using AI in Teaching", DomainID: "education", SourceName: "AAUP/Educause Survey", Err: fmt.Errorf("manual source: update overrides.yaml from AAUP/Educause faculty AI adoption surveys")},
+		{IndicatorName: "Teachers Using AI for Work", DomainID: "education", SourceName: "OECD Digital Education Outlook", Err: fmt.Errorf("manual source: update overrides.yaml from OECD digital education reports")},
+		{IndicatorName: "Student Papers 80%+ AI-Written", DomainID: "education", SourceName: "Turnitin AI Writing", Err: fmt.Errorf("manual source: update overrides.yaml from Turnitin AI writing reports")},
 	}, nil
 }

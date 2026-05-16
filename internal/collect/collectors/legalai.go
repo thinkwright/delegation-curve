@@ -16,8 +16,8 @@ func (c *LegalAICollector) DomainID() string { return "legal-ai" }
 
 func (c *LegalAICollector) Collect(_ context.Context) ([]collect.CollectResult, error) {
 	return []collect.CollectResult{
-		{IndicatorName: "AI Tool Adoption (BigLaw)", DomainID: "legal-ai", SourceName: "ALM Survey", Err: fmt.Errorf("manual source: update overrides.yaml from law.com/americanlawyer surveys")},
-		{IndicatorName: "AI Tool Adoption (Solo/Small)", DomainID: "legal-ai", SourceName: "Clio Legal Trends", Err: fmt.Errorf("manual source: update overrides.yaml from clio.com/resources/legal-trends")},
+		{IndicatorName: "Legal Organization GenAI Adoption", DomainID: "legal-ai", SourceName: "Thomson Reuters", Err: fmt.Errorf("manual source: update overrides.yaml from thomsonreuters.com AI professional services report")},
+		{IndicatorName: "Solo and Small Firms Using AI for Legal Work", DomainID: "legal-ai", SourceName: "Clio Legal Trends", Err: fmt.Errorf("manual source: update overrides.yaml from clio.com/resources/legal-trends")},
 		{IndicatorName: "AI-Assisted Document Review", DomainID: "legal-ai", SourceName: "EDRM/Relativity Survey", Err: fmt.Errorf("manual source: update overrides.yaml from EDRM/Relativity TAR adoption surveys")},
 	}, nil
 }

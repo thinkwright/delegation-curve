@@ -49,7 +49,7 @@
 		{domains.length} domains are tracked: content moderation, algorithmic trading, code generation, customer support, credit decisioning, medical diagnostics, legal AI, hiring, and education.
 	</p>
 	<p class="text-sm leading-relaxed">
-		Each domain score is built from 3–4 normalized indicators sourced from transparency reports, regulatory filings, surveys, and public benchmarks.
+		Each domain score is built from 2-4 normalized indicators sourced from transparency reports, regulatory filings, surveys, and public benchmarks.
 	</p>
 </div>
 
@@ -70,15 +70,15 @@
 	<div class="space-y-2 mb-4">
 		<div class="flex items-center gap-2">
 			<span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border border-black">Nominal</span>
-			<span class="text-sm text-neutral-600">&lt; 30% AI influence</span>
+			<span class="text-sm text-neutral-600">&lt; 40% AI influence</span>
 		</div>
 		<div class="flex items-center gap-2">
 			<span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border border-sage bg-sage/20 text-sage">Elevated</span>
-			<span class="text-sm text-neutral-600">30–60% AI influence</span>
+			<span class="text-sm text-neutral-600">40-74.9% AI influence</span>
 		</div>
 		<div class="flex items-center gap-2">
 			<span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border border-rose bg-rose/20 text-rose">Autonomous</span>
-			<span class="text-sm text-neutral-600">&gt; 60% AI influence</span>
+			<span class="text-sm text-neutral-600">&ge; 75% AI influence</span>
 		</div>
 	</div>
 
@@ -140,5 +140,5 @@
 </div>
 
 <div class="px-4 py-6">
-	<p class="font-mono text-xs text-neutral-400 uppercase">AI Delegation Curve, Last updated 28 February 2026</p>
+	<p class="font-mono text-xs text-neutral-400 uppercase">AI Delegation Curve, Last updated 16 May 2026</p>
 </div>
