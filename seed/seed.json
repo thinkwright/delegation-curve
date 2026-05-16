@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-16T19:39:24Z",
+  "generated_at": "2026-05-16T21:58:47Z",
   "delegation": {
     "composite": {
       "current": 45.8,
@@ -119,23 +119,23 @@
         "id": "code-gen",
         "name": "CODE-GEN",
         "full_name": "Software Development",
-        "score": 48.2,
+        "score": 48.1,
         "previous_score": 32.6,
         "trend": [
           27,
           32.6,
-          48.2
+          48.1
         ],
         "status": "elevated",
         "weight": 0.15,
         "tier": 1,
-        "description": "Percentage of production code substantially generated or influenced by AI coding assistants. Measured through IDE telemetry, developer surveys, and code analysis.",
+        "description": "Share of software engineering output, workflow reliance, and agentic task delegation substantially influenced by AI coding systems.",
         "sub_indicators": [
           {
-            "name": "AI-Generated or Assisted Committed Code",
-            "value": 42,
+            "name": "AI-Generated Code Output Share",
+            "value": 39.2,
             "unit": "%",
-            "source": "Sonar State of Code Developer Survey",
+            "source": "Sonar and GitLab",
             "freshness": "2026"
           },
           {
@@ -146,15 +146,22 @@
             "freshness": "Mar 2026"
           },
           {
-            "name": "Professional Developer Daily AI Use",
-            "value": 50.6,
+            "name": "AI Workflow Reliance",
+            "value": 67.7,
             "unit": "%",
-            "source": "Stack Overflow Dev Survey 2025",
-            "freshness": "2025"
+            "source": "DORA and JetBrains",
+            "freshness": "2025/2026"
           },
           {
-            "name": "IDE AI Extension Installs",
-            "value": 90.133588,
+            "name": "Agentic Task Delegation",
+            "value": 17.7,
+            "unit": "%",
+            "source": "Anthropic and arXiv",
+            "freshness": "2025/2026"
+          },
+          {
+            "name": "Tool Ecosystem Reach",
+            "value": 90.134995,
             "unit": "M",
             "source": "VS Code Marketplace",
             "freshness": "2026-05-16"
@@ -162,7 +169,7 @@
         ],
         "data_sources": [
           {
-            "name": "Sonar State of Code Developer Survey",
+            "name": "Sonar and GitLab",
             "cadence": "Annual",
             "type": "survey"
           },
@@ -172,9 +179,14 @@
             "type": "survey"
           },
           {
-            "name": "Stack Overflow Developer Survey",
+            "name": "DORA and JetBrains",
             "cadence": "Annual",
             "type": "survey"
+          },
+          {
+            "name": "Anthropic and arXiv",
+            "cadence": "Annual",
+            "type": "research"
           },
           {
             "name": "VS Code Marketplace",
@@ -560,17 +572,6 @@
       "is_public_series": false
     },
     {
-      "run_id": "legacy-2025",
-      "label": "2025 published baseline",
-      "published_at": "2026-03-02",
-      "measurement_period": "2025",
-      "measurement_year": 2025,
-      "methodology_version": "legacy-trend-v1",
-      "composite_score": 46,
-      "notes": "Archived March 2026 publication baseline from the original scoring series; retained for audit but not used as the headline prior after the 2026 source refresh.",
-      "is_public_series": false
-    },
-    {
       "run_id": "current-method-2024",
       "label": "2024 recalculated history",
       "published_at": "2026-05-16",
@@ -580,6 +581,17 @@
       "composite_score": 31.5,
       "notes": "Backcast using the 2026 scoring frame. Source-level coverage is limited; 2024 values preserve the original 2024-to-2025 domain movement from the recalculated 2025 anchor.",
       "is_public_series": true
+    },
+    {
+      "run_id": "legacy-2025",
+      "label": "2025 published baseline",
+      "published_at": "2026-03-02",
+      "measurement_period": "2025",
+      "measurement_year": 2025,
+      "methodology_version": "legacy-trend-v1",
+      "composite_score": 46,
+      "notes": "Archived March 2026 publication baseline from the original scoring series; retained for audit but not used as the headline prior after the 2026 source refresh.",
+      "is_public_series": false
     },
     {
       "run_id": "current-method-2025",
@@ -600,7 +612,7 @@
       "measurement_year": 2026,
       "methodology_version": "delegation-curve-v2",
       "composite_score": 45.8,
-      "notes": "2026 source refresh in the recalculated public series. Algorithmic trading is scored from BIS FX electronic execution and Coalition Greenwich internal-AI trade-execution adoption rather than broad market-automation proxies.",
+      "notes": "2026 source refresh in the recalculated public series. Algorithmic trading is scored from BIS FX electronic execution and Coalition Greenwich internal-AI trade-execution adoption rather than broad market-automation proxies. Code-gen uses a five-input output share, value share, workflow reliance, agentic delegation, and tool reach method.",
       "is_current": true,
       "is_public_series": true
     }
@@ -616,7 +628,7 @@
     {
       "run_id": "2026-q2",
       "domain_id": "code-gen",
-      "score": 48.2,
+      "score": 48.1,
       "weight": 0.15,
       "status": "elevated"
     },
@@ -668,6 +680,132 @@
       "score": 40.5,
       "weight": 0.15,
       "status": "elevated"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "algo-trade",
+      "score": 34.3,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "code-gen",
+      "score": 27,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "content-mod",
+      "score": 89.6,
+      "weight": 0.1,
+      "status": "autonomous"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "credit",
+      "score": 22.2,
+      "weight": 0.1,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "education",
+      "score": 12.4,
+      "weight": 0.07,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "hire",
+      "score": 33.1,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "legal-ai",
+      "score": 18.4,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "medical-dx",
+      "score": 16.8,
+      "weight": 0.12,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2024",
+      "domain_id": "support",
+      "score": 27.5,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "algo-trade",
+      "score": 39.2,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "code-gen",
+      "score": 32.6,
+      "weight": 0.15,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "content-mod",
+      "score": 94.1,
+      "weight": 0.1,
+      "status": "autonomous"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "credit",
+      "score": 27.7,
+      "weight": 0.1,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "education",
+      "score": 18,
+      "weight": 0.07,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "hire",
+      "score": 38.1,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "legal-ai",
+      "score": 29,
+      "weight": 0.08,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "medical-dx",
+      "score": 21.7,
+      "weight": 0.12,
+      "status": "nominal"
+    },
+    {
+      "run_id": "current-method-2025",
+      "domain_id": "support",
+      "score": 37,
+      "weight": 0.15,
+      "status": "nominal"
     },
     {
       "run_id": "legacy-2024",
@@ -794,132 +932,6 @@
       "score": 45.9,
       "weight": 0.15,
       "status": "elevated"
-    },
-    {
-      "run_id": "current-method-2024",
-      "domain_id": "content-mod",
-      "score": 89.6,
-      "weight": 0.1,
-      "status": "autonomous"
-    },
-    {
-      "run_id": "current-method-2024",
-      "domain_id": "algo-trade",
-      "score": 34.3,
-      "weight": 0.15,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2024",
-      "domain_id": "code-gen",
-      "score": 27,
-      "weight": 0.15,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2024",
-      "domain_id": "support",
-      "score": 27.5,
-      "weight": 0.15,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2024",
-      "domain_id": "credit",
-      "score": 22.2,
-      "weight": 0.1,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2024",
-      "domain_id": "medical-dx",
-      "score": 16.8,
-      "weight": 0.12,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2024",
-      "domain_id": "legal-ai",
-      "score": 18.4,
-      "weight": 0.08,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2024",
-      "domain_id": "hire",
-      "score": 33.1,
-      "weight": 0.08,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2024",
-      "domain_id": "education",
-      "score": 12.4,
-      "weight": 0.07,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2025",
-      "domain_id": "content-mod",
-      "score": 94.1,
-      "weight": 0.1,
-      "status": "autonomous"
-    },
-    {
-      "run_id": "current-method-2025",
-      "domain_id": "algo-trade",
-      "score": 39.2,
-      "weight": 0.15,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2025",
-      "domain_id": "code-gen",
-      "score": 32.6,
-      "weight": 0.15,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2025",
-      "domain_id": "support",
-      "score": 37,
-      "weight": 0.15,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2025",
-      "domain_id": "credit",
-      "score": 27.7,
-      "weight": 0.1,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2025",
-      "domain_id": "medical-dx",
-      "score": 21.7,
-      "weight": 0.12,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2025",
-      "domain_id": "legal-ai",
-      "score": 29,
-      "weight": 0.08,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2025",
-      "domain_id": "hire",
-      "score": 38.1,
-      "weight": 0.08,
-      "status": "nominal"
-    },
-    {
-      "run_id": "current-method-2025",
-      "domain_id": "education",
-      "score": 18,
-      "weight": 0.07,
-      "status": "nominal"
     }
   ],
   "indicator_observations": [
@@ -950,38 +962,38 @@
     {
       "run_id": "2026-q2",
       "domain_id": "code-gen",
-      "indicator_name": "AI-Generated or Assisted Committed Code",
-      "raw_value": 42,
-      "normalized_value": 42,
+      "indicator_name": "AI Workflow Reliance",
+      "raw_value": 67.7,
+      "normalized_value": 67.7,
       "unit": "%",
-      "weight": 0.45,
+      "weight": 0.25,
       "included_in_score": true,
-      "source": "Sonar State of Code Developer Survey",
+      "source": "DORA and JetBrains",
+      "freshness": "2025/2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "code-gen",
+      "indicator_name": "AI-Generated Code Output Share",
+      "raw_value": 39.2,
+      "normalized_value": 39.2,
+      "unit": "%",
+      "weight": 0.3,
+      "included_in_score": true,
+      "source": "Sonar and GitLab",
       "freshness": "2026"
     },
     {
       "run_id": "2026-q2",
       "domain_id": "code-gen",
-      "indicator_name": "IDE AI Extension Installs",
-      "raw_value": 90.133588,
-      "normalized_value": 84.99507215751514,
-      "unit": "M",
-      "weight": 0.05,
-      "included_in_score": true,
-      "source": "VS Code Marketplace",
-      "freshness": "2026-05-16"
-    },
-    {
-      "run_id": "2026-q2",
-      "domain_id": "code-gen",
-      "indicator_name": "Professional Developer Daily AI Use",
-      "raw_value": 50.6,
-      "normalized_value": 50.6,
+      "indicator_name": "Agentic Task Delegation",
+      "raw_value": 17.7,
+      "normalized_value": 17.7,
       "unit": "%",
       "weight": 0.15,
       "included_in_score": true,
-      "source": "Stack Overflow Dev Survey 2025",
-      "freshness": "2025"
+      "source": "Anthropic and arXiv",
+      "freshness": "2025/2026"
     },
     {
       "run_id": "2026-q2",
@@ -990,10 +1002,22 @@
       "raw_value": 50,
       "normalized_value": 50,
       "unit": "%",
-      "weight": 0.35,
+      "weight": 0.25,
       "included_in_score": true,
       "source": "METR AI Usage Survey",
       "freshness": "Mar 2026"
+    },
+    {
+      "run_id": "2026-q2",
+      "domain_id": "code-gen",
+      "indicator_name": "Tool Ecosystem Reach",
+      "raw_value": 90.134995,
+      "normalized_value": 84.99536691206892,
+      "unit": "M",
+      "weight": 0.05,
+      "included_in_score": true,
+      "source": "VS Code Marketplace",
+      "freshness": "2026-05-16"
     },
     {
       "run_id": "2026-q2",

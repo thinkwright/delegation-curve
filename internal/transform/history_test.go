@@ -21,10 +21,10 @@ func TestHistoryDerivesLegacyRuns(t *testing.T) {
 					Trend:  []float64{44, 52.3},
 					SubIndicators: []ingest.SubIndicatorJSON{
 						{
-							Name:      "AI-Generated or Assisted Committed Code",
-							Value:     42,
+							Name:      "AI-Generated Code Output Share",
+							Value:     39.2,
 							Unit:      "%",
-							Source:    "Sonar State of Code Developer Survey",
+							Source:    "Sonar and GitLab",
 							Freshness: "2026",
 						},
 					},
@@ -56,7 +56,7 @@ func TestHistoryDerivesLegacyRuns(t *testing.T) {
 		t.Fatalf("expected 1 observation, got %d", len(observations))
 	}
 	got := observations[0]
-	if got.RunID != "legacy-2025" || !got.IncludedInScore || got.Weight != 0.45 || got.NormalizedValue != 42 {
+	if got.RunID != "legacy-2025" || !got.IncludedInScore || got.Weight != 0.30 || got.NormalizedValue != 39.2 {
 		t.Fatalf("unexpected current observation: %+v", got)
 	}
 }

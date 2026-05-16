@@ -47,13 +47,13 @@ algo-trade:
     note: "Coalition Greenwich reports 15 percent of North American buy-side equity traders already incorporated internal AI technologies into trade execution workflow; current-plus-planned would be 39 percent but is not used for current scoring. https://www.greenwich.com/market-structure-technology/great-expectations-ai-equity-trading"
 
 code-gen:
-  - name: "AI-Generated or Assisted Committed Code"
-    value: 42
+  - name: "AI-Generated Code Output Share"
+    value: 39.2
     unit: "%"
-    source: "Sonar State of Code Developer Survey"
+    source: "Sonar and GitLab"
     freshness: "2026"
     entered_at: "2026-05-16"
-    note: "Sonar 2026 survey estimates AI accounts for 42 percent of committed code today. https://www.sonarsource.com/blog/state-of-code-developer-survey-report-the-current-reality-of-ai-coding"
+    note: "Blended current output-share estimate: 65 percent weight to Sonar 42 percent committed-code estimate and 35 percent weight to GitLab 34 percent code-source-share estimate. https://www.sonarsource.com/blog/state-of-code-developer-survey-report-the-current-reality-of-ai-coding and https://about.gitlab.com/resources/developer-survey/"
 
   - name: "Technical Work AI Value Share"
     value: 50
@@ -63,13 +63,21 @@ code-gen:
     entered_at: "2026-05-16"
     note: "METR median March 2026 self-reported value multiplier is 2x; converted as (2-1)/2 = 50 percent AI-attributable value share. https://metr.org/blog/2026-05-11-ai-usage-survey/"
 
-  - name: "Professional Developer Daily AI Use"
-    value: 50.6
+  - name: "AI Workflow Reliance"
+    value: 67.7
     unit: "%"
-    source: "Stack Overflow Dev Survey 2025"
-    freshness: "2025"
+    source: "DORA and JetBrains"
+    freshness: "2025/2026"
     entered_at: "2026-05-16"
-    note: "Stack Overflow 2025 reports 50.6 percent of professional developers use AI tools daily; retained as low-weight adoption context. https://survey.stackoverflow.co/2025/ai"
+    note: "Blended workflow-reliance estimate: 70 percent weight to DORA 65 percent moderate-to-heavy reliance and 30 percent weight to JetBrains 74 percent specialized AI developer-tool adoption. https://blog.google/innovation-and-ai/technology/developers-tools/dora-report-2025/ and https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/"
+
+  - name: "Agentic Task Delegation"
+    value: 17.7
+    unit: "%"
+    source: "Anthropic and arXiv"
+    freshness: "2025/2026"
+    entered_at: "2026-05-16"
+    note: "Blended agentic-delegation estimate: 50 percent weight to Anthropic's 0-20 percent fully delegable task midpoint and 50 percent weight to the arXiv GitHub coding-agent adoption midpoint of 25.4 percent. https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf?hsLang=en and https://arxiv.org/abs/2601.18341"
 
 support:
   - name: "Cases Handled by AI"
