@@ -265,7 +265,9 @@ Candidate sources:
 - ABA Legal Technology Survey / TAR materials.
 - Law360 Pulse 2026 AI Survey if accessible and methodology is adequate.
 
-Decision: refresh with Thomson Reuters and Clio/ABA; keep document review as direct workflow anchor.
+Extraction note: `research/2026-evidence/legal-ai.md`.
+
+Decision: refresh solo/small adoption with Clio 2026, use Thomson Reuters 2026 for broad legal workflow context, and keep ABA/TAR as the direct document-review workflow anchor. Do not score Thomson's raw 74% document-review use-case share without a denominator adjustment. Revisit whether `AI Tool Adoption (BigLaw)` should become `Large and Mid Law Firm AI Adoption` unless a direct 2026 BigLaw source is locked.
 
 ### hire
 
