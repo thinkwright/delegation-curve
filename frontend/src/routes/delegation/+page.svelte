@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getDomains } from '$lib/db/client';
+	import { getDomains, getMeta } from '$lib/db/client';
 	import type { DelegationDomain } from '$lib/data/types';
 	import DomainRow from '$lib/components/DomainRow.svelte';
 	import FilterBar from '$lib/components/FilterBar.svelte';
@@ -8,8 +8,16 @@
 	let active = $state('All');
 
 	let domains = $state<DelegationDomain[]>([]);
+	let priorPeriodLabel = $state('2025');
 	let error = $state<string | null>(null);
-	$effect(() => { getDomains().then(d => { domains = d; }).catch(e => { error = e.message; }); });
+	$effect(() => {
+		Promise.all([getDomains(), getMeta()])
+			.then(([d, meta]) => {
+				domains = d;
+				priorPeriodLabel = String(meta.delegation.dataYear - 1);
+			})
+			.catch(e => { error = e.message; });
+	});
 
 	const maxDelta = $derived(
 		Math.max(...domains.map(d => d.score - d.previousScore), 1)
@@ -24,6 +32,7 @@
 			? sorted
 			: sorted.filter((d) => d.status === active.toLowerCase())
 	);
+	const priorLabel = $derived(`${priorPeriodLabel} baseline`);
 </script>
 
 <svelte:head>
@@ -69,7 +78,7 @@
 {:else}
 <div class="flex flex-col">
 	{#each filtered as domain (domain.id)}
-		<DomainRow {domain} {maxDelta} />
+		<DomainRow {domain} {maxDelta} {priorLabel} />
 	{/each}
 	{#if filtered.length === 0}
 		<div class="p-8 text-center text-neutral-400 text-sm">No domains match this filter.</div>

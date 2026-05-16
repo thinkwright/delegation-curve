@@ -97,7 +97,7 @@
 			{domain.status === 'autonomous' ? 'text-rose' : ''}">{domain.score}</span>
 		<div class="flex flex-col mb-3">
 			<span class="text-base font-mono font-bold tabular-nums {delta >= 0 ? 'text-sage' : 'text-rose'}">{formatDelta(delta)} pts</span>
-			<span class="text-[10px] font-mono text-neutral-400 uppercase">vs recalculated {priorPeriodLabel}</span>
+			<span class="text-[10px] font-mono text-neutral-400 uppercase">vs {priorPeriodLabel} baseline</span>
 		</div>
 	</div>
 
