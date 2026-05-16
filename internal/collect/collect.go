@@ -178,6 +178,8 @@ func updateDomain(
 
 	fmt.Fprintf(os.Stderr, "  %s score: %.1f → %.1f\n", dcfg.DomainID, domain.Score, newScore)
 
+	filterSubIndicatorsToConfig(domain, dcfg.Indicators)
+
 	if ShouldAppendTrend(prevLog.RunAt) {
 		domain.PreviousScore = domain.Score
 	}
@@ -278,4 +280,19 @@ func updateSubIndicator(domain *ingest.DomainJSON, name string, value float64, u
 		Source:    source,
 		Freshness: freshness,
 	})
+}
+
+func filterSubIndicatorsToConfig(domain *ingest.DomainJSON, indicators []IndicatorConfig) {
+	byName := make(map[string]ingest.SubIndicatorJSON, len(domain.SubIndicators))
+	for _, si := range domain.SubIndicators {
+		byName[si.Name] = si
+	}
+
+	filtered := make([]ingest.SubIndicatorJSON, 0, len(indicators))
+	for _, ind := range indicators {
+		if si, ok := byName[ind.Name]; ok {
+			filtered = append(filtered, si)
+		}
+	}
+	domain.SubIndicators = filtered
 }

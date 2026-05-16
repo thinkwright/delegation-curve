@@ -5,25 +5,27 @@ Prepared: 2026-05-16.
 
 ## Current Scoring Contract
 
-Current `code-gen` score: 48.2.
+Current `code-gen` score: 48.1.
 
 Configured indicators:
 
-- `AI-Generated or Assisted Committed Code`: 45% weight.
-- `Technical Work AI Value Share`: 35% weight.
-- `Professional Developer Daily AI Use`: 15% weight.
-- `IDE AI Extension Installs`: 5% weight.
+- `AI-Generated Code Output Share`: 30% weight.
+- `Technical Work AI Value Share`: 25% weight.
+- `AI Workflow Reliance`: 25% weight.
+- `Agentic Task Delegation`: 15% weight.
+- `Tool Ecosystem Reach`: 5% weight.
 
-The current contract moved away from stale accepted-code telemetry and OSS proxy data toward output and value-share measures. It still uses Stack Overflow as a low-weight adoption proxy, which is directionally useful but biased toward self-selected developer-survey respondents and not ideal for measuring engineering-work reliance.
+The current contract moved away from stale accepted-code telemetry, OSS proxy data, and broad daily-use adoption. It now separates output share, value share, workflow reliance, and agentic task delegation.
 
 Current calculation:
 
 ```text
-0.45 * 42.0 AI-Generated or Assisted Committed Code
-+ 0.35 * 50.0 Technical Work AI Value Share
-+ 0.15 * 50.6 Professional Developer Daily AI Use
-+ 0.05 * 85.0 IDE AI Extension Installs normalized
-= 48.2
+0.30 * 39.2 AI-Generated Code Output Share
++ 0.25 * 50.0 Technical Work AI Value Share
++ 0.25 * 67.7 AI Workflow Reliance
++ 0.15 * 17.7 Agentic Task Delegation
++ 0.05 * 85.0 Tool Ecosystem Reach normalized
+= 48.1
 ```
 
 ## Extracted Candidate Sources
@@ -75,7 +77,7 @@ Relevant values:
 - 48% always verify AI-generated code before committing.
 - 38% report that reviewing AI code takes more effort than reviewing human-written code.
 
-Recommendation: add as `AI-Generated or Assisted Committed Code`, with a confidence caveat. This maps more directly to production output than broad AI-tool usage, but it is still a survey report from a developer-tool vendor rather than observed repository telemetry.
+Recommendation: use in the `AI-Generated Code Output Share` blend with GitLab, with a confidence caveat. This maps more directly to production output than broad AI-tool usage, but it is still a survey report from a developer-tool vendor rather than observed repository telemetry.
 
 ### Stack Overflow 2025 Developer Survey
 
@@ -91,9 +93,9 @@ Relevant values:
 - 51% of professional developers use AI tools daily.
 - Professional developers: 50.6% daily, 17.4% weekly, 12.8% monthly or infrequently.
 
-Recommendation: keep as adoption context or redefine the current indicator as `Professional Developer Daily AI Use`. Do not use Stack Overflow as an output-share measure.
+Recommendation: keep as historical bridge adoption context only. Do not use Stack Overflow as an output-share or workflow-reliance measure.
 
-Follow-up recommendation: demote Stack Overflow further once a stronger workflow-reliance source is locked. Stack Overflow is useful as a large developer-community survey, but the population is self-selected and the metric is adoption/frequency rather than delegation share.
+Follow-up recommendation: continue tracking Stack Overflow as context, but keep it out of scoring unless the survey adds a more direct reliance, output, or delegation metric.
 
 ### Google DORA 2025 State of AI-Assisted Software Development
 
@@ -363,32 +365,29 @@ Recommendation: use as a quality and maintenance guardrail. It is not a direct m
 
 ## Proposed Code-Gen Source Lock
 
-Proposed v2 scoring candidates:
+Current v2 scoring inputs and retained candidates:
 
 | Indicator | Suggested role | Evidence grade | Confidence | Notes |
 | --- | --- | --- | --- | --- |
-| AI-Generated or Assisted Committed Code | score input | C | medium | Sonar 42% committed-code survey estimate |
+| AI-Generated Code Output Share | score input | B/C | medium | Sonar 42% committed-code estimate blended with GitLab 34% code-source-share estimate; Augment 48% retained as AI-forward upper context |
 | Technical Work AI Value Share | score input | C | medium | METR 50% converted March 2026 value share |
-| AI-Generated Code Share Triangulation | prototype score input | B/C | medium | GitLab 34%, Sonar 42%, Augment 48% show a plausible current output-share band |
-| AI Workflow Reliance | prototype score input | B | medium | DORA 65% moderate-to-heavy reliance plus median two hours per day |
-| Agentic Coding Tool Adoption | prototype score input or context | B | medium | JetBrains 74% specialized AI dev-tool adoption and 18% Claude Code work adoption |
-| OSS Coding-Agent Adoption | prototype score input or context | B | medium | arXiv GitHub-trace study estimates 22.20%-28.66% project adoption |
+| AI Workflow Reliance | score input | B | medium | DORA 65% moderate-to-heavy reliance blended with JetBrains 74% specialized AI developer-tool adoption |
+| Agentic Task Delegation | score input | B/C | medium | Anthropic fully delegable task midpoint blended with arXiv GitHub-trace coding-agent adoption midpoint |
+| Tool Ecosystem Reach | score input | D | medium | continuously refreshable VS Code Marketplace stock metric, kept at low weight |
 | Assisted vs Fully Delegated Work | methodology calibration | C/B | medium | Anthropic reports AI used in roughly 60% of developer work but only 0-20% fully delegable |
 | Frontier lab/company benchmark | context or annotation | B/D | medium | Anthropic capability claims and Alphabet/Augment nearly-half AI-generated code |
 | AI Validation Tax | guardrail or confidence modifier | B/C | medium | Harness, Lightrun, CircleCI, Faros, and arXiv quality studies show review, debugging, CI, and maintenance costs |
 | Copilot accepted-code telemetry | score input if refreshed | A/B | medium | keep only if first-party accepted-code metric is found |
-| Professional Developer Daily AI Use | retire or keep as low-weight bridge | D | medium | Stack Overflow 50.6% daily professional developer use; self-selected adoption proxy |
-| IDE AI Extension Installs | context or low-weight score input | D | medium | continuously refreshable but weak denominator |
+| Professional Developer Daily AI Use | retired from scoring | D | medium | Stack Overflow 50.6% daily professional developer use; self-selected adoption proxy |
 | GitClear code quality/churn | context only | D | medium | quality guardrail rather than delegation share |
 
 Near-term decision:
 
-- Keep the 48.2 `code-gen` score unchanged until a score method change is explicitly approved.
-- Treat METR and Sonar as the current output/value-share core.
-- Add GitLab as the strongest newly discovered output-share triangulation source; keep Augment as AI-forward context.
-- Prototype replacing Stack Overflow with DORA `AI Workflow Reliance`, optionally triangulated with JetBrains AI Pulse.
-- Prototype a separate agentic-adoption lens using the arXiv GitHub-trace study rather than anecdotes.
-- Use Anthropic's assisted-vs-fully-delegated split to avoid conflating AI use with delegation.
+- Update the score contract and current `code-gen` score to 48.1.
+- Treat Sonar and GitLab as the current output-share blend; keep Augment as AI-forward context.
+- Keep METR as the technical-work value-share input.
+- Replace Stack Overflow with DORA and JetBrains workflow-reliance evidence.
+- Add a separate agentic-delegation input using Anthropic's assisted-vs-fully-delegated split and the arXiv GitHub-trace study.
 - Use Harness, Lightrun, CircleCI, Faros, and AI-code-quality studies as guardrails or uncertainty modifiers, not positive score inputs.
 - Use Anthropic, Alphabet, Augment, and similar high-intensity examples as frontier benchmarks or narrative callouts unless a representative denominator is available.
 - Continue looking for first-party accepted-code, accepted-lines, or agent-authored-PR telemetry before restoring a direct GitHub/Copilot score input.

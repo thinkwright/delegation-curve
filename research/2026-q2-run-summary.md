@@ -28,7 +28,7 @@ The 15.0 value is current internal-AI trade-execution adoption from Coalition Gr
 | --- | ---: | ---: | ---: | --- |
 | content-mod | 94.1 | 96.1 | +2.0 | X demoted; YouTube automated flagging and TikTok DSA automated enforcement used |
 | algo-trade | 39.2 | 39.2 | +0.0 | Adjusted from broad market automation toward defensible current AI execution adoption |
-| code-gen | 32.6 | 48.2 | +15.6 | Adds Sonar committed-code estimate and METR value-share estimate |
+| code-gen | 32.6 | 48.1 | +15.5 | Adds Sonar/GitLab output-share blend, METR value-share estimate, DORA/JetBrains workflow reliance, and Anthropic/arXiv agentic delegation |
 | support | 37.0 | 40.5 | +3.5 | Renames resolution to cases handled by AI and adds production/maturity signals |
 | credit | 27.7 | 30.0 | +2.3 | Uses Upstart automation times TransUnion fintech personal-loan denominator |
 | medical-dx | 21.7 | 32.3 | +10.6 | Uses FDA live device count and AMA 2026 assistive diagnosis rate |
@@ -42,7 +42,7 @@ The 15.0 value is current internal-AI trade-execution adoption from Coalition Gr
 - The public curve uses the current-method series: `current-method-2024`, `current-method-2025`, and `2026-q2`.
 - v2 current views display only current scored indicators; retired v1 indicators remain in historical `indicator_observations`.
 - `algo-trade` remains the largest construct correction. The new score is more conservative and more semantically honest.
-- `code-gen` remains at 48.2 pending a specific workflow-reliance method update. Stack Overflow is retained only as a low-weight bridge adoption proxy; DORA 2025 and JetBrains AI Pulse 2026 are now identified as stronger candidates for measuring AI reliance in software work. A follow-up source sweep added GitLab as output-share triangulation, Anthropic and arXiv as assisted-vs-agentic delegation evidence, and Harness/Lightrun/CircleCI/Faros as validation-tax guardrails.
+- `code-gen` is updated to 48.1 under a five-input method: Sonar/GitLab output share, METR technical-work value share, DORA/JetBrains workflow reliance, Anthropic/arXiv agentic task delegation, and low-weight VS Code Marketplace tool reach. Stack Overflow is retired from scoring and retained only as historical bridge context. Harness/Lightrun/CircleCI/Faros and AI-code-quality studies remain validation-tax guardrails.
 - Some 2026 values remain survey-based or vendor-reported. The source-lock ledger keeps evidence grade and confidence notes for follow-up.
 - The composite should be interpreted as one point in the public current-method curve, with archived published scores available for audit.
 

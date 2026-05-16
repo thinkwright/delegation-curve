@@ -51,14 +51,15 @@ func TestComputeDomainScore_NonePresent(t *testing.T) {
 func TestComputeDomainScore_CodeGen(t *testing.T) {
 	cfg := CodeGenConfig()
 	values := map[string]float64{
-		"AI-Generated or Assisted Committed Code": 42.0,
-		"Technical Work AI Value Share":           50.0,
-		"Professional Developer Daily AI Use":     50.6,
-		"IDE AI Extension Installs":               84.4,
+		"AI-Generated Code Output Share": 39.2,
+		"Technical Work AI Value Share":  50.0,
+		"AI Workflow Reliance":           67.7,
+		"Agentic Task Delegation":        17.7,
+		"Tool Ecosystem Reach":           84.4,
 	}
 	got := ComputeDomainScore(values, cfg)
 	// Uses the current CodeGenConfig weights.
-	expected := 42.0*0.45 + 50.0*0.35 + 50.6*0.15 + 84.4*0.05
+	expected := 39.2*0.30 + 50.0*0.25 + 67.7*0.25 + 17.7*0.15 + 84.4*0.05
 	if math.Abs(got-expected) > 0.01 {
 		t.Errorf("got %v, want ~%v", got, expected)
 	}

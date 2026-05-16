@@ -168,14 +168,12 @@ Extraction note: see `research/2026-evidence/code-gen.md`.
 
 Recommended lock:
 
-- Add METR as `Technical Work AI Value Share` or `AI-Attributable Technical Output Value`.
-- Add Sonar 2026 as `AI-Generated or Assisted Committed Code` if we accept survey-based committed-code estimates.
-- Use GitLab 2026 as the strongest second output-share comparator before changing the score.
-- Treat Stack Overflow 2025 as a bridge adoption source only. Its developer-community sample is useful but self-selected, and daily use is not an output or reliance measure.
-- Prototype DORA 2025 as `AI Workflow Reliance`, using its moderate-to-heavy reliance and time-spent measures.
-- Use JetBrains AI Pulse 2026 to triangulate professional work usage and specialized agent/editor adoption.
-- Use the arXiv GitHub coding-agent adoption study as a behavior-based agentic adoption candidate.
-- Use Anthropic's 2026 Agentic Coding Trends report to separate AI-assisted work from fully delegated tasks.
+- Keep METR as `Technical Work AI Value Share`.
+- Blend Sonar 2026 and GitLab 2026 as `AI-Generated Code Output Share`.
+- Retire Stack Overflow 2025 from scoring and keep it as bridge adoption context only.
+- Blend DORA 2025 and JetBrains AI Pulse 2026 as `AI Workflow Reliance`.
+- Blend the arXiv GitHub coding-agent adoption study with Anthropic's fully delegated task range as `Agentic Task Delegation`.
+- Use Anthropic's 2026 Agentic Coding Trends report to keep AI-assisted work separate from fully delegated tasks.
 - Use Anthropic Claude Code, Alphabet internal-code claims, and Augment's AI-native survey as frontier benchmarks or narrative callouts, not as population score inputs.
 - Use Harness, Lightrun, CircleCI, Faros, and AI-code technical-debt research as validation and quality guardrails rather than positive score inputs.
 - Keep VS Code Marketplace as a weak but continuously refreshable stock metric.
@@ -201,7 +199,7 @@ Candidate sources:
 - Debt Behind the AI Boom arXiv study.
 - VS Code Marketplace API.
 
-Decision: keep the current 48.2 score unchanged for now. The next code-gen method iteration should test a three-part frame: output share from Sonar plus GitLab, workflow reliance from DORA plus JetBrains, and agentic delegation from Anthropic's assisted-versus-fully-delegated split plus the arXiv GitHub trace study. Delivery and reliability sources should be used as guardrails or uncertainty modifiers so the curve does not confuse generated-code volume with net delegated work.
+Decision: update the current code-gen contract to a five-input frame: output share from Sonar plus GitLab, technical-work value share from METR, workflow reliance from DORA plus JetBrains, agentic task delegation from Anthropic's assisted-versus-fully-delegated split plus the arXiv GitHub trace study, and low-weight tool ecosystem reach from VS Code Marketplace. The resulting `code-gen` score is 48.1, essentially unchanged from 48.2, because high workflow reliance is counterbalanced by still-lower evidence for fully delegated agentic tasks. Delivery and reliability sources should be used as guardrails or uncertainty modifiers so the curve does not confuse generated-code volume with net delegated work. Implementation note: see `research/2026-code-gen-method-prototype.md`.
 
 ### support
 
