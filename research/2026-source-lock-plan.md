@@ -284,7 +284,9 @@ Candidate sources:
 - SHRM 2025 Talent Trends for resume-screening specifics if no 2026 equivalent is available.
 - Vendor platform disclosures such as HireVue only for reach, with lower confidence.
 
-Decision: high-priority cleanup domain. Do not collect until naming and inclusion choices are fixed.
+Extraction note: `research/2026-evidence/hire.md`.
+
+Decision: high-priority cleanup domain. Do not collect until naming and inclusion choices are fixed. Fix the indicator contract in methodology v2, not as a silent current-score correction. Prefer a canonical `Orgs Using AI in Talent Acquisition` indicator, rename `AI-Screened Applications` unless an application-level denominator is found, and keep `AI Assessment Platform Reach` low-confidence until refreshed multi-vendor volume is available. The strongest 2026 workflow signal is ICIMS/Aptitude screening use-case adoption at 58%, while SHRM provides a conservative broad-market guardrail at 27% recruiting-practice AI use.
 
 ### education
 
