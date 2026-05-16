@@ -20,6 +20,11 @@
 			? composite.delegation.runHistory.map((p) => p.measurementPeriod)
 			: undefined
 	);
+	const delegationMethodologies = $derived(
+		composite?.delegation.runHistory?.length
+			? composite.delegation.runHistory.map((p) => p.methodologyVersion)
+			: undefined
+	);
 	const currentRun = $derived(
 		composite?.delegation.runHistory?.find((p) => p.isCurrent)
 			?? composite?.delegation.runHistory?.[composite.delegation.runHistory.length - 1]
@@ -33,9 +38,6 @@
 	});
 	const isMethodologyBreak = $derived(
 		Boolean(currentRun && priorRun() && currentRun.methodologyVersion !== priorRun()?.methodologyVersion)
-	);
-	const methodologyShort = $derived(
-		currentRun?.methodologyVersion.replace('delegation-curve-', '').toUpperCase() ?? ''
 	);
 </script>
 
@@ -108,8 +110,8 @@
 		<span class="text-[96px] font-black font-mono tabular-nums tracking-tighter leading-none">{composite.delegation.current}</span>
 		<div class="flex flex-col mb-4">
 			{#if isMethodologyBreak}
-				<span class="text-lg font-mono font-bold text-neutral-500 tabular-nums">{methodologyShort}</span>
-				<span class="text-[10px] font-mono text-neutral-400 uppercase">baseline</span>
+				<span class="text-lg font-mono font-bold text-neutral-500 tabular-nums">New baseline</span>
+				<span class="text-[10px] font-mono text-neutral-400 uppercase">method refreshed</span>
 			{:else}
 				<span class="text-lg font-mono font-bold text-sage tabular-nums">{formatDelta(composite.delegation.delta)}%</span>
 				<span class="text-[10px] font-mono text-neutral-400 uppercase">vs prior</span>
@@ -122,7 +124,7 @@
 	</p>
 	{#if isMethodologyBreak}
 		<p class="text-[10px] text-neutral-500 leading-relaxed max-w-xs mt-2">
-			Methodology changed in this run, so the 2025 point remains on the curve but the headline is treated as a new baseline rather than a like-for-like decline.
+			The 2026 update refreshes sources and scoring, so the curve starts a new measurement series while prior points remain visible for context.
 		</p>
 	{/if}
 	<p class="text-[10px] font-mono text-neutral-400 uppercase mt-2">Data through {composite.delegation.dataYear}</p>
@@ -133,6 +135,7 @@
 	<CurveChart
 		data={delegationScores}
 		labels={delegationPeriods}
+		seriesKeys={delegationMethodologies}
 		height={160}
 		endYear={composite.delegation.dataYear}
 	/>
@@ -150,7 +153,7 @@
 	<MetricCard
 		label="Prior Run"
 		value={composite.delegation.previous}
-		subtitle={isMethodologyBreak && priorRun() ? `${priorRun()?.measurementPeriod} · previous methodology` : `${composite.delegation.dataYear - 1} composite`}
+		subtitle={isMethodologyBreak && priorRun() ? `${priorRun()?.measurementPeriod} · previous scoring series` : `${composite.delegation.dataYear - 1} composite`}
 		icon="history"
 		href={`${base}/delegation`}
 	/>
