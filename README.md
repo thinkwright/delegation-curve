@@ -1,89 +1,93 @@
 # AI Delegation Curve
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
-[![Go](https://img.shields.io/badge/Go-1.25-00ADD8.svg)](https://go.dev)
-[![SvelteKit](https://img.shields.io/badge/SvelteKit-5-FF3E00.svg)](https://svelte.dev)
-[![Fly.io](https://img.shields.io/badge/Deployed-Fly.io-8B5CF6.svg)](https://curve.thinkwright.ai)
+**How much does AI influence work and society?**
 
-A single number tracking what percentage of consequential decisions are made by AI — measured consistently across 9 decision domains.
+The AI Delegation Curve is a public measurement project tracking AI influence across consequential domains of work and civic life. It turns scattered adoption signals, transparency reports, surveys, public datasets, and research findings into one time-series index.
 
-**Live at [curve.thinkwright.ai](https://curve.thinkwright.ai)**
+**Live report:** [curve.thinkwright.ai](https://curve.thinkwright.ai)
 
-## What This Is
+## Current Reading
 
-The Keeling Curve measured atmospheric CO2 before anyone cared. This does the same for AI decision-making influence. One composite score (0-100), updated regularly, so the shape of the curve is the argument.
+The Q2 2026 update estimates the Delegation Curve at:
 
-9 domains are tracked: content moderation, algorithmic trading, code generation, customer support, credit decisioning, medical diagnostics, legal AI, hiring, and education.
-
-Each domain score is built from 3-4 normalized indicators sourced from transparency reports, regulatory filings, surveys, and public benchmarks.
-
-## Architecture
-
-```
-seed/seed.json          Raw data (manual overrides + collected values)
-        |
-  cmd/collect           Automated data collection pipeline
-  cmd/generate          Transform → Parquet export
-        |
-  frontend/static/data  Parquet tables for scores, sources, and run history
-        |
-  frontend/             SvelteKit 5 SPA with DuckDB-WASM for in-browser queries
-        |
-  cmd/server            Go server with embed.FS (single binary, no runtime deps)
+```text
+45.8
 ```
 
-## Quick Start
+That is up **8.1 points since 2025** on the current measurement series.
+
+The curve preserves prior public points, while archived published runs remain available in the dataset for audit. The goal is to maintain a continuous signal over time, not just a one-off score.
+
+## What The Score Means
+
+The score is a 0-100 composite estimate of AI influence and delegated workflow share. It is not a literal claim that a fixed percentage of all human decisions are made by AI.
+
+Each domain combines direct workflow evidence where available with proxy signals where direct measurement is still incomplete. Examples include automated enforcement rates, adoption surveys, regulatory datasets, workflow telemetry, platform disclosures, and research studies.
+
+Status bands:
+
+- **Nominal:** below 40
+- **Elevated:** 40 to 74.9
+- **Autonomous:** 75 and above
+
+## Domains Tracked
+
+The current index tracks nine domains:
+
+- **Content moderation** — automated detection, flagging, and enforcement actions on major platforms.
+- **Algorithmic trading** — market execution automation and AI-assisted trade-execution adoption.
+- **Software development** — AI-generated code output, workflow reliance, and agentic coding delegation.
+- **Customer support** — AI-handled cases, bot deflection, production agents, and mature support deployments.
+- **Credit decisioning** — AI involvement in underwriting and lending decisions.
+- **Medical diagnostics** — AI influence in clinical diagnosis, imaging, pathology, and FDA-cleared medical AI capacity.
+- **Legal research and review** — AI adoption in legal work, research, and document review.
+- **Recruitment and screening** — AI involvement in talent acquisition, screening, assessments, and hiring workflows.
+- **Education and assessment** — AI influence in student work, grading, teacher workflow, and AI-written submissions.
+
+## Methodology At A Glance
+
+1. **Collect public evidence.** Each domain starts with sourced indicators from reports, databases, filings, surveys, and research.
+2. **Normalize indicators.** Raw values are converted to a 0-100 scale. Direct percentages stay direct; count and reach metrics use fixed caps or scaling.
+3. **Weight indicators and domains.** Each domain score is a weighted average of its indicators. The composite score is a weighted average across domains.
+4. **Maintain the curve.** When sources or scoring rules improve, public prior points can be restated onto the current measurement series. Older published points remain available for audit.
+5. **Separate method from interpretation.** Source choices, formulas, weights, and confidence notes are kept distinct from narrative conclusions.
+
+## Source Confidence
+
+The project treats source quality as part of the measurement, not a footnote.
+
+- **Direct workflow evidence** is preferred: transparency reports, operational datasets, regulatory disclosures, and first-party telemetry.
+- **Strong proxies** are used where direct delegated-decision data is unavailable: adoption reports, official databases, product-market denominators, and industry surveys.
+- **Context and guardrails** help interpret scope and confidence: benchmark studies, quality reports, governance findings, and reliability research.
+
+Some domains are more mature than others. Content moderation has strong platform-level evidence. Software development now has several high-value 2026 signals. Hiring, medicine, law, and education still rely more heavily on surveys and proxy measures, so confidence should be interpreted accordingly.
+
+## Data Access
+
+The underlying data is published with the site:
+
+- [`/seed.json`](https://curve.thinkwright.ai/seed.json) contains the full JSON seed dataset.
+- [`/data`](https://curve.thinkwright.ai/data) provides downloadable data access from the report.
+
+The repository also includes the data-generation pipeline used to materialize the public dataset. Analysts can inspect `seed/seed.json`, `seed/overrides.yaml`, and `internal/collect/score.go` to review values, formulas, and weights.
+
+## Reproducing Locally
 
 ```sh
-# Install dependencies
-cd frontend && npm ci && cd ..
-
-# Run the full pipeline: collect → generate Parquet → build frontend
-make pipeline
-
-# Or just build and run the server locally
-make server
-./curve-server -port 8080
+git clone git@github.com:thinkwright/delegation-curve.git
+cd delegation-curve
+cd frontend
+npm ci
+npm run dev
 ```
 
-## Development
+For a full data rebuild, use the Makefile targets in the repository root:
 
 ```sh
-# Start frontend dev server (hot reload)
-make dev
-
-# Run tests
+cd ..
+make generate
 make test
-
-# Collect fresh data for a single domain
-make collect-contentmod
-
-# Materialize the current legacy baseline before a new analysis run
-make snapshot-baseline
-
-# Full collection + rebuild
-make pipeline
 ```
-
-## Deployment
-
-Deployed to [Fly.io](https://fly.io) as a single distroless container.
-
-```sh
-make deploy
-```
-
-The Dockerfile runs a 3-stage build: Node (frontend) → Go (embed static assets) → distroless runtime.
-
-## Data Pipeline
-
-**Collection** (`cmd/collect`): Each domain has a collector that fetches from public sources. Manual overrides in `seed/overrides.yaml` fill gaps where APIs aren't available, with citations for every value.
-
-**Run snapshots** (`cmd/snapshot-run`): Materializes historical runs into `seed.json` before score refreshes. Use this to preserve the existing curve point, then append a new run after source refresh and score generation.
-
-**Scoring** (`internal/collect/score.go`): Raw values are min-max normalized against historical baselines and theoretical ceilings. Domain scores are weighted averages of their indicators. The composite is a weighted average across domains.
-
-**Export** (`cmd/generate`): Transforms seed data into Parquet tables consumed by the frontend via DuckDB-WASM, including `analysis_runs`, `domain_scores`, and `indicator_observations` for Keeling Curve-style history.
 
 ## License
 
