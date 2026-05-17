@@ -62,6 +62,16 @@ The project treats source quality as part of the measurement, not a footnote.
 
 Some domains are more mature than others. Content moderation has strong platform-level evidence. Software development now has several high-value 2026 signals. Hiring, medicine, law, and education still rely more heavily on surveys and proxy measures, so confidence should be interpreted accordingly.
 
+## Documentation
+
+Canonical methodology and audit records live in [`docs/`](docs/):
+
+- [`docs/methodology/overview.md`](docs/methodology/overview.md) explains the measurement approach.
+- [`docs/methodology/current-series.md`](docs/methodology/current-series.md) explains the current public curve series and recalculated 2025 comparison point.
+- [`docs/methodology/source-grading.md`](docs/methodology/source-grading.md) defines evidence grades and refresh workflow.
+- [`docs/runs/2026-q2.md`](docs/runs/2026-q2.md) records the current 2026 Q2 run.
+- [`docs/evidence/2026-q2/`](docs/evidence/2026-q2/) contains domain-level evidence notes and caveats.
+
 ## Data Access
 
 The underlying data is published with the site:
