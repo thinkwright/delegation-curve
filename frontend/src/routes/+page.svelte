@@ -115,7 +115,7 @@
 	</div>
 
 	<p class="text-xs text-neutral-500 leading-relaxed max-w-xs">
-		A weighted index estimating AI influence across {composite.domainsTracked} consequential domains, from platform enforcement to code, support, credit, medicine, law, hiring, and education.
+		A weighted index tracking AI influence across {composite.domainsTracked} domains where automated systems increasingly shape work, access, judgment, and public life.
 	</p>
 	<p class="text-[10px] font-mono text-neutral-400 uppercase mt-2">Current run: {composite.dataFreshness}</p>
 </div>
