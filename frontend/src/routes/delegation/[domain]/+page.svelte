@@ -48,11 +48,11 @@
 	<meta property="og:title" content="{domain?.fullName ?? data.domainId} — AI Delegation Score" />
 	<meta property="og:description" content="{domain ? `Score: ${domain.score}/100. ${domain.description}` : `AI influence score for ${data.domainId}.`}" />
 	<meta property="og:url" content="https://curve.thinkwright.ai/delegation/{data.domainId}" />
-	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
+	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=4" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
+	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=4" />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "BreadcrumbList",

@@ -31,12 +31,12 @@
 	<meta property="og:title" content="Data — Raw Seed Data" />
 	<meta property="og:description" content="Raw seed data underlying the AI Delegation Curve. Composite scores, domain scores, sub-indicators, and trend history." />
 	<meta property="og:url" content="https://curve.thinkwright.ai/data" />
-	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
+	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=4" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
+	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=4" />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		"@context": "https://schema.org",
 		"@graph": [
