@@ -215,10 +215,10 @@ hire:
   - name: "AI Assessment Platform Reach"
     value: 80
     unit: "M/yr"
-    source: "Vendor Disclosures"
+    source: "HireVue Platform Volume Update"
     freshness: "2025"
     entered_at: "2026-05-16"
-    note: "Held current 80M per year low-confidence platform-reach proxy until a refreshed multi-vendor denominator is found."
+    note: "Held current 80M per year low-confidence platform-reach proxy from HireVue Q1 2024 platform volume until a refreshed multi-vendor denominator is found. https://www.hirevue.com/blog/hiring/quarterly-updates-from-hirevue-ceo"
 
 education:
   - name: "Students Using AI for Schoolwork"
