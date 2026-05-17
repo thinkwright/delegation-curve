@@ -6,6 +6,7 @@
 	import StatusBadge from '$lib/components/StatusBadge.svelte';
 	import MetricRow from '$lib/components/MetricRow.svelte';
 	import { formatDelta } from '$lib/utils/format';
+	import { sourceDisclosures } from '$lib/data/sourceDisclosures';
 
 	let { data } = $props();
 
@@ -38,6 +39,7 @@
 			? domain.runHistory.map((p) => p.measurementPeriod)
 			: undefined
 	);
+	const supplementalSources = $derived(domain ? (sourceDisclosures[domain.id] ?? []) : []);
 	const priorPeriodLabel = $derived(String(dataYear - 1));
 </script>
 
@@ -158,6 +160,32 @@
 			</div>
 		{/each}
 	</div>
+	{#if supplementalSources.length}
+		<div class="mt-6 pt-5 border-t border-grid">
+			<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-3">Source Context</p>
+			<div class="space-y-4">
+				{#each supplementalSources as source}
+					<div class="border-b border-grid pb-4 last:border-0 last:pb-0">
+						<div class="flex items-start justify-between gap-4">
+							<div>
+								{#if source.url}
+									<a href={source.url} target="_blank" rel="noopener" class="text-sm font-medium hover:text-neutral-500 transition-colors">{source.name}</a>
+								{:else}
+									<p class="text-sm font-medium">{source.name}</p>
+								{/if}
+								<p class="text-[10px] font-mono text-neutral-400 uppercase mt-0.5">{source.role}</p>
+							</div>
+							<div class="text-right shrink-0">
+								<p class="text-xs font-mono text-neutral-500">{source.cadence}</p>
+								<p class="text-[10px] font-mono text-neutral-400 uppercase mt-0.5">{source.type}</p>
+							</div>
+						</div>
+						<p class="text-xs text-neutral-500 leading-relaxed mt-2">{source.note}</p>
+					</div>
+				{/each}
+			</div>
+		</div>
+	{/if}
 </div>
 
 <!-- Methodology Link -->

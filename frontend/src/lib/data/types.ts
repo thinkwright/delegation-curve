@@ -9,7 +9,16 @@ export interface SubIndicator {
 export interface DataSource {
 	name: string;
 	cadence: string;
-	type: 'transparency-report' | 'survey' | 'api' | 'filing' | 'scrape';
+	type: string;
+}
+
+export interface SourceDisclosure {
+	name: string;
+	role: string;
+	cadence: string;
+	type: string;
+	note: string;
+	url?: string;
 }
 
 export interface ScorePoint {
