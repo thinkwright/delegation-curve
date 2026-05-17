@@ -35,18 +35,20 @@
 </script>
 
 <svelte:head>
-	<title>AI Delegation Curve — Tracking AI influence in consequential work</title>
-	<meta name="description" content="The AI Delegation Curve: a composite score (0–100) estimating AI influence and delegated workflow share across content moderation, algorithmic trading, code generation, customer support, credit decisioning, medical diagnostics, legal AI, hiring automation, and education." />
+	<title>How much does AI influence work and society?</title>
+	<meta name="description" content="The AI Delegation Curve tracks 2026 Q2 AI influence across 9 high-impact domains, from code and support to medicine, law, hiring, and education." />
 	<link rel="canonical" href="https://curve.thinkwright.ai" />
-	<meta property="og:title" content="AI Delegation Curve — Tracking AI influence in consequential work" />
-	<meta property="og:description" content="A composite index estimating AI influence and delegated workflow share across 9 consequential domains." />
+	<meta property="og:title" content="How much does AI influence work and society?" />
+	<meta property="og:description" content="The AI Delegation Curve tracks 2026 Q2 AI influence across 9 high-impact domains, from code and support to medicine, law, hiring, and education." />
 	<meta property="og:url" content="https://curve.thinkwright.ai" />
-	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
+	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=4" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=3" />
+	<meta name="twitter:title" content="How much does AI influence work and society?" />
+	<meta name="twitter:description" content="The AI Delegation Curve tracks 2026 Q2 AI influence across 9 high-impact domains, from code and support to medicine, law, hiring, and education." />
+	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=4" />
 	{@html `<script type="application/ld+json">${JSON.stringify({
 		"@context": "https://schema.org",
 		"@graph": [
@@ -60,7 +62,7 @@
 				"@type": "WebSite",
 				"name": "AI Delegation Curve",
 				"url": "https://curve.thinkwright.ai",
-				"description": "A composite index estimating AI influence and delegated workflow share across 9 consequential domains.",
+				"description": "The AI Delegation Curve tracks 2026 Q2 AI influence across 9 high-impact domains, from code and support to medicine, law, hiring, and education.",
 				"publisher": { "@type": "Organization", "name": "ThinkWright" }
 			},
 			{
