@@ -45,6 +45,9 @@
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	<meta property="og:type" content="website" />
+	<meta property="article:published_time" content="2026-05-16T00:00:00-07:00" />
+	<meta property="article:modified_time" content="2026-05-16T00:00:00-07:00" />
+	<meta name="date" content="2026-05-16" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="How much does AI influence work and society?" />
 	<meta name="twitter:description" content="The AI Delegation Curve tracks 2026 Q2 AI influence across 9 high-impact domains, from code and support to medicine, law, hiring, and education." />
@@ -63,6 +66,8 @@
 				"name": "AI Delegation Curve",
 				"url": "https://curve.thinkwright.ai",
 				"description": "The AI Delegation Curve tracks 2026 Q2 AI influence across 9 high-impact domains, from code and support to medicine, law, hiring, and education.",
+				"datePublished": "2026-05-16",
+				"dateModified": "2026-05-16",
 				"publisher": { "@type": "Organization", "name": "ThinkWright" }
 			},
 			{
