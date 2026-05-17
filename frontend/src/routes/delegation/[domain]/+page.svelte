@@ -81,7 +81,11 @@
 
 <!-- Domain Identity -->
 <div class="px-4 pt-8 pb-4">
-	<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-3">Delegation Curve</p>
+	<nav aria-label="Breadcrumb" class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-3">
+		<a href="{base}/delegation" class="hover:text-black transition-colors">Domains</a>
+		<span class="text-neutral-300 mx-1" aria-hidden="true">/</span>
+		<span aria-current="page">{domain.fullName}</span>
+	</nav>
 	<div class="flex items-start justify-between mb-4">
 		<div>
 			<h2 class="text-3xl font-black tracking-tight uppercase leading-none mb-1">{domain.name}</h2>
