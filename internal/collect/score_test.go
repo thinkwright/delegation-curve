@@ -224,3 +224,14 @@ func TestClassifyStatus(t *testing.T) {
 		}
 	}
 }
+
+func TestEveryIndicatorHasConstruct(t *testing.T) {
+	valid := map[Construct]bool{Work: true, Usage: true, Adoption: true, Capacity: true}
+	for _, d := range AllDomainConfigs() {
+		for _, ind := range d.Indicators {
+			if !valid[ind.Construct] {
+				t.Errorf("%s / %s: construct %q", d.DomainID, ind.Name, ind.Construct)
+			}
+		}
+	}
+}

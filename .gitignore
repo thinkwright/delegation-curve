@@ -3,6 +3,7 @@ curve-generate
 curve-collect
 curve-snapshot-run
 curve-server
+curve-diagnostics
 .tools/
 
 # Frontend

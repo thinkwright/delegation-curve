@@ -3,7 +3,7 @@ COLLECT_BIN := curve-collect
 SNAPSHOT_BIN := curve-snapshot-run
 SERVER_BIN  := curve-server
 
-.PHONY: build build-collect build-snapshot snapshot-baseline generate collect collect-codegen collect-contentmod collect-algotrade collect-support collect-credit collect-medicaldx collect-legalai collect-hire collect-education pipeline frontend compress-static server run-server dev og-image smoke deploy clean clean-static test
+.PHONY: build build-collect build-snapshot snapshot-baseline generate collect collect-codegen collect-contentmod collect-algotrade collect-support collect-credit collect-medicaldx collect-legalai collect-hire collect-education pipeline diagnostics frontend compress-static server run-server dev og-image smoke deploy clean clean-static test
 
 build:
 	go build -o $(BINARY) ./cmd/generate
@@ -49,6 +49,11 @@ pipeline:
 
 generate: build
 	./$(BINARY) -input seed/seed.json -output frontend/static/data
+
+# Composition, evidence age, sensitivity, uncertainty, and v3 shadow report
+# for the current run (markdown on stdout).
+diagnostics:
+	go run ./cmd/diagnostics -seed seed/seed.json
 
 frontend:
 	cd frontend && npm ci && npm run build
