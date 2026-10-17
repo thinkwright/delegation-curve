@@ -64,14 +64,10 @@ This keeps the public curve continuous while making clear that the most defensib
 
 ## Public Presentation
 
-The homepage and domain detail pages should not explain methodology versioning in the hero. They should use a plain visitor-facing baseline label:
+Headline comparisons are always made against the previous public run on the current measurement series and labelled with that run's measurement period (for example "+8.1 pts since 2025"). The comparison is computed from the run series by the data pipeline, not entered by hand.
 
-```text
-45.8
-+8.1 pts
-vs 2025 baseline
-```
+The 2025 point on the public curve is `current-method-2025` (37.7), the value restated under the current scoring frame. The score originally published in March 2026 (46.0, `legacy-2025`) stays in the dataset as an archived run and is listed with its restated value in the [restatement and correction log](restatement-policy.md#log).
 
-The `2025 baseline` label refers to `current-method-2025`, the recalculated comparison point under the current scoring frame. The archive/methodology pages explain that earlier published scores are retained for audit but are not the current public comparison series.
+Curve charts mark each public analysis run at the midpoint of its measurement period, so uneven gaps between runs keep their true width. Prior public points use small outlined markers; the current run uses a filled marker.
 
-Curve charts should mark each public analysis run. Prior public points use small outlined markers; the current run remains the stronger filled marker.
+How and when the series may be restated is governed by the [restatement policy](restatement-policy.md).

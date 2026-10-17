@@ -2,7 +2,7 @@
 
 This directory contains the tracked methodology, run records, and source evidence for the AI Delegation Curve.
 
-The local `research/` directory is intentionally ignored and can contain working notes, handoffs, drafts, and source-sweep scratch material. Durable records that should survive branch cleanup belong here.
+Working notes and drafts are kept outside the repository; durable records belong here.
 
 ## Core Methodology
 
@@ -10,6 +10,9 @@ The local `research/` directory is intentionally ignored and can contain working
 - [Current public curve series](methodology/current-series.md)
 - [Source grading and refresh workflow](methodology/source-grading.md)
 - [Code generation 2026 method update](methodology/code-gen-2026.md)
+- [Restatement and correction policy](methodology/restatement-policy.md)
+- [Domain weights](methodology/weights.md)
+- [Methodology v3 shadow](methodology/v3-shadow.md)
 
 ## Runs
 
