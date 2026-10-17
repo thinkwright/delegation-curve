@@ -10,8 +10,10 @@ frontend/node_modules/
 frontend/.svelte-kit/
 frontend/build/
 
-# Server (build artifact — populated by make server)
-cmd/server/static/
+# Server (build artifact — populated by make server; .gitkeep keeps go:embed
+# compiling on a fresh clone)
+cmd/server/static/*
+!cmd/server/static/.gitkeep
 
 # Seed (operational logs)
 seed/collect.log.json
@@ -19,6 +21,9 @@ seed/*.bak
 
 # Local research notes
 research/
+
+# Local agent settings
+.claude/settings.local.json
 
 # OS
 .DS_Store
