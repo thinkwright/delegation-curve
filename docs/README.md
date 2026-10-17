@@ -16,12 +16,29 @@ Working notes and drafts are kept outside the repository; durable records belong
 
 ## Runs
 
+- [2026 Q4 run record](runs/2026-q4.md) (current)
+- [2026 Q4 source ledger](runs/2026-q4-source-ledger.csv)
 - [2026 Q2 run record](runs/2026-q2.md)
 - [2026 Q2 source ledger](runs/2026-q2-source-ledger.csv)
 
 ## Evidence Notes
 
-The 2026 Q2 evidence notes document source choices, measurement periods, evidence grades, caveats, and scoring decisions by domain:
+Each run's evidence notes document source choices, measurement periods, evidence grades, caveats, and scoring decisions by domain.
+
+2026 Q4 (current):
+
+- [Content moderation](evidence/2026-q4/content-mod.md)
+- [Algorithmic trading](evidence/2026-q4/algo-trade.md)
+- [Software development](evidence/2026-q4/code-gen.md)
+- [Customer support](evidence/2026-q4/support.md)
+- [Credit and lending](evidence/2026-q4/credit.md)
+- [Medical diagnosis](evidence/2026-q4/medical-dx.md)
+- [Legal research and review](evidence/2026-q4/legal-ai.md)
+- [Recruitment and screening](evidence/2026-q4/hire.md)
+- [Education and assessment](evidence/2026-q4/education.md)
+- [Cross-cutting sources](evidence/2026-q4/cross-cutting.md)
+
+2026 Q2:
 
 - [Content moderation](evidence/2026-q2/content-mod.md)
 - [Algorithmic trading](evidence/2026-q2/algo-trade.md)
