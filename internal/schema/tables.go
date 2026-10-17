@@ -65,6 +65,7 @@ type AnalysisRunRow struct {
 	Notes              string  `parquet:"notes,zstd"`
 	IsCurrent          bool    `parquet:"is_current"`
 	IsPublicSeries     bool    `parquet:"is_public_series"`
+	PeriodMidpoint     string  `parquet:"period_midpoint,zstd"`
 }
 
 // DomainScoreRow — one row per domain per analysis run.

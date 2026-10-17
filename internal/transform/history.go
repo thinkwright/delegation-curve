@@ -44,6 +44,7 @@ func explicitHistory(seed *ingest.Seed) (
 			Notes:              r.Notes,
 			IsCurrent:          r.IsCurrent,
 			IsPublicSeries:     isPublicSeries,
+			PeriodMidpoint:     PeriodMidpoint(r.MeasurementPeriod, r.MeasurementYear),
 		})
 	}
 
@@ -93,6 +94,7 @@ func legacyHistory(seed *ingest.Seed) (
 			Notes:              "Derived from legacy trend arrays in seed.json.",
 			IsCurrent:          year == composite.DataYear,
 			IsPublicSeries:     true,
+			PeriodMidpoint:     PeriodMidpoint(fmt.Sprintf("%d", year), year),
 		})
 	}
 

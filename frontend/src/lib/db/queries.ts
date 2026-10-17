@@ -52,7 +52,7 @@ export const Q = {
 	domainRunHistory: (domainId: string) => `
 		SELECT r.run_id, r.label, r.published_at, r.measurement_period,
 		       r.measurement_year, r.methodology_version, d.score, r.notes,
-		       r.is_current
+		       r.is_current, r.period_midpoint
 		FROM domain_scores d
 		JOIN analysis_runs r ON d.run_id = r.run_id
 		WHERE d.domain_id = '${safe(domainId)}'

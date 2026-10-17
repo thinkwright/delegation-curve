@@ -20,6 +20,7 @@
 			? composite.delegation.runHistory.map((p) => p.measurementPeriod)
 			: undefined
 	);
+	const delegationDates = $derived(composite?.delegation.runHistory?.map((p) => p.periodMidpoint));
 	const priorPeriodLabel = $derived(composite?.delegation.previousPeriod ?? 'prior run');
 </script>
 
@@ -114,6 +115,7 @@
 	<CurveChart
 		data={delegationScores}
 		labels={delegationPeriods}
+		dates={delegationDates}
 		height={160}
 		endYear={composite.delegation.dataYear}
 	/>

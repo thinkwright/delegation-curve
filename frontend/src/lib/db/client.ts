@@ -120,6 +120,7 @@ function scorePointFromRow(r: Record<string, unknown>): ScorePoint {
 		methodologyVersion: r.methodology_version as string,
 		score: r.score as number,
 		notes: r.notes as string,
-		isCurrent: r.is_current as boolean
+		isCurrent: r.is_current as boolean,
+		periodMidpoint: (r.period_midpoint as string) || undefined
 	};
 }

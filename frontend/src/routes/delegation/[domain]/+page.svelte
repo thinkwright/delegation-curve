@@ -41,6 +41,7 @@
 			? domain.runHistory.map((p) => p.measurementPeriod)
 			: undefined
 	);
+	const domainDates = $derived(domain?.runHistory?.map((p) => p.periodMidpoint));
 	const supplementalSources = $derived(domain ? (sourceDisclosures[domain.id] ?? []) : []);
 </script>
 
@@ -117,6 +118,7 @@
 	<CurveChart
 		data={domainScores}
 		labels={domainPeriods}
+		dates={domainDates}
 		height={180}
 		color={domain.status === 'autonomous' ? 'var(--color-rose)' : 'var(--color-primary)'}
 		endYear={dataYear}
