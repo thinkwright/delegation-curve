@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"flag"
 	"fmt"
 	"os"
@@ -118,18 +119,59 @@ func main() {
 		os.Exit(1)
 	}
 
+	staticDir := filepath.Dir(*output)
+	lastmod := metaRow.LastUpdated
+	if hasSeries && series.Current.PublishedAt != "" {
+		lastmod = series.Current.PublishedAt
+	}
+	if err := writeSitemap(filepath.Join(staticDir, "sitemap.xml"), seed, lastmod); err != nil {
+		fmt.Fprintf(os.Stderr, "Error writing sitemap.xml: %v\n", err)
+		os.Exit(1)
+	}
+
 	seedBytes, err := os.ReadFile(*input)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error reading seed for static copy: %v\n", err)
 		os.Exit(1)
 	}
-	staticSeedPath := filepath.Join(filepath.Dir(*output), "seed.json")
+	staticSeedPath := filepath.Join(staticDir, "seed.json")
 	if err := os.WriteFile(staticSeedPath, seedBytes, 0o644); err != nil {
 		fmt.Fprintf(os.Stderr, "Error writing static seed.json: %v\n", err)
 		os.Exit(1)
 	}
 
 	fmt.Fprintln(os.Stderr, "Done.")
+}
+
+const siteURL = "https://curve.thinkwright.ai"
+
+// writeSitemap lists every prerendered public page, dated by the current
+// run's publication so search engines see refreshes.
+func writeSitemap(path string, seed *ingest.Seed, lastmod string) error {
+	type url struct {
+		Loc     string `xml:"loc"`
+		LastMod string `xml:"lastmod,omitempty"`
+	}
+	type urlset struct {
+		XMLName xml.Name `xml:"urlset"`
+		XMLNS   string   `xml:"xmlns,attr"`
+		URLs    []url    `xml:"url"`
+	}
+	set := urlset{XMLNS: "http://www.sitemaps.org/schemas/sitemap/0.9"}
+	add := func(p string) { set.URLs = append(set.URLs, url{Loc: siteURL + p, LastMod: lastmod}) }
+	add("/")
+	add("/delegation")
+	for _, d := range seed.Delegation.Domains {
+		add("/delegation/" + d.ID)
+	}
+	add("/data")
+	add("/about")
+
+	out, err := xml.MarshalIndent(set, "", "  ")
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(path, append([]byte(xml.Header), append(out, '\n')...), 0o644)
 }
 
 // compositeRunHistory lists the public curve points. With explicit runs it

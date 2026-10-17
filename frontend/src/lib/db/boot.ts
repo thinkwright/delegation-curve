@@ -1,7 +1,12 @@
-// API module loaded from CDN (Vite treats URL imports as external, avoiding
-// pre-bundle issues with duckdb-wasm). Worker JS is self-hosted — see below.
-import * as duckdb from 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm';
+// The DuckDB-WASM API module loads from the CDN on first query (a dynamic
+// import keeps it out of prerendering and off pages that never query).
+// Worker JS is self-hosted — see createDB. Keep this version in sync with
+// package.json and static/duckdb/ (checked by scripts/check-duckdb-version.mjs).
 import { base } from '$app/paths';
+
+export const DUCKDB_VERSION = '1.29.0';
+const DUCKDB_ESM = `https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@${DUCKDB_VERSION}/+esm`;
+type DuckDBModule = typeof import('https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm');
 
 let _db: any = null;
 let _conn: any = null;
@@ -33,6 +38,7 @@ export async function initDB() {
 }
 
 async function createDB() {
+	const duckdb: DuckDBModule = await import(/* @vite-ignore */ DUCKDB_ESM);
 	const basePath = (base || '');
 
 	// Use the package's built-in CDN bundle config, then override worker URLs

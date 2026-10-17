@@ -1,38 +1,25 @@
 <script lang="ts">
-	import { getDomains } from '$lib/db/client';
-	import type { DelegationDomain } from '$lib/data/types';
 	import WeightExplorer from '$lib/components/WeightExplorer.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 	import { base } from '$app/paths';
+	import { formatIsoDate } from '$lib/utils/format';
+	import { breadcrumbs, ogImageUrl } from '$lib/site';
 
-	let domains = $state<DelegationDomain[]>([]);
+	let { data } = $props();
 
-	$effect(() => {
-		getDomains().then(d => { domains = d; }).catch(() => {});
-	});
+	const domains = $derived(data.meta.domains ?? []);
+	const publishedAt = $derived(data.meta.delegation.publishedAt ?? data.meta.delegation.lastUpdated);
 </script>
 
-<svelte:head>
-	<title>Methodology — How We Measure AI Influence — AI Delegation Curve</title>
-	<meta name="description" content="Methodology for the AI Delegation Curve: how we estimate AI influence and delegated workflow share. Indicator normalization, domain weighting, source quality, and curve maintenance for tracking AI governance and adoption across 9 domains." />
-	<link rel="canonical" href="https://curve.thinkwright.ai/about" />
-	<meta property="og:title" content="Methodology — How We Measure AI Influence" />
-	<meta property="og:description" content="Open methodology for estimating AI influence: indicator normalization, weighting, source quality, and curve maintenance." />
-	<meta property="og:url" content="https://curve.thinkwright.ai/about" />
-	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=4" />
-	<meta property="og:image:width" content="1200" />
-	<meta property="og:image:height" content="630" />
-	<meta property="og:type" content="website" />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=4" />
-	{@html `<script type="application/ld+json">${JSON.stringify({
-		"@context": "https://schema.org",
-		"@type": "BreadcrumbList",
-		"itemListElement": [
-			{ "@type": "ListItem", "position": 1, "name": "AI Delegation Curve", "item": "https://curve.thinkwright.ai" },
-			{ "@type": "ListItem", "position": 2, "name": "Methodology", "item": "https://curve.thinkwright.ai/about" }
-		]
-	})}</script>`}
-</svelte:head>
+<Seo
+	title="Methodology — How We Measure AI Influence — AI Delegation Curve"
+	description="Methodology for the AI Delegation Curve: how we estimate AI influence and delegated workflow share. Indicator normalization, evidence grades, domain weighting, source quality, and curve maintenance across 9 domains."
+	path="/about"
+	image={ogImageUrl(data.meta.delegation.runId)}
+	modifiedAt={publishedAt}
+	jsonLd={breadcrumbs([{ name: 'Methodology', path: '/about' }])}
+/>
+
 
 <div class="px-4 py-8 pb-4">
 	<h2 class="text-4xl font-black tracking-tight uppercase leading-none mb-1">Method&shy;ology</h2>
@@ -81,15 +68,15 @@
 	<div class="space-y-2 mb-4">
 		<div class="flex items-center gap-2">
 			<span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border border-black">Nominal</span>
-			<span class="text-sm text-neutral-600">&lt; 40% AI influence</span>
+			<span class="text-sm text-neutral-600">Score below 40</span>
 		</div>
 		<div class="flex items-center gap-2">
 			<span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border border-sage bg-sage/20 text-sage">Elevated</span>
-			<span class="text-sm text-neutral-600">40-74.9% AI influence</span>
+			<span class="text-sm text-neutral-600">Score 40 to 74.9</span>
 		</div>
 		<div class="flex items-center gap-2">
 			<span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border border-rose bg-rose/20 text-rose">Autonomous</span>
-			<span class="text-sm text-neutral-600">&ge; 75% AI influence</span>
+			<span class="text-sm text-neutral-600">Score 75 and above</span>
 		</div>
 	</div>
 
@@ -163,5 +150,5 @@
 </div>
 
 <div class="px-4 py-6">
-	<p class="font-mono text-xs text-neutral-400 uppercase">AI Delegation Curve, Last updated 16 May 2026</p>
+	<p class="font-mono text-xs text-neutral-400 uppercase">AI Delegation Curve, Last updated {formatIsoDate(publishedAt)}</p>
 </div>

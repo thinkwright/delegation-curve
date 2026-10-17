@@ -2,80 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://curve.thinkwright.ai/</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://curve.thinkwright.ai/delegation</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://curve.thinkwright.ai/delegation/content-mod</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://curve.thinkwright.ai/delegation/algo-trade</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://curve.thinkwright.ai/delegation/code-gen</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://curve.thinkwright.ai/delegation/support</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://curve.thinkwright.ai/delegation/credit</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://curve.thinkwright.ai/delegation/medical-dx</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://curve.thinkwright.ai/delegation/legal-ai</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://curve.thinkwright.ai/delegation/hire</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://curve.thinkwright.ai/delegation/education</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://curve.thinkwright.ai/data</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
   <url>
     <loc>https://curve.thinkwright.ai/about</loc>
-    <lastmod>2026-03-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <lastmod>2026-05-16</lastmod>
   </url>
 </urlset>

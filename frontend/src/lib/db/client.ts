@@ -1,59 +1,10 @@
 import { query } from './boot';
 import { Q } from './queries';
-import { base } from '$app/paths';
-import type {
-	CompositeData,
-	DelegationDomain,
-	DataSource,
-	ScorePoint,
-} from '$lib/data/types';
+import type { DelegationDomain, DataSource, ScorePoint } from '$lib/data/types';
 
-let metaPromise: Promise<CompositeData> | null = null;
-let domainsPromise: Promise<DelegationDomain[]> | null = null;
+// Headline data (meta.json) is loaded by the root layout and prerendered;
+// this client only serves the Parquet-backed domain detail.
 const domainDetailPromises = new Map<string, Promise<DelegationDomain | null>>();
-
-export async function getMeta(): Promise<CompositeData> {
-	if (!metaPromise) {
-		metaPromise = fetch(`${base || ''}/data/meta.json`)
-			.then((resp) => {
-				if (!resp.ok) throw new Error(`Failed to load meta.json: ${resp.status}`);
-				return resp.json();
-			})
-			.catch((e) => {
-				metaPromise = null;
-				throw e;
-			});
-	}
-	return metaPromise;
-}
-
-export async function getDomains(): Promise<DelegationDomain[]> {
-	if (!domainsPromise) {
-		domainsPromise = loadDomains().catch((e) => {
-			domainsPromise = null;
-			throw e;
-		});
-	}
-	return domainsPromise;
-}
-
-async function loadDomains(): Promise<DelegationDomain[]> {
-	const rows = await query(Q.delegationAll, ['delegation']);
-	return rows.map((r) => ({
-		id: r.id as string,
-		name: r.name as string,
-		fullName: r.full_name as string,
-		score: r.score as number,
-		previousScore: r.previous_score as number,
-		trend: JSON.parse(r.trend as string),
-		status: r.status as 'nominal' | 'elevated' | 'autonomous',
-		weight: r.weight as number,
-		tier: r.tier as 1 | 2 | 3,
-		subIndicators: [],
-		dataSources: [],
-		description: r.description as string
-	}));
-}
 
 export async function getDomainDetail(id: string): Promise<DelegationDomain | null> {
 	let promise = domainDetailPromises.get(id);

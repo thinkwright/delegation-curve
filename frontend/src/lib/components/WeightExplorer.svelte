@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { DelegationDomain } from '$lib/data/types';
+	import type { DomainSummary } from '$lib/data/types';
 
-	let { domains }: { domains: DelegationDomain[] } = $props();
+	let { domains }: { domains: DomainSummary[] } = $props();
 
 	const profiles = [
 		{ id: 'current', name: 'Current', desc: 'Published Thinkwright methodology' },

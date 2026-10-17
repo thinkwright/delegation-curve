@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { DelegationDomain } from '$lib/data/types';
+	import type { DomainSummary } from '$lib/data/types';
 	import { base } from '$app/paths';
 	import { formatDelta } from '$lib/utils/format';
 
@@ -8,7 +8,7 @@
 		maxDelta = 1,
 		priorLabel = 'prior score'
 	}: {
-		domain: DelegationDomain;
+		domain: DomainSummary;
 		maxDelta?: number;
 		priorLabel?: string;
 	} = $props();

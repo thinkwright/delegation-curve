@@ -8,17 +8,6 @@ function safe(id: string): string {
 }
 
 export const Q = {
-	// Dashboard
-	meta: `SELECT * FROM meta LIMIT 1`,
-
-	// Delegation index (all domains, sorted by score)
-	delegationAll: `
-		SELECT id, name, full_name, score, previous_score,
-		       trend, status, weight, tier, description
-		FROM delegation
-		ORDER BY score DESC
-	`,
-
 	// Single domain
 	delegationById: (id: string) => `
 		SELECT * FROM delegation WHERE id = '${safe(id)}'
@@ -37,15 +26,6 @@ export const Q = {
 		SELECT name, cadence, type
 		FROM data_sources
 		WHERE domain_id = '${safe(domainId)}'
-	`,
-
-	// Composite run history, one row per analysis run.
-	analysisRuns: `
-		SELECT run_id, label, published_at, measurement_period, measurement_year,
-		       methodology_version, composite_score, notes, is_current
-		FROM analysis_runs
-		WHERE is_public_series = true
-		ORDER BY measurement_year, published_at, run_id
 	`,
 
 	// Domain score history joined to run metadata.

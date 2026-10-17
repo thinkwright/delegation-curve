@@ -1,6 +1,14 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import JsonTree from '$lib/components/JsonTree.svelte';
+	import Seo from '$lib/components/Seo.svelte';
+	import { PUBLISHER, SITE_URL, breadcrumbs, ogImageUrl } from '$lib/site';
+
+	let { data } = $props();
+
+	const history = $derived(data.meta.delegation.runHistory ?? []);
+	const firstYear = $derived(history[0]?.measurementYear ?? data.meta.delegation.dataYear);
+	const publishedAt = $derived(data.meta.delegation.publishedAt ?? data.meta.delegation.lastUpdated);
 
 	let seedData = $state<Record<string, unknown> | null>(null);
 	let copied = $state(false);
@@ -24,47 +32,33 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Data — Raw Seed Data — AI Delegation Curve</title>
-	<meta name="description" content="Raw seed data for the AI Delegation Curve: composite scores, domain scores, sub-indicators, data sources, and trend history. JSON format, freely downloadable." />
-	<link rel="canonical" href="https://curve.thinkwright.ai/data" />
-	<meta property="og:title" content="Data — Raw Seed Data" />
-	<meta property="og:description" content="Raw seed data underlying the AI Delegation Curve. Composite scores, domain scores, sub-indicators, and trend history." />
-	<meta property="og:url" content="https://curve.thinkwright.ai/data" />
-	<meta property="og:image" content="https://curve.thinkwright.ai/og-image.png?v=4" />
-	<meta property="og:image:width" content="1200" />
-	<meta property="og:image:height" content="630" />
-	<meta property="og:type" content="website" />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content="https://curve.thinkwright.ai/og-image.png?v=4" />
-	{@html `<script type="application/ld+json">${JSON.stringify({
-		"@context": "https://schema.org",
-		"@graph": [
-			{
-				"@type": "Dataset",
-				"name": "AI Delegation Curve Seed Data",
-				"description": "Composite scores, domain scores, sub-indicators, data sources, and trend history for the AI Delegation Curve — estimating AI influence across 9 consequential domains.",
-				"url": "https://curve.thinkwright.ai/data",
-				"license": "https://creativecommons.org/licenses/by/4.0/",
-				"creator": { "@type": "Organization", "name": "ThinkWright", "url": "https://thinkwright.ai" },
-				"distribution": {
-					"@type": "DataDownload",
-					"encodingFormat": "application/json",
-					"contentUrl": "https://curve.thinkwright.ai/seed.json"
-				},
-				"temporalCoverage": "2024/2026",
-				"keywords": ["AI autonomy", "AI delegation", "AI decision-making", "AI governance", "composite index"]
+<Seo
+	title="Data — Raw Seed Data — AI Delegation Curve"
+	description="Raw data for the AI Delegation Curve: composite and domain scores for every analysis run, sub-indicators with sources, evidence grades and measurement windows. JSON and Parquet, freely downloadable."
+	path="/data"
+	image={ogImageUrl(data.meta.delegation.runId)}
+	modifiedAt={publishedAt}
+	jsonLd={[
+		{
+			'@type': 'Dataset',
+			name: 'AI Delegation Curve Seed Data',
+			description:
+				'Composite scores, domain scores, sub-indicators with source audit metadata, and analysis-run history for the AI Delegation Curve, estimating AI influence across 9 consequential domains.',
+			url: `${SITE_URL}/data`,
+			license: 'https://creativecommons.org/licenses/by/4.0/',
+			creator: PUBLISHER,
+			dateModified: publishedAt,
+			distribution: {
+				'@type': 'DataDownload',
+				encodingFormat: 'application/json',
+				contentUrl: `${SITE_URL}/seed.json`
 			},
-			{
-				"@type": "BreadcrumbList",
-				"itemListElement": [
-					{ "@type": "ListItem", "position": 1, "name": "AI Delegation Curve", "item": "https://curve.thinkwright.ai" },
-					{ "@type": "ListItem", "position": 2, "name": "Data", "item": "https://curve.thinkwright.ai/data" }
-				]
-			}
-		]
-	})}</script>`}
-</svelte:head>
+			temporalCoverage: `${firstYear}/${data.meta.delegation.dataYear}`,
+			keywords: ['AI autonomy', 'AI delegation', 'AI decision-making', 'AI governance', 'composite index']
+		},
+		breadcrumbs([{ name: 'Data', path: '/data' }])
+	]}
+/>
 
 <div class="px-4 py-8 pb-4">
 	<h2 class="text-4xl font-black tracking-tight uppercase leading-none mb-1">Data</h2>
