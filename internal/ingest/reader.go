@@ -53,6 +53,19 @@ type SubIndicatorJSON struct {
 	Unit      string  `json:"unit"`
 	Source    string  `json:"source"`
 	Freshness string  `json:"freshness"`
+	SourceMeta
+}
+
+// SourceMeta is the audit trail for one indicator value. Dates are ISO
+// 8601 at the precision the source discloses (YYYY, YYYY-MM, or YYYY-MM-DD).
+type SourceMeta struct {
+	SourceURL        string `json:"source_url,omitempty" yaml:"source_url"`
+	PublishedAt      string `json:"published_at,omitempty" yaml:"published_at"`
+	MeasurementStart string `json:"measurement_start,omitempty" yaml:"measurement_start"`
+	MeasurementEnd   string `json:"measurement_end,omitempty" yaml:"measurement_end"`
+	EvidenceGrade    string `json:"evidence_grade,omitempty" yaml:"evidence_grade"`
+	Confidence       string `json:"confidence,omitempty" yaml:"confidence"`
+	Transform        string `json:"transform,omitempty" yaml:"transform"`
 }
 
 type DataSourceJSON struct {
@@ -92,10 +105,8 @@ type IndicatorObservationJSON struct {
 	Weight          float64 `json:"weight"`
 	IncludedInScore bool    `json:"included_in_score"`
 	Source          string  `json:"source"`
-	SourceURL       string  `json:"source_url,omitempty"`
 	Freshness       string  `json:"freshness"`
-	EvidenceGrade   string  `json:"evidence_grade,omitempty"`
-	Confidence      string  `json:"confidence,omitempty"`
+	SourceMeta
 }
 
 func ReadSeed(path string) (*Seed, error) {
@@ -108,6 +119,18 @@ func ReadSeed(path string) (*Seed, error) {
 		return nil, fmt.Errorf("parse JSON: %w", err)
 	}
 	return &seed, nil
+}
+
+// Clone deep-copies a seed through its JSON form.
+func Clone(src, dst *Seed) error {
+	data, err := json.Marshal(src)
+	if err != nil {
+		return fmt.Errorf("clone seed: %w", err)
+	}
+	if err := json.Unmarshal(data, dst); err != nil {
+		return fmt.Errorf("clone seed: %w", err)
+	}
+	return nil
 }
 
 // WriteSeed atomically writes the seed to disk via temp file + rename.

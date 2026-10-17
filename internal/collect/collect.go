@@ -2,6 +2,7 @@ package collect
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"math"
 	"os"
@@ -18,9 +19,23 @@ type RunConfig struct {
 	DomainConfigs []DomainConfig
 	Collectors    []Collector
 	Timeout       time.Duration
+	// CompositeConfigs weights the composite; nil means AllDomainConfigs, so
+	// partial runs (-domain) still average over every domain.
+	CompositeConfigs []DomainConfig
+	DryRun           bool // compute and report changes without writing the seed or log
+	Check            bool // with DryRun: fail when any score would change
 }
 
-// Run executes the full collection pipeline for all configured domains.
+// ErrScoresChanged is returned by a checked dry run whose recomputed scores
+// differ from the seed.
+var ErrScoresChanged = errors.New("recomputed scores differ from seed")
+
+// Run executes the collection pipeline for all configured domains.
+//
+// Collection only updates current values: sub-indicator values, domain
+// scores and statuses, and the composite score. Run history (previous
+// scores, deltas, trends) belongs to explicit analysis runs and is written
+// by curve-snapshot-run, never here.
 func Run(cfg RunConfig) error {
 	ctx, cancel := context.WithTimeout(context.Background(), cfg.Timeout)
 	defer cancel()
@@ -44,9 +59,9 @@ func Run(cfg RunConfig) error {
 		fmt.Fprintln(os.Stderr)
 	}
 
-	prevLog, err := LoadCollectLog(cfg.LogPath)
-	if err != nil {
-		return fmt.Errorf("load collect log: %w", err)
+	var before ingest.Seed
+	if err := ingest.Clone(seed, &before); err != nil {
+		return err
 	}
 
 	// Run all collectors.
@@ -82,15 +97,26 @@ func Run(cfg RunConfig) error {
 	}
 
 	for _, dcfg := range cfg.DomainConfigs {
-		if err := updateDomain(seed, dcfg, allResults, overrides, prevLog, newLog); err != nil {
+		if err := updateDomain(seed, dcfg, allResults, overrides, newLog); err != nil {
 			return fmt.Errorf("update domain %s: %w", dcfg.DomainID, err)
 		}
 	}
 
-	// Recompute composite score from all domain scores.
-	// Always use full config set so partial runs (-domain flag) don't zero out
-	// domains that weren't collected in this run.
-	updateComposite(seed, AllDomainConfigs(), prevLog)
+	compositeConfigs := cfg.CompositeConfigs
+	if compositeConfigs == nil {
+		compositeConfigs = AllDomainConfigs()
+	}
+	updateComposite(seed, compositeConfigs)
+
+	changes := DiffScores(&before, seed)
+	reportChanges(changes)
+	if cfg.DryRun {
+		fmt.Fprintln(os.Stderr, "\n  Dry run: seed and collect log not written.")
+		if cfg.Check && len(changes) > 0 {
+			return ErrScoresChanged
+		}
+		return nil
+	}
 
 	// W5: Backup seed.json before overwriting.
 	backupPath := cfg.SeedPath + ".bak"
@@ -116,7 +142,6 @@ func updateDomain(
 	dcfg DomainConfig,
 	results []CollectResult,
 	overrides OverrideFile,
-	prevLog *CollectLog,
 	newLog *CollectLog,
 ) error {
 	// Find the domain in seed.
@@ -136,42 +161,38 @@ func updateDomain(
 	normalizedValues := map[string]float64{}
 
 	for _, indCfg := range dcfg.Indicators {
-		raw, unit, source, freshness, method, errMsg := resolveValue(
-			indCfg.Name, dcfg.DomainID, results, overrides, domain.SubIndicators,
-		)
+		r := resolveValue(indCfg.Name, dcfg.DomainID, results, overrides, domain.SubIndicators)
 
 		// W1: Loud warning for cached/missing fallbacks.
-		switch method {
+		switch r.Method {
 		case "cached":
 			fmt.Fprintf(os.Stderr, "    ⚠ CACHED: %s — using stale value %.2f %s (no collector or override)\n",
-				indCfg.Name, raw, unit)
+				indCfg.Name, r.Value, r.Unit)
 		case "missing":
 			fmt.Fprintf(os.Stderr, "    ✗ MISSING: %s — no value from any source, excluded from scoring\n",
 				indCfg.Name)
 		}
 
 		// Only include in scoring if we actually have a value.
-		if method != "missing" {
-			normalized := Normalize(raw, indCfg.NormConfig)
+		if r.Method != "missing" {
+			normalized := Normalize(r.Value, indCfg.NormConfig)
 			normalizedValues[indCfg.Name] = normalized
-			updateSubIndicator(domain, indCfg.Name, raw, unit, source, freshness)
+			updateSubIndicator(domain, indCfg.Name, r)
 			fmt.Fprintf(os.Stderr, "    %s: %.2f %s [%s] → normalized %.1f\n",
-				indCfg.Name, raw, unit, method, normalized)
+				indCfg.Name, r.Value, r.Unit, r.Method, normalized)
 		}
 
-		entry := LogEntry{
+		newLog.Entries[dcfg.DomainID] = append(newLog.Entries[dcfg.DomainID], LogEntry{
 			IndicatorName: indCfg.Name,
-			SourceName:    source,
-			Value:         raw,
-			Unit:          unit,
-			Freshness:     freshness,
+			SourceName:    r.Source,
+			Value:         r.Value,
+			Unit:          r.Unit,
+			Freshness:     r.Freshness,
 			CollectedAt:   time.Now(),
-			Method:        method,
-		}
-		if errMsg != "" {
-			entry.Error = errMsg
-		}
-		newLog.Entries[dcfg.DomainID] = append(newLog.Entries[dcfg.DomainID], entry)
+			Method:        r.Method,
+			Error:         r.Err,
+			SourceURL:     r.Meta.SourceURL,
+		})
 	}
 
 	newScore := math.Round(ComputeDomainScore(normalizedValues, dcfg)*10) / 10
@@ -180,14 +201,21 @@ func updateDomain(
 
 	filterSubIndicatorsToConfig(domain, dcfg.Indicators)
 
-	if ShouldAppendTrend(prevLog.RunAt) {
-		domain.PreviousScore = domain.Score
-	}
 	domain.Score = newScore
-	domain.Trend = UpdateTrend(domain.Trend, newScore, prevLog.RunAt, 84)
 	domain.Status = ClassifyStatus(newScore)
 
 	return nil
+}
+
+// resolved is one indicator value and where it came from.
+type resolved struct {
+	Value     float64
+	Unit      string
+	Source    string
+	Freshness string
+	Meta      ingest.SourceMeta
+	Method    string // "auto", "override", "cached", or "missing"
+	Err       string
 }
 
 // resolveValue implements three-tier fallback: collected → override → cached.
@@ -197,89 +225,77 @@ func resolveValue(
 	results []CollectResult,
 	overrides OverrideFile,
 	existingSubs []ingest.SubIndicatorJSON,
-) (value float64, unit string, source string, freshness string, method string, errMsg string) {
+) resolved {
 	// 1. Try collected results (auto).
 	for _, r := range results {
 		if r.IndicatorName == name && r.DomainID == domainID && r.Err == nil {
-			return r.RawValue, r.Unit, r.SourceName, r.Freshness, "auto", ""
+			return resolved{r.RawValue, r.Unit, r.SourceName, r.Freshness, r.Meta, "auto", ""}
 		}
 	}
 
 	// 2. Try overrides (manual YAML).
-	if entries, ok := overrides[domainID]; ok {
-		for _, e := range entries {
-			if e.Name == name {
-				return e.Value, e.Unit, e.Source, e.Freshness, "override", ""
-			}
+	for _, e := range overrides[domainID] {
+		if e.Name == name {
+			return resolved{e.Value, e.Unit, e.Source, e.Freshness, e.SourceMeta, "override", ""}
 		}
 	}
 
 	// 3. Fall back to existing seed value (cached — last known good).
 	for _, si := range existingSubs {
 		if si.Name == name {
-			return si.Value, si.Unit, si.Source, si.Freshness, "cached", "no collector or override available"
+			return resolved{si.Value, si.Unit, si.Source, si.Freshness, si.SourceMeta, "cached", "no collector or override available"}
 		}
 	}
 
-	return 0, "", "", "", "missing", "no value found from any source"
+	return resolved{Method: "missing", Err: "no value found from any source"}
 }
 
 // updateComposite recomputes the composite delegation score as the weighted
-// average of all domain scores. Only domains present in both the config list
-// and the seed are included.
-func updateComposite(seed *ingest.Seed, configs []DomainConfig, prevLog *CollectLog) {
-	// Build a weight map from configs.
+// average of domain scores. Domains in the seed but absent from configs are
+// skipped, and the average is taken over the weight that is present.
+func updateComposite(seed *ingest.Seed, configs []DomainConfig) {
 	weightMap := make(map[string]float64, len(configs))
 	for _, c := range configs {
 		weightMap[c.DomainID] = c.Weight
 	}
 
-	var composite float64
+	var weighted, totalWeight float64
 	for _, d := range seed.Delegation.Domains {
 		w, ok := weightMap[d.ID]
 		if !ok {
-			// Domain not in this run's config — use its existing score at its
-			// known weight. This handles partial runs (-domain flag).
 			continue
 		}
-		composite += d.Score * w
+		weighted += d.Score * w
+		totalWeight += w
 	}
-
-	composite = math.Round(composite*10) / 10
+	if totalWeight == 0 {
+		return
+	}
+	composite := math.Round(weighted/totalWeight*10) / 10
 
 	prev := seed.Delegation.Composite.Current
-	if ShouldAppendTrend(prevLog.RunAt) {
-		seed.Delegation.Composite.Previous = prev
-	}
 	seed.Delegation.Composite.Current = composite
-	seed.Delegation.Composite.Delta = math.Round((composite-seed.Delegation.Composite.Previous)*10) / 10
-	seed.Delegation.Composite.Trend = UpdateTrend(
-		seed.Delegation.Composite.Trend, composite, prevLog.RunAt, 84,
-	)
-	seed.Delegation.Composite.LastUpdated = time.Now().UTC().Format("2006-01-02")
 
-	fmt.Fprintf(os.Stderr, "\n  Composite score: %.1f → %.1f (Δ%.1f)\n",
-		prev, composite, seed.Delegation.Composite.Delta)
+	fmt.Fprintf(os.Stderr, "\n  Composite score: %.1f → %.1f\n", prev, composite)
 }
 
 // updateSubIndicator updates an existing sub-indicator in the domain, or appends it.
-func updateSubIndicator(domain *ingest.DomainJSON, name string, value float64, unit, source, freshness string) {
+func updateSubIndicator(domain *ingest.DomainJSON, name string, r resolved) {
+	si := ingest.SubIndicatorJSON{
+		Name:       name,
+		Value:      r.Value,
+		Unit:       r.Unit,
+		Source:     r.Source,
+		Freshness:  r.Freshness,
+		SourceMeta: r.Meta,
+	}
 	for i := range domain.SubIndicators {
 		if domain.SubIndicators[i].Name == name {
-			domain.SubIndicators[i].Value = value
-			domain.SubIndicators[i].Unit = unit
-			domain.SubIndicators[i].Source = source
-			domain.SubIndicators[i].Freshness = freshness
+			domain.SubIndicators[i] = si
 			return
 		}
 	}
-	domain.SubIndicators = append(domain.SubIndicators, ingest.SubIndicatorJSON{
-		Name:      name,
-		Value:     value,
-		Unit:      unit,
-		Source:    source,
-		Freshness: freshness,
-	})
+	domain.SubIndicators = append(domain.SubIndicators, si)
 }
 
 func filterSubIndicatorsToConfig(domain *ingest.DomainJSON, indicators []IndicatorConfig) {

@@ -68,7 +68,9 @@ Canonical methodology and audit records live in [`docs/`](docs/):
 
 - [`docs/methodology/overview.md`](docs/methodology/overview.md) explains the measurement approach.
 - [`docs/methodology/current-series.md`](docs/methodology/current-series.md) explains the current public curve series and recalculated 2025 comparison point.
-- [`docs/methodology/source-grading.md`](docs/methodology/source-grading.md) defines evidence grades and refresh workflow.
+- [`docs/methodology/source-grading.md`](docs/methodology/source-grading.md) defines evidence grades, the audit trail every value carries, and the refresh workflow.
+- [`docs/methodology/restatement-policy.md`](docs/methodology/restatement-policy.md) governs when the series may be restated and logs every restatement and correction.
+- [`docs/methodology/weights.md`](docs/methodology/weights.md) and [`docs/methodology/v3-shadow.md`](docs/methodology/v3-shadow.md) cover domain weights and the depth/reach method computed in shadow.
 - [`docs/runs/2026-q2.md`](docs/runs/2026-q2.md) records the current 2026 Q2 run.
 - [`docs/evidence/2026-q2/`](docs/evidence/2026-q2/) contains domain-level evidence notes and caveats.
 
@@ -76,8 +78,9 @@ Canonical methodology and audit records live in [`docs/`](docs/):
 
 The underlying data is published with the site:
 
-- [`/seed.json`](https://curve.thinkwright.ai/seed.json) contains the full JSON seed dataset.
+- [`/seed.json`](https://curve.thinkwright.ai/seed.json) contains the full JSON seed dataset, including every analysis run.
 - [`/data`](https://curve.thinkwright.ai/data) provides downloadable data access from the report.
+- Every scored value carries its source URL, publication date, measurement window, evidence grade, and confidence, in `seed/overrides.yaml` and in the exported `indicator_observations` and `sub_indicators` tables.
 
 The repository also includes the data-generation pipeline used to materialize the public dataset. Analysts can inspect `seed/seed.json`, `seed/overrides.yaml`, and `internal/collect/score.go` to review values, formulas, and weights.
 
@@ -95,9 +98,14 @@ For a full data rebuild, use the Makefile targets in the repository root:
 
 ```sh
 cd ..
-make generate
-make test
+make test                                   # Go tests, including a lint of every source's audit trail
+go run ./cmd/collect -dry-run -offline -check   # published scores reproduce from seed/overrides.yaml
+make generate                               # Parquet, meta.json, sitemap, static seed copy
+make diagnostics                            # composition, evidence age, sensitivity, uncertainty
+make run-server                             # prerendered site on :8080; `make smoke` checks it in headless Chrome
 ```
+
+The refresh workflow for a new run is documented in [`docs/methodology/source-grading.md`](docs/methodology/source-grading.md#refresh-workflow).
 
 ## License
 

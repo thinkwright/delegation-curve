@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/thinkwright/delegation-curve/internal/collect"
+	"github.com/thinkwright/delegation-curve/internal/ingest"
 )
 
 // aiExtensions lists the major AI coding assistant extensions to aggregate.
@@ -21,17 +22,21 @@ var aiExtensions = []string{
 	"Supermaven.supermaven",
 }
 
+const marketplaceQueryURL = "https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery"
+
 // VSCodeCollector fetches aggregate install counts for AI coding extensions
 // from the VS Code Marketplace API.
 type VSCodeCollector struct {
 	client     *http.Client
 	extensions []string
+	endpoint   string
 }
 
 func NewVSCodeCollector() *VSCodeCollector {
 	return &VSCodeCollector{
 		client:     &http.Client{Timeout: 15 * time.Second},
 		extensions: aiExtensions,
+		endpoint:   marketplaceQueryURL,
 	}
 }
 
@@ -51,25 +56,36 @@ func (c *VSCodeCollector) Collect(ctx context.Context) ([]collect.CollectResult,
 		totalInstalls += installs
 	}
 
-	// Fail only if we got zero extensions at all.
-	if totalInstalls == 0 && len(fetchErrors) == len(c.extensions) {
+	// The indicator is defined over the full extension list, so a partial sum
+	// would silently change the construct (GitHub Copilot alone is ~80% of
+	// it). Any failure falls back to the override or last recorded value.
+	if len(fetchErrors) > 0 {
 		return []collect.CollectResult{{
 			IndicatorName: "Tool Ecosystem Reach",
 			DomainID:      "code-gen",
 			SourceName:    "VS Code Marketplace",
-			Err:           fmt.Errorf("all extensions failed: %v", fetchErrors),
+			Err:           fmt.Errorf("%d of %d extensions failed: %v", len(fetchErrors), len(c.extensions), fetchErrors),
 		}}, nil
 	}
 
 	millions := float64(totalInstalls) / 1_000_000
+	today := time.Now().UTC().Format("2006-01-02")
 	return []collect.CollectResult{{
 		IndicatorName: "Tool Ecosystem Reach",
 		DomainID:      "code-gen",
 		RawValue:      millions,
 		Unit:          "M",
 		SourceName:    "VS Code Marketplace",
-		Freshness:     time.Now().Format("2006-01-02"),
-		SourceURL:     "https://marketplace.visualstudio.com/",
+		Freshness:     today,
+		Meta: ingest.SourceMeta{
+			SourceURL:        "https://marketplace.visualstudio.com/",
+			PublishedAt:      today,
+			MeasurementStart: today,
+			MeasurementEnd:   today,
+			EvidenceGrade:    "D",
+			Confidence:       "medium",
+			Transform:        fmt.Sprintf("Sum of install counts for %d tracked AI coding extensions, in millions; log-scaled over 1M-200M.", len(c.extensions)),
+		},
 	}}, nil
 }
 
@@ -90,9 +106,7 @@ func (c *VSCodeCollector) fetchInstallCount(ctx context.Context, extension strin
 		return 0, err
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "POST",
-		"https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery",
-		bytes.NewReader(payload))
+	req, err := http.NewRequestWithContext(ctx, "POST", c.endpoint, bytes.NewReader(payload))
 	if err != nil {
 		return 0, err
 	}

@@ -8,17 +8,6 @@ function safe(id: string): string {
 }
 
 export const Q = {
-	// Dashboard
-	meta: `SELECT * FROM meta LIMIT 1`,
-
-	// Delegation index (all domains, sorted by score)
-	delegationAll: `
-		SELECT id, name, full_name, score, previous_score,
-		       trend, status, weight, tier, description
-		FROM delegation
-		ORDER BY score DESC
-	`,
-
 	// Single domain
 	delegationById: (id: string) => `
 		SELECT * FROM delegation WHERE id = '${safe(id)}'
@@ -26,7 +15,8 @@ export const Q = {
 
 	// Sub-indicators for a domain
 	subIndicators: (domainId: string) => `
-		SELECT name, value, unit, source, freshness
+		SELECT name, value, unit, source, freshness, source_url, published_at,
+		       measurement_start, measurement_end, evidence_grade, confidence, transform
 		FROM sub_indicators
 		WHERE domain_id = '${safe(domainId)}'
 	`,
@@ -38,20 +28,11 @@ export const Q = {
 		WHERE domain_id = '${safe(domainId)}'
 	`,
 
-	// Composite run history, one row per analysis run.
-	analysisRuns: `
-		SELECT run_id, label, published_at, measurement_period, measurement_year,
-		       methodology_version, composite_score, notes, is_current
-		FROM analysis_runs
-		WHERE is_public_series = true
-		ORDER BY measurement_year, published_at, run_id
-	`,
-
 	// Domain score history joined to run metadata.
 	domainRunHistory: (domainId: string) => `
 		SELECT r.run_id, r.label, r.published_at, r.measurement_period,
 		       r.measurement_year, r.methodology_version, d.score, r.notes,
-		       r.is_current
+		       r.is_current, r.period_midpoint
 		FROM domain_scores d
 		JOIN analysis_runs r ON d.run_id = r.run_id
 		WHERE d.domain_id = '${safe(domainId)}'

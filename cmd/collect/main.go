@@ -16,10 +16,18 @@ func main() {
 	logPath := flag.String("log", "seed/collect.log.json", "Path to collect log")
 	timeout := flag.Duration("timeout", 30*time.Second, "Collection timeout")
 	domain := flag.String("domain", "", "Collect only this domain (empty = all)")
+	dryRun := flag.Bool("dry-run", false, "Report value and score changes without writing the seed or log")
+	offline := flag.Bool("offline", false, "Skip network collectors; resolve values from overrides and cached seed values only")
+	check := flag.Bool("check", false, "With -dry-run: exit 1 if any value or score would change (reproducibility check)")
 	flag.Parse()
 
-	fmt.Fprintln(os.Stderr, "AHI Data Collection")
-	fmt.Fprintln(os.Stderr, "===================")
+	if *check && !*dryRun {
+		fmt.Fprintln(os.Stderr, "Error: -check requires -dry-run")
+		os.Exit(2)
+	}
+
+	fmt.Fprintln(os.Stderr, "Delegation Curve data collection")
+	fmt.Fprintln(os.Stderr, "================================")
 
 	domainConfigs := collect.AllDomainConfigs()
 
@@ -62,6 +70,10 @@ func main() {
 		allCollectors = filteredC
 	}
 
+	if *offline {
+		allCollectors = nil
+	}
+
 	if len(domainConfigs) == 0 {
 		fmt.Fprintf(os.Stderr, "Error: no domain config found for %q\n", *domain)
 		os.Exit(1)
@@ -74,6 +86,8 @@ func main() {
 		DomainConfigs: domainConfigs,
 		Collectors:    allCollectors,
 		Timeout:       *timeout,
+		DryRun:        *dryRun,
+		Check:         *check,
 	}
 
 	if err := collect.Run(cfg); err != nil {
@@ -81,5 +95,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Fprintln(os.Stderr, "\nDone. Run 'make generate' to rebuild Parquet files.")
+	if !*dryRun {
+		fmt.Fprintln(os.Stderr, "\nDone. Record the scores with curve-snapshot-run, then run 'make generate'.")
+	}
 }

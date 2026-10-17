@@ -35,6 +35,18 @@ type DomainConfig struct {
 	Indicators  []IndicatorConfig
 }
 
+// Construct classifies what an indicator measures. It does not affect v2
+// scoring; diagnostics use it to separate delegation depth (work) from reach
+// (usage, adoption) and capacity metrics.
+type Construct string
+
+const (
+	Work     Construct = "work"     // share of work, decisions, cases, or content handled by AI
+	Usage    Construct = "usage"    // share of people (workers, students, physicians) using AI
+	Adoption Construct = "adoption" // share of organizations that have adopted AI somewhere
+	Capacity Construct = "capacity" // counts or reach (devices, installs, assessments)
+)
+
 // IndicatorConfig defines one sub-indicator's normalization and weight.
 type IndicatorConfig struct {
 	Name       string
@@ -42,6 +54,7 @@ type IndicatorConfig struct {
 	NormConfig NormConfig
 	SourceName string
 	Cadence    Cadence // native data collection frequency
+	Construct  Construct
 }
 
 // CodeGenConfig returns the configuration for the code-gen domain.
@@ -59,24 +72,28 @@ func CodeGenConfig() DomainConfig {
 				Weight:     0.30,
 				NormConfig: NormConfig{Method: DirectPercent},
 				SourceName: "Sonar and GitLab",
+				Construct:  Work,
 			},
 			{
 				Name:       "Technical Work AI Value Share",
 				Weight:     0.25,
 				NormConfig: NormConfig{Method: DirectPercent},
 				SourceName: "METR AI Usage Survey",
+				Construct:  Work,
 			},
 			{
 				Name:       "AI Workflow Reliance",
 				Weight:     0.25,
 				NormConfig: NormConfig{Method: DirectPercent},
 				SourceName: "DORA and JetBrains",
+				Construct:  Usage,
 			},
 			{
 				Name:       "Agentic Task Delegation",
 				Weight:     0.15,
 				NormConfig: NormConfig{Method: DirectPercent},
 				SourceName: "Anthropic and arXiv",
+				Construct:  Work,
 			},
 			{
 				Name:       "Tool Ecosystem Reach",
@@ -84,6 +101,7 @@ func CodeGenConfig() DomainConfig {
 				NormConfig: NormConfig{Method: LogScale, LogMin: 0, LogMax: 2.3}, // value stored in millions: 1M→0, 200M→2.3
 				SourceName: "VS Code Marketplace",
 				Cadence:    Continuous,
+				Construct:  Capacity,
 			},
 		},
 	}
@@ -99,9 +117,9 @@ func ContentModConfig() DomainConfig {
 		Weight:      0.10,
 		Tier:        1,
 		Indicators: []IndicatorConfig{
-			{Name: "Meta Automated Detection", Weight: 0.375, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Meta Transparency Report", Cadence: Quarterly},
-			{Name: "YouTube Automated Flagging", Weight: 0.3125, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "YouTube Transparency Report", Cadence: Quarterly},
-			{Name: "TikTok Automated Enforcement", Weight: 0.3125, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "TikTok DSA Transparency Report", Cadence: Quarterly},
+			{Name: "Meta Automated Detection", Weight: 0.375, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Meta Transparency Report", Cadence: Quarterly, Construct: Work},
+			{Name: "YouTube Automated Flagging", Weight: 0.3125, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "YouTube Transparency Report", Cadence: Quarterly, Construct: Work},
+			{Name: "TikTok Automated Enforcement", Weight: 0.3125, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "TikTok DSA Transparency Report", Cadence: Quarterly, Construct: Work},
 		},
 	}
 }
@@ -116,8 +134,8 @@ func AlgoTradeConfig() DomainConfig {
 		Weight:      0.15,
 		Tier:        1,
 		Indicators: []IndicatorConfig{
-			{Name: "FX Electronic Trading Share", Weight: 0.55, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "BIS Triennial Survey"},
-			{Name: "Buy-Side AI Trade Execution Adoption", Weight: 0.45, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Coalition Greenwich"},
+			{Name: "FX Electronic Trading Share", Weight: 0.55, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "BIS Triennial Survey", Construct: Work},
+			{Name: "Buy-Side AI Trade Execution Adoption", Weight: 0.45, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Coalition Greenwich", Construct: Usage},
 		},
 	}
 }
@@ -132,10 +150,10 @@ func SupportConfig() DomainConfig {
 		Weight:      0.15,
 		Tier:        1,
 		Indicators: []IndicatorConfig{
-			{Name: "Cases Handled by AI", Weight: 0.45, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Salesforce State of Service"},
-			{Name: "Bot Deflection Rate", Weight: 0.20, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Intercom Trends"},
-			{Name: "Production AI Customer Communications Agents", Weight: 0.25, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Sinch AI Production Paradox"},
-			{Name: "Mature AI Support Deployment", Weight: 0.10, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Intercom Customer Service Transformation"},
+			{Name: "Cases Handled by AI", Weight: 0.45, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Salesforce State of Service", Construct: Work},
+			{Name: "Bot Deflection Rate", Weight: 0.20, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Intercom Trends", Construct: Work},
+			{Name: "Production AI Customer Communications Agents", Weight: 0.25, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Sinch AI Production Paradox", Construct: Adoption},
+			{Name: "Mature AI Support Deployment", Weight: 0.10, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Intercom Customer Service Transformation", Construct: Adoption},
 		},
 	}
 }
@@ -150,8 +168,8 @@ func CreditConfig() DomainConfig {
 		Weight:      0.10,
 		Tier:        2,
 		Indicators: []IndicatorConfig{
-			{Name: "AI-Underwritten Personal Loan Proxy", Weight: 0.55, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Upstart and TransUnion", Cadence: Quarterly},
-			{Name: "AI Credit Decisioning (Banks)", Weight: 0.45, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "OCC Survey"},
+			{Name: "AI-Underwritten Personal Loan Proxy", Weight: 0.55, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Upstart and TransUnion", Cadence: Quarterly, Construct: Work},
+			{Name: "AI Credit Decisioning (Banks)", Weight: 0.45, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "OCC Survey", Construct: Adoption},
 		},
 	}
 }
@@ -166,10 +184,10 @@ func MedicalDxConfig() DomainConfig {
 		Weight:      0.12,
 		Tier:        2,
 		Indicators: []IndicatorConfig{
-			{Name: "FDA AI-Enabled Medical Devices", Weight: 0.10, NormConfig: NormConfig{Method: LinearClamp, Min: 0, Max: 2000}, SourceName: "FDA AI-Enabled Medical Devices", Cadence: Continuous},
-			{Name: "Radiology or Imaging AI Adoption", Weight: 0.35, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "KLAS Global Imaging AI"},
-			{Name: "AI-Assisted Diagnosis Rate", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "AMA Survey"},
-			{Name: "Pathology AI Adoption", Weight: 0.25, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "CAP Survey"},
+			{Name: "FDA AI-Enabled Medical Devices", Weight: 0.10, NormConfig: NormConfig{Method: LinearClamp, Min: 0, Max: 2000}, SourceName: "FDA AI-Enabled Medical Devices", Cadence: Continuous, Construct: Capacity},
+			{Name: "Radiology or Imaging AI Adoption", Weight: 0.35, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "KLAS Global Imaging AI", Construct: Adoption},
+			{Name: "AI-Assisted Diagnosis Rate", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "AMA Survey", Construct: Usage},
+			{Name: "Pathology AI Adoption", Weight: 0.25, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "CAP Survey", Construct: Adoption},
 		},
 	}
 }
@@ -184,9 +202,9 @@ func LegalAIConfig() DomainConfig {
 		Weight:      0.08,
 		Tier:        2,
 		Indicators: []IndicatorConfig{
-			{Name: "Legal Organization GenAI Adoption", Weight: 0.40, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Thomson Reuters"},
-			{Name: "Solo and Small Firms Using AI for Legal Work", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Clio Legal Trends"},
-			{Name: "AI-Assisted Document Review", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "EDRM/Relativity Survey"},
+			{Name: "Legal Organization GenAI Adoption", Weight: 0.40, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Thomson Reuters", Construct: Adoption},
+			{Name: "Solo and Small Firms Using AI for Legal Work", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Clio Legal Trends", Construct: Usage},
+			{Name: "AI-Assisted Document Review", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "EDRM/Relativity Survey", Construct: Usage},
 		},
 	}
 }
@@ -201,10 +219,10 @@ func HireConfig() DomainConfig {
 		Weight:      0.08,
 		Tier:        2,
 		Indicators: []IndicatorConfig{
-			{Name: "Orgs Using AI in Talent Acquisition", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "ICIMS/Aptitude"},
-			{Name: "AI Screening Use Case Adoption", Weight: 0.35, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "ICIMS/Aptitude"},
-			{Name: "Broad AI Across Hiring Processes", Weight: 0.15, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "ICIMS/Aptitude"},
-			{Name: "AI Assessment Platform Reach", Weight: 0.20, NormConfig: NormConfig{Method: LinearClamp, Min: 0, Max: 300}, SourceName: "Platform Aggregation"},
+			{Name: "Orgs Using AI in Talent Acquisition", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "ICIMS/Aptitude", Construct: Adoption},
+			{Name: "AI Screening Use Case Adoption", Weight: 0.35, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "ICIMS/Aptitude", Construct: Adoption},
+			{Name: "Broad AI Across Hiring Processes", Weight: 0.15, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "ICIMS/Aptitude", Construct: Adoption},
+			{Name: "AI Assessment Platform Reach", Weight: 0.20, NormConfig: NormConfig{Method: LinearClamp, Min: 0, Max: 300}, SourceName: "Platform Aggregation", Construct: Capacity},
 		},
 	}
 }
@@ -219,10 +237,10 @@ func EducationConfig() DomainConfig {
 		Weight:      0.07,
 		Tier:        3,
 		Indicators: []IndicatorConfig{
-			{Name: "Students Using AI for Schoolwork", Weight: 0.40, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Pew Research Center"},
-			{Name: "AI-Graded Assessments", Weight: 0.20, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Gradescope/EdTech Reports"},
-			{Name: "Teachers Using AI for Work", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "OECD Digital Education Outlook"},
-			{Name: "Student Papers 80%+ AI-Written", Weight: 0.10, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Turnitin AI Writing"},
+			{Name: "Students Using AI for Schoolwork", Weight: 0.40, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Pew Research Center", Construct: Usage},
+			{Name: "AI-Graded Assessments", Weight: 0.20, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Gradescope/EdTech Reports", Construct: Work},
+			{Name: "Teachers Using AI for Work", Weight: 0.30, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "OECD Digital Education Outlook", Construct: Usage},
+			{Name: "Student Papers 80%+ AI-Written", Weight: 0.10, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Turnitin AI Writing", Construct: Work},
 		},
 	}
 }
@@ -267,35 +285,4 @@ func ClassifyStatus(score float64) string {
 	default:
 		return "nominal"
 	}
-}
-
-// UpdateTrend appends or updates the latest point in a trend array.
-// If the last run was <25 days ago, updates the last point (same-month re-run).
-// Otherwise appends. Caps at maxPoints (default 84 = 7 years monthly).
-func UpdateTrend(existing []float64, newScore float64, lastRunAt time.Time, maxPoints int) []float64 {
-	if maxPoints <= 0 {
-		maxPoints = 84
-	}
-
-	result := make([]float64, len(existing))
-	copy(result, existing)
-
-	if !ShouldAppendTrend(lastRunAt) && len(result) > 0 {
-		result[len(result)-1] = newScore
-		return result
-	}
-
-	result = append(result, newScore)
-	if len(result) > maxPoints {
-		result = result[len(result)-maxPoints:]
-	}
-	return result
-}
-
-// ShouldAppendTrend reports whether a new score should become a new curve point.
-func ShouldAppendTrend(lastRunAt time.Time) bool {
-	if lastRunAt.IsZero() {
-		return true
-	}
-	return time.Since(lastRunAt).Hours()/24 >= 25
 }

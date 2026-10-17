@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  privacy:
+    name: Private files are not tracked
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Block local working notes
+        run: |
+          if git ls-files | grep -E '^(research/|STATUS\.md$|\.claude/settings\.local\.json$)'; then
+            echo "::error::Local working files are tracked (listed above). They belong in the gitignored research/ folder."
+            exit 1
+          fi
+
+  pipeline:
+    name: Go pipeline and data
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: gofmt
+        run: |
+          unformatted=$(gofmt -l cmd internal)
+          if [ -n "$unformatted" ]; then echo "$unformatted"; exit 1; fi
+      - run: go vet ./...
+      - run: go test ./...
+      - name: Published scores reproduce from overrides
+        run: go run ./cmd/collect -dry-run -offline -check
+      - name: Generated data matches the seed
+        run: |
+          go run ./cmd/generate
+          git diff --exit-code --stat -- frontend/static
+
+  site:
+    name: Prerendered site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install
+        working-directory: frontend
+        run: npm ci
+      - name: Type check
+        working-directory: frontend
+        run: npm run check
+      - name: DuckDB versions match
+        working-directory: frontend
+        run: npm run check:duckdb
+      - name: Build site and server
+        run: |
+          (cd frontend && npm run build)
+          make clean-static
+          cp -R frontend/build/. cmd/server/static/
+          make compress-static
+          go build -o curve-server ./cmd/server
+      - name: Smoke test in headless Chrome
+        run: |
+          ./curve-server -port 8080 &
+          for _ in $(seq 1 50); do curl -sf http://127.0.0.1:8080/health >/dev/null && break; sleep 0.2; done
+          make smoke URL=http://127.0.0.1:8080

@@ -3,7 +3,7 @@ COLLECT_BIN := curve-collect
 SNAPSHOT_BIN := curve-snapshot-run
 SERVER_BIN  := curve-server
 
-.PHONY: build build-collect build-snapshot snapshot-baseline generate collect collect-codegen collect-contentmod collect-algotrade collect-support collect-credit collect-medicaldx collect-legalai collect-hire collect-education pipeline frontend compress-static server run-server dev deploy clean test
+.PHONY: build build-collect build-snapshot snapshot-baseline generate collect collect-codegen collect-contentmod collect-algotrade collect-support collect-credit collect-medicaldx collect-legalai collect-hire collect-education pipeline diagnostics frontend compress-static server run-server dev og-image smoke deploy clean clean-static test
 
 build:
 	go build -o $(BINARY) ./cmd/generate
@@ -50,15 +50,20 @@ pipeline:
 generate: build
 	./$(BINARY) -input seed/seed.json -output frontend/static/data
 
+# Composition, evidence age, sensitivity, uncertainty, and v3 shadow report
+# for the current run (markdown on stdout).
+diagnostics:
+	go run ./cmd/diagnostics -seed seed/seed.json
+
 frontend:
 	cd frontend && npm ci && npm run build
 
 compress-static:
-	find cmd/server/static -type f \( -name '*.js' -o -name '*.css' -o -name '*.json' -o -name '*.svg' -o -name '*.xml' -o -name '*.txt' -o -name '*.wasm' \) -exec sh -c 'for f do gzip -c -9 "$$f" > "$$f.gz"; done' sh {} +
+	find cmd/server/static -type f \( -name '*.html' -o -name '*.js' -o -name '*.css' -o -name '*.json' -o -name '*.svg' -o -name '*.xml' -o -name '*.txt' -o -name '*.wasm' \) -exec sh -c 'for f do gzip -c -9 "$$f" > "$$f.gz"; done' sh {} +
 
 server: frontend
-	rm -rf cmd/server/static
-	cp -r frontend/build cmd/server/static
+	$(MAKE) clean-static
+	cp -R frontend/build/. cmd/server/static/
 	$(MAKE) compress-static
 	go build -o $(SERVER_BIN) ./cmd/server
 
@@ -68,14 +73,26 @@ run-server: server
 dev:
 	cd frontend && npm run dev
 
+# Re-render frontend/static/og-image.png from the current data (needs Chrome).
+og-image:
+	cd frontend && sh scripts/render-og-image.sh
+
+# Headless-Chrome page checks against a running server (default: run-server port).
+smoke:
+	cd frontend && node scripts/browser.mjs smoke $(or $(URL),http://127.0.0.1:8080)
+
 deploy:
-	fly deploy --remote-only
+	fly deploy --remote-only --app delegation-curve --config fly.toml
 
 test:
 	go test ./...
+
+clean-static:
+	mkdir -p cmd/server/static
+	find cmd/server/static -mindepth 1 ! -name .gitkeep -delete
 
 clean:
 	rm -f $(BINARY) $(COLLECT_BIN) $(SNAPSHOT_BIN) $(SERVER_BIN)
 	rm -f frontend/static/data/*.parquet
 	rm -rf frontend/build
-	rm -rf cmd/server/static
+	$(MAKE) clean-static

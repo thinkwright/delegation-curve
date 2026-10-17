@@ -1,6 +1,11 @@
 # Manual override values for data sources that cannot be automatically collected.
 # These take precedence over automated collectors when present.
-# Comment each entry with the date and URL where you found the value.
+# Every entry records its audit trail: source_url, published_at, the
+# measurement window (measurement_start/measurement_end, ISO dates; YYYY or
+# YYYY-MM when only that precision is disclosed), evidence_grade (A-D, see
+# docs/methodology/source-grading.md), confidence, and any transform used to
+# derive the value. Leave source_url empty only for held values with low
+# confidence, and say why in transform.
 #
 # All values must be sourced from the cited URL. Do not enter prototype/mock data.
 
@@ -11,7 +16,14 @@ content-mod:
     source: "Meta Transparency Report"
     freshness: "Q3 2025"
     entered_at: "2026-05-16"
-    note: "Held from prior CSER value pending reproducible table extraction; 2025 policy shift is documented in research/2026-evidence/content-mod.md. https://transparency.meta.com/reports/community-standards-enforcement/"
+    source_url: "https://transparency.meta.com/reports/community-standards-enforcement/"
+    published_at: "2025"
+    measurement_start: "2025-01"
+    measurement_end: "2025-09"
+    evidence_grade: "A"
+    confidence: "medium"
+    transform: "Proactive detection rate held from the prior CSER extraction pending a reproducible table extraction; the 2025 enforcement-policy change is a methodology break."
+    note: "Held from prior CSER value pending reproducible table extraction; 2025 policy shift is documented in docs/evidence/2026-q2/content-mod.md. https://transparency.meta.com/reports/community-standards-enforcement/"
 
   - name: "YouTube Automated Flagging"
     value: 99.5
@@ -19,6 +31,12 @@ content-mod:
     source: "YouTube Transparency Report"
     freshness: "Jul-Sep 2025"
     entered_at: "2026-05-16"
+    source_url: "https://support.google.com/transparencyreport/answer/9198203?hl=en-GB"
+    published_at: "2025-12"
+    measurement_start: "2025-07-01"
+    measurement_end: "2025-09-30"
+    evidence_grade: "A"
+    confidence: "high"
     note: "YouTube Community Guidelines Enforcement visible-change log reports automated flagging at 99.5 percent. https://support.google.com/transparencyreport/answer/9198203?hl=en-GB"
 
   - name: "TikTok Automated Enforcement"
@@ -27,6 +45,12 @@ content-mod:
     source: "TikTok DSA H2 2025"
     freshness: "H2 2025"
     entered_at: "2026-05-16"
+    source_url: "https://newsroom.tiktok.com/digital-services-act-our-sixth-transparency-report-on-content-moderation-in-europe?lang=en-150"
+    published_at: "2026-04-29"
+    measurement_start: "2025-07-01"
+    measurement_end: "2025-12-31"
+    evidence_grade: "A"
+    confidence: "medium-high"
     note: "TikTok DSA H2 2025 report says automated systems actioned 93.8 percent of violating content without human review. https://newsroom.tiktok.com/digital-services-act-our-sixth-transparency-report-on-content-moderation-in-europe?lang=en-150"
 
 algo-trade:
@@ -36,6 +60,12 @@ algo-trade:
     source: "BIS Triennial Survey"
     freshness: "April 2025"
     entered_at: "2026-05-16"
+    source_url: "https://www.bis.org/publ/qtrpdf/r_qt2512v.htm"
+    published_at: "2025-12"
+    measurement_start: "2025-04-01"
+    measurement_end: "2025-04-30"
+    evidence_grade: "A"
+    confidence: "high"
     note: "BIS execution analysis reports electronic trading accounted for 59 percent of global FX turnover in April 2025. https://www.bis.org/publ/qtrpdf/r_qt2512v.htm"
 
   - name: "Buy-Side AI Trade Execution Adoption"
@@ -44,6 +74,12 @@ algo-trade:
     source: "Coalition Greenwich"
     freshness: "2025"
     entered_at: "2026-05-16"
+    source_url: "https://www.greenwich.com/market-structure-technology/great-expectations-ai-equity-trading"
+    published_at: "2025-07-08"
+    measurement_start: "2024-07-01"
+    measurement_end: "2024-09-30"
+    evidence_grade: "C"
+    confidence: "medium"
     note: "Coalition Greenwich reports 15 percent of North American buy-side equity traders already incorporated internal AI technologies into trade execution workflow; current-plus-planned would be 39 percent but is not used for current scoring. https://www.greenwich.com/market-structure-technology/great-expectations-ai-equity-trading"
 
 code-gen:
@@ -53,6 +89,12 @@ code-gen:
     source: "Sonar and GitLab"
     freshness: "2026"
     entered_at: "2026-05-16"
+    source_url: "https://www.sonarsource.com/blog/state-of-code-developer-survey-report-the-current-reality-of-ai-coding"
+    published_at: "2026"
+    measurement_end: "2026-01"
+    evidence_grade: "C"
+    confidence: "medium"
+    transform: "0.65 x Sonar 2026 committed-code share (42%) + 0.35 x GitLab 2026 code-source share (34%). GitLab: https://about.gitlab.com/resources/developer-survey/. Fieldwork dates not disclosed; Sonar published 2026-01-08."
     note: "Blended current output-share estimate: 65 percent weight to Sonar 42 percent committed-code estimate and 35 percent weight to GitLab 34 percent code-source-share estimate. https://www.sonarsource.com/blog/state-of-code-developer-survey-report-the-current-reality-of-ai-coding and https://about.gitlab.com/resources/developer-survey/"
 
   - name: "Technical Work AI Value Share"
@@ -61,6 +103,13 @@ code-gen:
     source: "METR AI Usage Survey"
     freshness: "Mar 2026"
     entered_at: "2026-05-16"
+    source_url: "https://metr.org/blog/2026-05-11-ai-usage-survey/"
+    published_at: "2026-05-11"
+    measurement_start: "2026-02-01"
+    measurement_end: "2026-04-30"
+    evidence_grade: "C"
+    confidence: "medium"
+    transform: "(m - 1) / m with the median self-reported March 2026 value multiplier m = 2."
     note: "METR median March 2026 self-reported value multiplier is 2x; converted as (2-1)/2 = 50 percent AI-attributable value share. https://metr.org/blog/2026-05-11-ai-usage-survey/"
 
   - name: "AI Workflow Reliance"
@@ -69,6 +118,13 @@ code-gen:
     source: "DORA and JetBrains"
     freshness: "2025/2026"
     entered_at: "2026-05-16"
+    source_url: "https://blog.google/innovation-and-ai/technology/developers-tools/dora-report-2025/"
+    published_at: "2026-04"
+    measurement_start: "2025"
+    measurement_end: "2026-01"
+    evidence_grade: "B"
+    confidence: "medium"
+    transform: "0.70 x DORA 2025 moderate-to-heavy reliance (65%) + 0.30 x JetBrains AI Pulse January 2026 specialized AI tool adoption (74%). JetBrains: https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/"
     note: "Blended workflow-reliance estimate: 70 percent weight to DORA 65 percent moderate-to-heavy reliance and 30 percent weight to JetBrains 74 percent specialized AI developer-tool adoption. https://blog.google/innovation-and-ai/technology/developers-tools/dora-report-2025/ and https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/"
 
   - name: "Agentic Task Delegation"
@@ -77,6 +133,13 @@ code-gen:
     source: "Anthropic and arXiv"
     freshness: "2025/2026"
     entered_at: "2026-05-16"
+    source_url: "https://arxiv.org/abs/2601.18341"
+    published_at: "2026-04-08"
+    measurement_start: "2025-01"
+    measurement_end: "2026"
+    evidence_grade: "C"
+    confidence: "medium"
+    transform: "0.50 x Anthropic 2026 fully delegable task range midpoint (10%) + 0.50 x arXiv GitHub coding-agent adoption midpoint (25.4%, H1 2025 traces). Anthropic: https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf?hsLang=en"
     note: "Blended agentic-delegation estimate: 50 percent weight to Anthropic's 0-20 percent fully delegable task midpoint and 50 percent weight to the arXiv GitHub coding-agent adoption midpoint of 25.4 percent. https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf?hsLang=en and https://arxiv.org/abs/2601.18341"
 
 support:
@@ -86,6 +149,12 @@ support:
     source: "Salesforce State of Service"
     freshness: "2025"
     entered_at: "2026-05-16"
+    source_url: "https://www.salesforce.com/news/stories/state-of-service-report-announcement-2025/"
+    published_at: "2025-11-13"
+    measurement_start: "2025-04-25"
+    measurement_end: "2025-06-06"
+    evidence_grade: "B"
+    confidence: "medium-high"
     note: "Salesforce State of Service 7th Edition reports service teams estimate 30 percent of cases are currently handled by AI. https://www.salesforce.com/news/stories/state-of-service-report-announcement-2025/"
 
   - name: "Bot Deflection Rate"
@@ -94,6 +163,9 @@ support:
     source: "Intercom Trends"
     freshness: "2025"
     entered_at: "2026-05-16"
+    evidence_grade: "A"
+    confidence: "low"
+    transform: "Held from the prior locked Intercom value; the source definition (no escalation vs customer-confirmed resolution) is unresolved."
     note: "Retained from prior locked source because no better direct 2026 operational deflection metric was found; definition remains pending."
 
   - name: "Production AI Customer Communications Agents"
@@ -102,6 +174,12 @@ support:
     source: "Sinch AI Production Paradox"
     freshness: "2026"
     entered_at: "2026-05-16"
+    source_url: "https://sinch.com/news/sinch-releases-ai-production-paradox/"
+    published_at: "2026-05-13"
+    measurement_start: "2026-01"
+    measurement_end: "2026-02"
+    evidence_grade: "B"
+    confidence: "medium"
     note: "Sinch reports 62 percent of enterprises already have AI agents live in production across customer communications. https://sinch.com/news/sinch-releases-ai-production-paradox/"
 
   - name: "Mature AI Support Deployment"
@@ -110,6 +188,12 @@ support:
     source: "Intercom Customer Service Transformation"
     freshness: "Q4 2025"
     entered_at: "2026-05-16"
+    source_url: "https://www.intercom.com/customer-transformation-report"
+    published_at: "2026"
+    measurement_start: "2025-10"
+    measurement_end: "2025-12"
+    evidence_grade: "B"
+    confidence: "medium"
     note: "Intercom reports 10 percent of respondents reached mature deployment where AI is fully integrated into support operations and working at scale. https://www.intercom.com/customer-transformation-report"
 
 credit:
@@ -119,6 +203,13 @@ credit:
     source: "Upstart and TransUnion"
     freshness: "2025"
     entered_at: "2026-05-16"
+    source_url: "https://www.sec.gov/Archives/edgar/data/1647639/000164763926000027/upst-20251231.htm"
+    published_at: "2026-02-19"
+    measurement_start: "2025-01-01"
+    measurement_end: "2025-12-31"
+    evidence_grade: "A"
+    confidence: "medium"
+    transform: "Upstart share of loans fully automated (91%, FY2025) x TransUnion fintech share of unsecured personal-loan originations (42%, Q3/Q4 2025). TransUnion: https://newsroom.transunion.com/q4-2025-ciir/"
     note: "Candidate blended proxy: 91 percent Upstart fully automated loans times 42 percent TransUnion fintech unsecured personal-loan origination share = 38.2 percent. https://www.sec.gov/Archives/edgar/data/1647639/000164763926000027/upst-20251231.htm and https://newsroom.transunion.com/q4-2025-ciir/"
 
   - name: "AI Credit Decisioning (Banks)"
@@ -127,6 +218,11 @@ credit:
     source: "McKinsey Credit Risk Survey"
     freshness: "H2 2024"
     entered_at: "2026-05-16"
+    measurement_start: "2024-07"
+    measurement_end: "2024-12"
+    evidence_grade: "B"
+    confidence: "low"
+    transform: "Held from the prior McKinsey credit-risk survey value (H2 2024); BoE/FCA 2024 survey and February 2026 roundtables kept as a cautious-deployment guardrail: https://www.bankofengland.co.uk/minutes/2026/february/summary-of-ai-roundtables-feb-2026"
     note: "Held from prior source because no credit-specific 2026 bank-decisioning metric was locked; BoE/FCA 2026 roundtables support cautious bank deployment."
 
 medical-dx:
@@ -136,6 +232,12 @@ medical-dx:
     source: "FDA AI-Enabled Medical Devices"
     freshness: "2026-05-16"
     entered_at: "2026-05-16"
+    source_url: "https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices"
+    published_at: "2026-05-16"
+    measurement_end: "2026-05-16"
+    evidence_grade: "A"
+    confidence: "high"
+    transform: "Row count of the FDA AI-enabled device list CSV accessed 2026-05-16; normalized linearly over 0-2000 devices."
     note: "Direct local count from FDA CSV download: 1,430 rows in the current AI-enabled medical device list. https://www.fda.gov/media/178541/download?attachment="
 
   - name: "Radiology or Imaging AI Adoption"
@@ -144,6 +246,11 @@ medical-dx:
     source: "KLAS Global Imaging AI"
     freshness: "2025"
     entered_at: "2026-05-16"
+    source_url: "https://klasresearch.com/report/global-imaging-ai-2025-looking-at-adoption-and-usage-across-regions/3804"
+    published_at: "2025"
+    measurement_end: "2025"
+    evidence_grade: "B"
+    confidence: "medium"
     note: "KLAS Global Imaging AI 2025 reports nearly 50 percent of interviewed non-U.S. organizations use at least one imaging AI solution. https://klasresearch.com/report/global-imaging-ai-2025-looking-at-adoption-and-usage-across-regions/3804"
 
   - name: "AI-Assisted Diagnosis Rate"
@@ -152,6 +259,12 @@ medical-dx:
     source: "AMA Physician AI Sentiment Survey"
     freshness: "2026"
     entered_at: "2026-05-16"
+    source_url: "https://www.ama-assn.org/sites/ama-assn.org/files/2026-03/physician-ai-sentiment-report_0.pdf"
+    published_at: "2026-03"
+    measurement_start: "2026-01-15"
+    measurement_end: "2026-02-02"
+    evidence_grade: "A"
+    confidence: "high"
     note: "AMA 2026 survey reports 17 percent of physicians use AI for assistive diagnosis. https://www.ama-assn.org/sites/ama-assn.org/files/2026-03/physician-ai-sentiment-report_0.pdf"
 
   - name: "Pathology AI Adoption"
@@ -160,7 +273,14 @@ medical-dx:
     source: "Pathology AI adoption surveys"
     freshness: "2025"
     entered_at: "2026-05-16"
-    note: "Held conservative pending representative deployment source; 2025 pathology surveys show uneven and mostly non-diagnostic use. See research/2026-evidence/medical-dx.md."
+    source_url: "https://www.sciencedirect.com/science/article/pii/S2153353925001129"
+    published_at: "2025"
+    measurement_start: "2024"
+    measurement_end: "2025"
+    evidence_grade: "C"
+    confidence: "low"
+    transform: "Conservative hold pending a representative clinical deployment source; 2024/2025 pathology surveys show uneven and mostly non-diagnostic use."
+    note: "Held conservative pending representative deployment source; 2025 pathology surveys show uneven and mostly non-diagnostic use. See docs/evidence/2026-q2/medical-dx.md."
 
 legal-ai:
   - name: "Legal Organization GenAI Adoption"
@@ -169,6 +289,11 @@ legal-ai:
     source: "Thomson Reuters AI in Professional Services"
     freshness: "2026"
     entered_at: "2026-05-16"
+    source_url: "https://www.thomsonreuters.com/content/dam/ewp-m/documents/thomsonreuters/en/pdf/reports/2026-ai-in-professional-services-report.pdf"
+    published_at: "2026"
+    measurement_end: "2026"
+    evidence_grade: "B"
+    confidence: "medium"
     note: "Thomson Reuters 2026 reports 40 percent of professional-services organizations use GenAI, up from 22 percent. https://www.thomsonreuters.com/content/dam/ewp-m/documents/thomsonreuters/en/pdf/reports/2026-ai-in-professional-services-report.pdf"
 
   - name: "Solo and Small Firms Using AI for Legal Work"
@@ -177,6 +302,12 @@ legal-ai:
     source: "Clio Solo and Small Law Firms 2026"
     freshness: "2026"
     entered_at: "2026-05-16"
+    source_url: "https://www.clio.com/about/press/2026-solo-small-firm-report/"
+    published_at: "2026-05-04"
+    measurement_end: "2026-05-04"
+    evidence_grade: "B"
+    confidence: "medium-high"
+    transform: "Mean of 71% (solo practitioners) and 75% (small firms)."
     note: "Average of Clio 2026 values: 71 percent of solo practitioners and 75 percent of small firms use AI to complete legal work. https://www.clio.com/about/press/2026-solo-small-firm-report/"
 
   - name: "AI-Assisted Document Review"
@@ -185,6 +316,12 @@ legal-ai:
     source: "ABA Litigation and TAR TechReport"
     freshness: "2024"
     entered_at: "2026-05-16"
+    source_url: "https://www.americanbar.org/groups/law_practice/resources/tech-report/2024/2024-litigation-and-tar-techreport/"
+    published_at: "2025"
+    measurement_start: "2024"
+    measurement_end: "2024"
+    evidence_grade: "A"
+    confidence: "medium"
     note: "ABA 2024 Litigation and TAR TechReport reports 28 percent AI-assisted search; predictive coding remains 22 percent. https://www.americanbar.org/groups/law_practice/resources/tech-report/2024/2024-litigation-and-tar-techreport/"
 
 hire:
@@ -194,6 +331,11 @@ hire:
     source: "ICIMS/Aptitude AI Adoption Report"
     freshness: "2026"
     entered_at: "2026-05-16"
+    source_url: "https://www.icims.com/company/newsroom/aiadoptionreport2026/"
+    published_at: "2026-04-30"
+    measurement_end: "2026-04-30"
+    evidence_grade: "B"
+    confidence: "medium-high"
     note: "ICIMS/Aptitude 2026 reports 69 percent of companies use AI in some capacity in talent acquisition. https://www.icims.com/company/newsroom/aiadoptionreport2026/"
 
   - name: "AI Screening Use Case Adoption"
@@ -202,6 +344,11 @@ hire:
     source: "ICIMS/Aptitude AI Adoption Report"
     freshness: "2026"
     entered_at: "2026-05-16"
+    source_url: "https://www.icims.com/company/newsroom/aiadoptionreport2026/"
+    published_at: "2026-04-30"
+    measurement_end: "2026-04-30"
+    evidence_grade: "B"
+    confidence: "medium-high"
     note: "ICIMS/Aptitude 2026 reports screening is the most widely adopted AI use case at 58 percent. https://www.icims.com/company/newsroom/aiadoptionreport2026/"
 
   - name: "Broad AI Across Hiring Processes"
@@ -210,6 +357,11 @@ hire:
     source: "ICIMS/Aptitude AI Adoption Report"
     freshness: "2026"
     entered_at: "2026-05-16"
+    source_url: "https://www.icims.com/company/newsroom/aiadoptionreport2026/"
+    published_at: "2026-04-30"
+    measurement_end: "2026-04-30"
+    evidence_grade: "B"
+    confidence: "medium"
     note: "ICIMS/Aptitude 2026 reports 18 percent of companies use AI broadly across hiring processes. https://www.icims.com/company/newsroom/aiadoptionreport2026/"
 
   - name: "AI Assessment Platform Reach"
@@ -218,6 +370,13 @@ hire:
     source: "HireVue Platform Volume Update"
     freshness: "2025"
     entered_at: "2026-05-16"
+    source_url: "https://www.hirevue.com/blog/hiring/quarterly-updates-from-hirevue-ceo"
+    published_at: "2024"
+    measurement_start: "2024-01-01"
+    measurement_end: "2024-03-31"
+    evidence_grade: "B"
+    confidence: "low-medium"
+    transform: "Single-vendor annualized platform volume (HireVue Q1 2024); normalized linearly over 0-300M per year."
     note: "Held current 80M per year low-confidence platform-reach proxy from HireVue Q1 2024 platform volume until a refreshed multi-vendor denominator is found. https://www.hirevue.com/blog/hiring/quarterly-updates-from-hirevue-ceo"
 
 education:
@@ -227,6 +386,12 @@ education:
     source: "Pew Research Center"
     freshness: "2026"
     entered_at: "2026-05-16"
+    source_url: "https://www.pewresearch.org/internet/2026/02/24/how-teens-use-and-view-ai/"
+    published_at: "2026-02-24"
+    measurement_start: "2025-09-25"
+    measurement_end: "2025-10-09"
+    evidence_grade: "B"
+    confidence: "high"
     note: "Pew 2026 reports 54 percent of U.S. teens have used chatbots for schoolwork help. https://www.pewresearch.org/internet/2026/02/24/how-teens-use-and-view-ai/"
 
   - name: "AI-Graded Assessments"
@@ -235,6 +400,9 @@ education:
     source: "Gradescope / Turnitin"
     freshness: "2025"
     entered_at: "2026-05-16"
+    evidence_grade: "A"
+    confidence: "low"
+    transform: "Held from the prior locked Gradescope/Turnitin value; no direct grading-automation source has been verified."
     note: "Held from prior locked source because no stronger 2026 direct assessment-automation metric was found."
 
   - name: "Teachers Using AI for Work"
@@ -243,6 +411,12 @@ education:
     source: "OECD Digital Education Outlook"
     freshness: "2024"
     entered_at: "2026-05-16"
+    source_url: "https://www.oecd.org/en/publications/2026/01/oecd-digital-education-outlook-2026_940e0dd8.html"
+    published_at: "2026-01"
+    measurement_start: "2024"
+    measurement_end: "2024"
+    evidence_grade: "B"
+    confidence: "medium"
     note: "OECD Digital Education Outlook 2026 reports 37 percent of lower-secondary teachers used AI for their job in 2024. https://www.oecd.org/en/publications/2026/01/oecd-digital-education-outlook-2026_940e0dd8.html"
 
   - name: "Student Papers 80%+ AI-Written"
@@ -251,4 +425,10 @@ education:
     source: "Turnitin AI Writing"
     freshness: "2026"
     entered_at: "2026-05-16"
+    source_url: "https://www.prnewswire.com/news-releases/turnitin-data-shows-transparency-about-ai-use-benefits-students-and-educators-302695254.html"
+    published_at: "2026-02-24"
+    measurement_start: "2025-10"
+    measurement_end: "2026-02-24"
+    evidence_grade: "C"
+    confidence: "medium"
     note: "Turnitin reports approximately 15 percent of essay submissions since October 2025 had greater than 80 percent AI-generated writing. https://www.prnewswire.com/news-releases/turnitin-data-shows-transparency-about-ai-use-benefits-students-and-educators-302695254.html"

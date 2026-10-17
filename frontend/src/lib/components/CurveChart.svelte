@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { generatePath } from '$lib/utils/sparkline';
+	import { generatePath, relativeX } from '$lib/utils/sparkline';
 
 	let {
 		data,
 		labels,
+		dates,
 		height = 160,
 		color = 'var(--color-primary)',
 		showGrid = true,
@@ -11,6 +12,8 @@
 	}: {
 		data: number[];
 		labels?: string[];
+		/** Period midpoints (YYYY-MM-DD); when present, points are spaced by time. */
+		dates?: (string | undefined)[];
 		height?: number;
 		color?: string;
 		showGrid?: boolean;
@@ -52,7 +55,7 @@
 			const y1 = toY(data[1]);
 			return `M0,${y0.toFixed(1)} C${(chartW * 0.4).toFixed(1)},${y0.toFixed(1)} ${(chartW * 0.6).toFixed(1)},${y1.toFixed(1)} ${chartW},${y1.toFixed(1)}`;
 		}
-		return generatePath(data, chartW, chartH, 0, min, max);
+		return generatePath(data, chartW, chartH, 0, min, max, dates);
 	});
 	const areaPath = $derived(() => {
 		const line = linePath();
@@ -73,14 +76,15 @@
 		if (labels?.length === data.length) return labels;
 		return Array.from({ length: data.length }, (_, i) => String(startYear + i));
 	});
-	const toX = (index: number, total: number) => total <= 1 ? chartW : (index / (total - 1)) * chartW;
+	const xs = $derived(relativeX(data.length, dates));
+	const toX = (index: number) => (xs[index] ?? 1) * chartW;
 
 	const lastValue = $derived(data[data.length - 1] ?? 0);
 	const lastY = $derived(toY(lastValue));
 	const points = $derived(() => data.map((value, index) => ({
 		value,
 		index,
-		x: toX(index, data.length),
+		x: toX(index),
 		y: toY(value),
 		label: xLabels()[index] ?? String(index + 1),
 		isCurrent: index === data.length - 1
@@ -99,7 +103,7 @@
 				{/each}
 				<!-- X labels -->
 				{#each xLabels() as label, i}
-					{@const x = toX(i, xLabels().length)}
+					{@const x = toX(i)}
 					<text x={x} y={chartH + 16} text-anchor="middle" class="text-[8px] fill-neutral-400" font-family="'JetBrains Mono', monospace">{label}</text>
 				{/each}
 			{/if}

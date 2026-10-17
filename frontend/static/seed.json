@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-16T21:58:47Z",
+  "generated_at": "2026-10-17T18:13:31Z",
   "delegation": {
     "composite": {
       "current": 45.8,
@@ -36,21 +36,40 @@
             "value": 95.2,
             "unit": "%",
             "source": "Meta Transparency Report",
-            "freshness": "Q3 2025"
+            "freshness": "Q3 2025",
+            "source_url": "https://transparency.meta.com/reports/community-standards-enforcement/",
+            "published_at": "2025",
+            "measurement_start": "2025-01",
+            "measurement_end": "2025-09",
+            "evidence_grade": "A",
+            "confidence": "medium",
+            "transform": "Proactive detection rate held from the prior CSER extraction pending a reproducible table extraction; the 2025 enforcement-policy change is a methodology break."
           },
           {
             "name": "YouTube Automated Flagging",
             "value": 99.5,
             "unit": "%",
             "source": "YouTube Transparency Report",
-            "freshness": "Jul-Sep 2025"
+            "freshness": "Jul-Sep 2025",
+            "source_url": "https://support.google.com/transparencyreport/answer/9198203?hl=en-GB",
+            "published_at": "2025-12",
+            "measurement_start": "2025-07-01",
+            "measurement_end": "2025-09-30",
+            "evidence_grade": "A",
+            "confidence": "high"
           },
           {
             "name": "TikTok Automated Enforcement",
             "value": 93.8,
             "unit": "%",
             "source": "TikTok DSA H2 2025",
-            "freshness": "H2 2025"
+            "freshness": "H2 2025",
+            "source_url": "https://newsroom.tiktok.com/digital-services-act-our-sixth-transparency-report-on-content-moderation-in-europe?lang=en-150",
+            "published_at": "2026-04-29",
+            "measurement_start": "2025-07-01",
+            "measurement_end": "2025-12-31",
+            "evidence_grade": "A",
+            "confidence": "medium-high"
           }
         ],
         "data_sources": [
@@ -92,14 +111,26 @@
             "value": 59,
             "unit": "%",
             "source": "BIS Triennial Survey",
-            "freshness": "April 2025"
+            "freshness": "April 2025",
+            "source_url": "https://www.bis.org/publ/qtrpdf/r_qt2512v.htm",
+            "published_at": "2025-12",
+            "measurement_start": "2025-04-01",
+            "measurement_end": "2025-04-30",
+            "evidence_grade": "A",
+            "confidence": "high"
           },
           {
             "name": "Buy-Side AI Trade Execution Adoption",
             "value": 15,
             "unit": "%",
             "source": "Coalition Greenwich",
-            "freshness": "2025"
+            "freshness": "2025",
+            "source_url": "https://www.greenwich.com/market-structure-technology/great-expectations-ai-equity-trading",
+            "published_at": "2025-07-08",
+            "measurement_start": "2024-07-01",
+            "measurement_end": "2024-09-30",
+            "evidence_grade": "C",
+            "confidence": "medium"
           }
         ],
         "data_sources": [
@@ -136,35 +167,69 @@
             "value": 39.2,
             "unit": "%",
             "source": "Sonar and GitLab",
-            "freshness": "2026"
+            "freshness": "2026",
+            "source_url": "https://www.sonarsource.com/blog/state-of-code-developer-survey-report-the-current-reality-of-ai-coding",
+            "published_at": "2026",
+            "measurement_end": "2026-01",
+            "evidence_grade": "C",
+            "confidence": "medium",
+            "transform": "0.65 x Sonar 2026 committed-code share (42%) + 0.35 x GitLab 2026 code-source share (34%). GitLab: https://about.gitlab.com/resources/developer-survey/. Fieldwork dates not disclosed; Sonar published 2026-01-08."
           },
           {
             "name": "Technical Work AI Value Share",
             "value": 50,
             "unit": "%",
             "source": "METR AI Usage Survey",
-            "freshness": "Mar 2026"
+            "freshness": "Mar 2026",
+            "source_url": "https://metr.org/blog/2026-05-11-ai-usage-survey/",
+            "published_at": "2026-05-11",
+            "measurement_start": "2026-02-01",
+            "measurement_end": "2026-04-30",
+            "evidence_grade": "C",
+            "confidence": "medium",
+            "transform": "(m - 1) / m with the median self-reported March 2026 value multiplier m = 2."
           },
           {
             "name": "AI Workflow Reliance",
             "value": 67.7,
             "unit": "%",
             "source": "DORA and JetBrains",
-            "freshness": "2025/2026"
+            "freshness": "2025/2026",
+            "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/dora-report-2025/",
+            "published_at": "2026-04",
+            "measurement_start": "2025",
+            "measurement_end": "2026-01",
+            "evidence_grade": "B",
+            "confidence": "medium",
+            "transform": "0.70 x DORA 2025 moderate-to-heavy reliance (65%) + 0.30 x JetBrains AI Pulse January 2026 specialized AI tool adoption (74%). JetBrains: https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/"
           },
           {
             "name": "Agentic Task Delegation",
             "value": 17.7,
             "unit": "%",
             "source": "Anthropic and arXiv",
-            "freshness": "2025/2026"
+            "freshness": "2025/2026",
+            "source_url": "https://arxiv.org/abs/2601.18341",
+            "published_at": "2026-04-08",
+            "measurement_start": "2025-01",
+            "measurement_end": "2026",
+            "evidence_grade": "C",
+            "confidence": "medium",
+            "transform": "0.50 x Anthropic 2026 fully delegable task range midpoint (10%) + 0.50 x arXiv GitHub coding-agent adoption midpoint (25.4%, H1 2025 traces). Anthropic: https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf?hsLang=en"
           },
           {
             "name": "Tool Ecosystem Reach",
             "value": 90.134995,
             "unit": "M",
             "source": "VS Code Marketplace",
-            "freshness": "2026-05-16"
+            "freshness": "2026-05-16",
+            "source_url": "https://marketplace.visualstudio.com/",
+            "published_at": "2026-05-16",
+            "measurement_start": "2026-05-16",
+            "measurement_end": "2026-05-16",
+            "evidence_grade": "D",
+            "confidence": "medium",
+            "transform": "Sum of install counts for 5 tracked AI coding extensions, in millions; log-scaled over 1M-200M."
           }
         ],
         "data_sources": [
@@ -216,28 +281,49 @@
             "value": 30,
             "unit": "%",
             "source": "Salesforce State of Service",
-            "freshness": "2025"
+            "freshness": "2025",
+            "source_url": "https://www.salesforce.com/news/stories/state-of-service-report-announcement-2025/",
+            "published_at": "2025-11-13",
+            "measurement_start": "2025-04-25",
+            "measurement_end": "2025-06-06",
+            "evidence_grade": "B",
+            "confidence": "medium-high"
           },
           {
             "name": "Bot Deflection Rate",
             "value": 52.3,
             "unit": "%",
             "source": "Intercom Trends",
-            "freshness": "2025"
+            "freshness": "2025",
+            "evidence_grade": "A",
+            "confidence": "low",
+            "transform": "Held from the prior locked Intercom value; the source definition (no escalation vs customer-confirmed resolution) is unresolved."
           },
           {
             "name": "Production AI Customer Communications Agents",
             "value": 62,
             "unit": "%",
             "source": "Sinch AI Production Paradox",
-            "freshness": "2026"
+            "freshness": "2026",
+            "source_url": "https://sinch.com/news/sinch-releases-ai-production-paradox/",
+            "published_at": "2026-05-13",
+            "measurement_start": "2026-01",
+            "measurement_end": "2026-02",
+            "evidence_grade": "B",
+            "confidence": "medium"
           },
           {
             "name": "Mature AI Support Deployment",
             "value": 10,
             "unit": "%",
             "source": "Intercom Customer Service Transformation",
-            "freshness": "Q4 2025"
+            "freshness": "Q4 2025",
+            "source_url": "https://www.intercom.com/customer-transformation-report",
+            "published_at": "2026",
+            "measurement_start": "2025-10",
+            "measurement_end": "2025-12",
+            "evidence_grade": "B",
+            "confidence": "medium"
           }
         ],
         "data_sources": [
@@ -284,14 +370,26 @@
             "value": 38.2,
             "unit": "%",
             "source": "Upstart and TransUnion",
-            "freshness": "2025"
+            "freshness": "2025",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1647639/000164763926000027/upst-20251231.htm",
+            "published_at": "2026-02-19",
+            "measurement_start": "2025-01-01",
+            "measurement_end": "2025-12-31",
+            "evidence_grade": "A",
+            "confidence": "medium",
+            "transform": "Upstart share of loans fully automated (91%, FY2025) x TransUnion fintech share of unsecured personal-loan originations (42%, Q3/Q4 2025). TransUnion: https://newsroom.transunion.com/q4-2025-ciir/"
           },
           {
             "name": "AI Credit Decisioning (Banks)",
             "value": 20,
             "unit": "%",
             "source": "McKinsey Credit Risk Survey",
-            "freshness": "H2 2024"
+            "freshness": "H2 2024",
+            "measurement_start": "2024-07",
+            "measurement_end": "2024-12",
+            "evidence_grade": "B",
+            "confidence": "low",
+            "transform": "Held from the prior McKinsey credit-risk survey value (H2 2024); BoE/FCA 2024 survey and February 2026 roundtables kept as a cautious-deployment guardrail: https://www.bankofengland.co.uk/minutes/2026/february/summary-of-ai-roundtables-feb-2026"
           }
         ],
         "data_sources": [
@@ -328,28 +426,52 @@
             "value": 1430,
             "unit": "devices",
             "source": "FDA AI-Enabled Medical Devices",
-            "freshness": "2026-05-16"
+            "freshness": "2026-05-16",
+            "source_url": "https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices",
+            "published_at": "2026-05-16",
+            "measurement_end": "2026-05-16",
+            "evidence_grade": "A",
+            "confidence": "high",
+            "transform": "Row count of the FDA AI-enabled device list CSV accessed 2026-05-16; normalized linearly over 0-2000 devices."
           },
           {
             "name": "Radiology or Imaging AI Adoption",
             "value": 50,
             "unit": "%",
             "source": "KLAS Global Imaging AI",
-            "freshness": "2025"
+            "freshness": "2025",
+            "source_url": "https://klasresearch.com/report/global-imaging-ai-2025-looking-at-adoption-and-usage-across-regions/3804",
+            "published_at": "2025",
+            "measurement_end": "2025",
+            "evidence_grade": "B",
+            "confidence": "medium"
           },
           {
             "name": "AI-Assisted Diagnosis Rate",
             "value": 17,
             "unit": "%",
             "source": "AMA Physician AI Sentiment Survey",
-            "freshness": "2026"
+            "freshness": "2026",
+            "source_url": "https://www.ama-assn.org/sites/ama-assn.org/files/2026-03/physician-ai-sentiment-report_0.pdf",
+            "published_at": "2026-03",
+            "measurement_start": "2026-01-15",
+            "measurement_end": "2026-02-02",
+            "evidence_grade": "A",
+            "confidence": "high"
           },
           {
             "name": "Pathology AI Adoption",
             "value": 10,
             "unit": "%",
             "source": "Pathology AI adoption surveys",
-            "freshness": "2025"
+            "freshness": "2025",
+            "source_url": "https://www.sciencedirect.com/science/article/pii/S2153353925001129",
+            "published_at": "2025",
+            "measurement_start": "2024",
+            "measurement_end": "2025",
+            "evidence_grade": "C",
+            "confidence": "low",
+            "transform": "Conservative hold pending a representative clinical deployment source; 2024/2025 pathology surveys show uneven and mostly non-diagnostic use."
           }
         ],
         "data_sources": [
@@ -396,21 +518,38 @@
             "value": 40,
             "unit": "%",
             "source": "Thomson Reuters AI in Professional Services",
-            "freshness": "2026"
+            "freshness": "2026",
+            "source_url": "https://www.thomsonreuters.com/content/dam/ewp-m/documents/thomsonreuters/en/pdf/reports/2026-ai-in-professional-services-report.pdf",
+            "published_at": "2026",
+            "measurement_end": "2026",
+            "evidence_grade": "B",
+            "confidence": "medium"
           },
           {
             "name": "Solo and Small Firms Using AI for Legal Work",
             "value": 73,
             "unit": "%",
             "source": "Clio Solo and Small Law Firms 2026",
-            "freshness": "2026"
+            "freshness": "2026",
+            "source_url": "https://www.clio.com/about/press/2026-solo-small-firm-report/",
+            "published_at": "2026-05-04",
+            "measurement_end": "2026-05-04",
+            "evidence_grade": "B",
+            "confidence": "medium-high",
+            "transform": "Mean of 71% (solo practitioners) and 75% (small firms)."
           },
           {
             "name": "AI-Assisted Document Review",
             "value": 28,
             "unit": "%",
             "source": "ABA Litigation and TAR TechReport",
-            "freshness": "2024"
+            "freshness": "2024",
+            "source_url": "https://www.americanbar.org/groups/law_practice/resources/tech-report/2024/2024-litigation-and-tar-techreport/",
+            "published_at": "2025",
+            "measurement_start": "2024",
+            "measurement_end": "2024",
+            "evidence_grade": "A",
+            "confidence": "medium"
           }
         ],
         "data_sources": [
@@ -452,28 +591,50 @@
             "value": 69,
             "unit": "%",
             "source": "ICIMS/Aptitude AI Adoption Report",
-            "freshness": "2026"
+            "freshness": "2026",
+            "source_url": "https://www.icims.com/company/newsroom/aiadoptionreport2026/",
+            "published_at": "2026-04-30",
+            "measurement_end": "2026-04-30",
+            "evidence_grade": "B",
+            "confidence": "medium-high"
           },
           {
             "name": "AI Screening Use Case Adoption",
             "value": 58,
             "unit": "%",
             "source": "ICIMS/Aptitude AI Adoption Report",
-            "freshness": "2026"
+            "freshness": "2026",
+            "source_url": "https://www.icims.com/company/newsroom/aiadoptionreport2026/",
+            "published_at": "2026-04-30",
+            "measurement_end": "2026-04-30",
+            "evidence_grade": "B",
+            "confidence": "medium-high"
           },
           {
             "name": "Broad AI Across Hiring Processes",
             "value": 18,
             "unit": "%",
             "source": "ICIMS/Aptitude AI Adoption Report",
-            "freshness": "2026"
+            "freshness": "2026",
+            "source_url": "https://www.icims.com/company/newsroom/aiadoptionreport2026/",
+            "published_at": "2026-04-30",
+            "measurement_end": "2026-04-30",
+            "evidence_grade": "B",
+            "confidence": "medium"
           },
           {
             "name": "AI Assessment Platform Reach",
             "value": 80,
             "unit": "M/yr",
             "source": "HireVue Platform Volume Update",
-            "freshness": "2025"
+            "freshness": "2025",
+            "source_url": "https://www.hirevue.com/blog/hiring/quarterly-updates-from-hirevue-ceo",
+            "published_at": "2024",
+            "measurement_start": "2024-01-01",
+            "measurement_end": "2024-03-31",
+            "evidence_grade": "B",
+            "confidence": "low-medium",
+            "transform": "Single-vendor annualized platform volume (HireVue Q1 2024); normalized linearly over 0-300M per year."
           }
         ],
         "data_sources": [
@@ -520,28 +681,49 @@
             "value": 54,
             "unit": "%",
             "source": "Pew Research Center",
-            "freshness": "2026"
+            "freshness": "2026",
+            "source_url": "https://www.pewresearch.org/internet/2026/02/24/how-teens-use-and-view-ai/",
+            "published_at": "2026-02-24",
+            "measurement_start": "2025-09-25",
+            "measurement_end": "2025-10-09",
+            "evidence_grade": "B",
+            "confidence": "high"
           },
           {
             "name": "AI-Graded Assessments",
             "value": 8,
             "unit": "%",
             "source": "Gradescope / Turnitin",
-            "freshness": "2025"
+            "freshness": "2025",
+            "evidence_grade": "A",
+            "confidence": "low",
+            "transform": "Held from the prior locked Gradescope/Turnitin value; no direct grading-automation source has been verified."
           },
           {
             "name": "Teachers Using AI for Work",
             "value": 37,
             "unit": "%",
             "source": "OECD Digital Education Outlook",
-            "freshness": "2024"
+            "freshness": "2024",
+            "source_url": "https://www.oecd.org/en/publications/2026/01/oecd-digital-education-outlook-2026_940e0dd8.html",
+            "published_at": "2026-01",
+            "measurement_start": "2024",
+            "measurement_end": "2024",
+            "evidence_grade": "B",
+            "confidence": "medium"
           },
           {
             "name": "Student Papers 80%+ AI-Written",
             "value": 15,
             "unit": "%",
             "source": "Turnitin AI Writing",
-            "freshness": "2026"
+            "freshness": "2026",
+            "source_url": "https://www.prnewswire.com/news-releases/turnitin-data-shows-transparency-about-ai-use-benefits-students-and-educators-302695254.html",
+            "published_at": "2026-02-24",
+            "measurement_start": "2025-10",
+            "measurement_end": "2026-02-24",
+            "evidence_grade": "C",
+            "confidence": "medium"
           }
         ],
         "data_sources": [
@@ -955,7 +1137,13 @@
       "weight": 0.45,
       "included_in_score": true,
       "source": "Coalition Greenwich",
-      "freshness": "2025"
+      "freshness": "2025",
+      "source_url": "https://www.greenwich.com/market-structure-technology/great-expectations-ai-equity-trading",
+      "published_at": "2025-07-08",
+      "measurement_start": "2024-07-01",
+      "measurement_end": "2024-09-30",
+      "evidence_grade": "C",
+      "confidence": "medium"
     },
     {
       "run_id": "2026-q2",
@@ -967,7 +1155,13 @@
       "weight": 0.55,
       "included_in_score": true,
       "source": "BIS Triennial Survey",
-      "freshness": "April 2025"
+      "freshness": "April 2025",
+      "source_url": "https://www.bis.org/publ/qtrpdf/r_qt2512v.htm",
+      "published_at": "2025-12",
+      "measurement_start": "2025-04-01",
+      "measurement_end": "2025-04-30",
+      "evidence_grade": "A",
+      "confidence": "high"
     },
     {
       "run_id": "2026-q2",
@@ -979,7 +1173,14 @@
       "weight": 0.25,
       "included_in_score": true,
       "source": "DORA and JetBrains",
-      "freshness": "2025/2026"
+      "freshness": "2025/2026",
+      "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/dora-report-2025/",
+      "published_at": "2026-04",
+      "measurement_start": "2025",
+      "measurement_end": "2026-01",
+      "evidence_grade": "B",
+      "confidence": "medium",
+      "transform": "0.70 x DORA 2025 moderate-to-heavy reliance (65%) + 0.30 x JetBrains AI Pulse January 2026 specialized AI tool adoption (74%). JetBrains: https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/"
     },
     {
       "run_id": "2026-q2",
@@ -991,7 +1192,13 @@
       "weight": 0.3,
       "included_in_score": true,
       "source": "Sonar and GitLab",
-      "freshness": "2026"
+      "freshness": "2026",
+      "source_url": "https://www.sonarsource.com/blog/state-of-code-developer-survey-report-the-current-reality-of-ai-coding",
+      "published_at": "2026",
+      "measurement_end": "2026-01",
+      "evidence_grade": "C",
+      "confidence": "medium",
+      "transform": "0.65 x Sonar 2026 committed-code share (42%) + 0.35 x GitLab 2026 code-source share (34%). GitLab: https://about.gitlab.com/resources/developer-survey/. Fieldwork dates not disclosed; Sonar published 2026-01-08."
     },
     {
       "run_id": "2026-q2",
@@ -1003,7 +1210,14 @@
       "weight": 0.15,
       "included_in_score": true,
       "source": "Anthropic and arXiv",
-      "freshness": "2025/2026"
+      "freshness": "2025/2026",
+      "source_url": "https://arxiv.org/abs/2601.18341",
+      "published_at": "2026-04-08",
+      "measurement_start": "2025-01",
+      "measurement_end": "2026",
+      "evidence_grade": "C",
+      "confidence": "medium",
+      "transform": "0.50 x Anthropic 2026 fully delegable task range midpoint (10%) + 0.50 x arXiv GitHub coding-agent adoption midpoint (25.4%, H1 2025 traces). Anthropic: https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf?hsLang=en"
     },
     {
       "run_id": "2026-q2",
@@ -1015,7 +1229,14 @@
       "weight": 0.25,
       "included_in_score": true,
       "source": "METR AI Usage Survey",
-      "freshness": "Mar 2026"
+      "freshness": "Mar 2026",
+      "source_url": "https://metr.org/blog/2026-05-11-ai-usage-survey/",
+      "published_at": "2026-05-11",
+      "measurement_start": "2026-02-01",
+      "measurement_end": "2026-04-30",
+      "evidence_grade": "C",
+      "confidence": "medium",
+      "transform": "(m - 1) / m with the median self-reported March 2026 value multiplier m = 2."
     },
     {
       "run_id": "2026-q2",
@@ -1027,7 +1248,14 @@
       "weight": 0.05,
       "included_in_score": true,
       "source": "VS Code Marketplace",
-      "freshness": "2026-05-16"
+      "freshness": "2026-05-16",
+      "source_url": "https://marketplace.visualstudio.com/",
+      "published_at": "2026-05-16",
+      "measurement_start": "2026-05-16",
+      "measurement_end": "2026-05-16",
+      "evidence_grade": "D",
+      "confidence": "medium",
+      "transform": "Sum of install counts for 5 tracked AI coding extensions, in millions; log-scaled over 1M-200M."
     },
     {
       "run_id": "2026-q2",
@@ -1039,7 +1267,14 @@
       "weight": 0.375,
       "included_in_score": true,
       "source": "Meta Transparency Report",
-      "freshness": "Q3 2025"
+      "freshness": "Q3 2025",
+      "source_url": "https://transparency.meta.com/reports/community-standards-enforcement/",
+      "published_at": "2025",
+      "measurement_start": "2025-01",
+      "measurement_end": "2025-09",
+      "evidence_grade": "A",
+      "confidence": "medium",
+      "transform": "Proactive detection rate held from the prior CSER extraction pending a reproducible table extraction; the 2025 enforcement-policy change is a methodology break."
     },
     {
       "run_id": "2026-q2",
@@ -1051,7 +1286,13 @@
       "weight": 0.3125,
       "included_in_score": true,
       "source": "TikTok DSA H2 2025",
-      "freshness": "H2 2025"
+      "freshness": "H2 2025",
+      "source_url": "https://newsroom.tiktok.com/digital-services-act-our-sixth-transparency-report-on-content-moderation-in-europe?lang=en-150",
+      "published_at": "2026-04-29",
+      "measurement_start": "2025-07-01",
+      "measurement_end": "2025-12-31",
+      "evidence_grade": "A",
+      "confidence": "medium-high"
     },
     {
       "run_id": "2026-q2",
@@ -1063,7 +1304,13 @@
       "weight": 0.3125,
       "included_in_score": true,
       "source": "YouTube Transparency Report",
-      "freshness": "Jul-Sep 2025"
+      "freshness": "Jul-Sep 2025",
+      "source_url": "https://support.google.com/transparencyreport/answer/9198203?hl=en-GB",
+      "published_at": "2025-12",
+      "measurement_start": "2025-07-01",
+      "measurement_end": "2025-09-30",
+      "evidence_grade": "A",
+      "confidence": "high"
     },
     {
       "run_id": "2026-q2",
@@ -1075,7 +1322,12 @@
       "weight": 0.45,
       "included_in_score": true,
       "source": "McKinsey Credit Risk Survey",
-      "freshness": "H2 2024"
+      "freshness": "H2 2024",
+      "measurement_start": "2024-07",
+      "measurement_end": "2024-12",
+      "evidence_grade": "B",
+      "confidence": "low",
+      "transform": "Held from the prior McKinsey credit-risk survey value (H2 2024); BoE/FCA 2024 survey and February 2026 roundtables kept as a cautious-deployment guardrail: https://www.bankofengland.co.uk/minutes/2026/february/summary-of-ai-roundtables-feb-2026"
     },
     {
       "run_id": "2026-q2",
@@ -1087,7 +1339,14 @@
       "weight": 0.55,
       "included_in_score": true,
       "source": "Upstart and TransUnion",
-      "freshness": "2025"
+      "freshness": "2025",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1647639/000164763926000027/upst-20251231.htm",
+      "published_at": "2026-02-19",
+      "measurement_start": "2025-01-01",
+      "measurement_end": "2025-12-31",
+      "evidence_grade": "A",
+      "confidence": "medium",
+      "transform": "Upstart share of loans fully automated (91%, FY2025) x TransUnion fintech share of unsecured personal-loan originations (42%, Q3/Q4 2025). TransUnion: https://newsroom.transunion.com/q4-2025-ciir/"
     },
     {
       "run_id": "2026-q2",
@@ -1099,7 +1358,10 @@
       "weight": 0.2,
       "included_in_score": true,
       "source": "Gradescope / Turnitin",
-      "freshness": "2025"
+      "freshness": "2025",
+      "evidence_grade": "A",
+      "confidence": "low",
+      "transform": "Held from the prior locked Gradescope/Turnitin value; no direct grading-automation source has been verified."
     },
     {
       "run_id": "2026-q2",
@@ -1111,7 +1373,13 @@
       "weight": 0.1,
       "included_in_score": true,
       "source": "Turnitin AI Writing",
-      "freshness": "2026"
+      "freshness": "2026",
+      "source_url": "https://www.prnewswire.com/news-releases/turnitin-data-shows-transparency-about-ai-use-benefits-students-and-educators-302695254.html",
+      "published_at": "2026-02-24",
+      "measurement_start": "2025-10",
+      "measurement_end": "2026-02-24",
+      "evidence_grade": "C",
+      "confidence": "medium"
     },
     {
       "run_id": "2026-q2",
@@ -1123,7 +1391,13 @@
       "weight": 0.4,
       "included_in_score": true,
       "source": "Pew Research Center",
-      "freshness": "2026"
+      "freshness": "2026",
+      "source_url": "https://www.pewresearch.org/internet/2026/02/24/how-teens-use-and-view-ai/",
+      "published_at": "2026-02-24",
+      "measurement_start": "2025-09-25",
+      "measurement_end": "2025-10-09",
+      "evidence_grade": "B",
+      "confidence": "high"
     },
     {
       "run_id": "2026-q2",
@@ -1135,7 +1409,13 @@
       "weight": 0.3,
       "included_in_score": true,
       "source": "OECD Digital Education Outlook",
-      "freshness": "2024"
+      "freshness": "2024",
+      "source_url": "https://www.oecd.org/en/publications/2026/01/oecd-digital-education-outlook-2026_940e0dd8.html",
+      "published_at": "2026-01",
+      "measurement_start": "2024",
+      "measurement_end": "2024",
+      "evidence_grade": "B",
+      "confidence": "medium"
     },
     {
       "run_id": "2026-q2",
@@ -1147,7 +1427,14 @@
       "weight": 0.2,
       "included_in_score": true,
       "source": "HireVue Platform Volume Update",
-      "freshness": "2025"
+      "freshness": "2025",
+      "source_url": "https://www.hirevue.com/blog/hiring/quarterly-updates-from-hirevue-ceo",
+      "published_at": "2024",
+      "measurement_start": "2024-01-01",
+      "measurement_end": "2024-03-31",
+      "evidence_grade": "B",
+      "confidence": "low-medium",
+      "transform": "Single-vendor annualized platform volume (HireVue Q1 2024); normalized linearly over 0-300M per year."
     },
     {
       "run_id": "2026-q2",
@@ -1159,7 +1446,12 @@
       "weight": 0.35,
       "included_in_score": true,
       "source": "ICIMS/Aptitude AI Adoption Report",
-      "freshness": "2026"
+      "freshness": "2026",
+      "source_url": "https://www.icims.com/company/newsroom/aiadoptionreport2026/",
+      "published_at": "2026-04-30",
+      "measurement_end": "2026-04-30",
+      "evidence_grade": "B",
+      "confidence": "medium-high"
     },
     {
       "run_id": "2026-q2",
@@ -1171,7 +1463,12 @@
       "weight": 0.15,
       "included_in_score": true,
       "source": "ICIMS/Aptitude AI Adoption Report",
-      "freshness": "2026"
+      "freshness": "2026",
+      "source_url": "https://www.icims.com/company/newsroom/aiadoptionreport2026/",
+      "published_at": "2026-04-30",
+      "measurement_end": "2026-04-30",
+      "evidence_grade": "B",
+      "confidence": "medium"
     },
     {
       "run_id": "2026-q2",
@@ -1183,7 +1480,12 @@
       "weight": 0.3,
       "included_in_score": true,
       "source": "ICIMS/Aptitude AI Adoption Report",
-      "freshness": "2026"
+      "freshness": "2026",
+      "source_url": "https://www.icims.com/company/newsroom/aiadoptionreport2026/",
+      "published_at": "2026-04-30",
+      "measurement_end": "2026-04-30",
+      "evidence_grade": "B",
+      "confidence": "medium-high"
     },
     {
       "run_id": "2026-q2",
@@ -1195,7 +1497,13 @@
       "weight": 0.3,
       "included_in_score": true,
       "source": "ABA Litigation and TAR TechReport",
-      "freshness": "2024"
+      "freshness": "2024",
+      "source_url": "https://www.americanbar.org/groups/law_practice/resources/tech-report/2024/2024-litigation-and-tar-techreport/",
+      "published_at": "2025",
+      "measurement_start": "2024",
+      "measurement_end": "2024",
+      "evidence_grade": "A",
+      "confidence": "medium"
     },
     {
       "run_id": "2026-q2",
@@ -1207,7 +1515,12 @@
       "weight": 0.4,
       "included_in_score": true,
       "source": "Thomson Reuters AI in Professional Services",
-      "freshness": "2026"
+      "freshness": "2026",
+      "source_url": "https://www.thomsonreuters.com/content/dam/ewp-m/documents/thomsonreuters/en/pdf/reports/2026-ai-in-professional-services-report.pdf",
+      "published_at": "2026",
+      "measurement_end": "2026",
+      "evidence_grade": "B",
+      "confidence": "medium"
     },
     {
       "run_id": "2026-q2",
@@ -1219,7 +1532,13 @@
       "weight": 0.3,
       "included_in_score": true,
       "source": "Clio Solo and Small Law Firms 2026",
-      "freshness": "2026"
+      "freshness": "2026",
+      "source_url": "https://www.clio.com/about/press/2026-solo-small-firm-report/",
+      "published_at": "2026-05-04",
+      "measurement_end": "2026-05-04",
+      "evidence_grade": "B",
+      "confidence": "medium-high",
+      "transform": "Mean of 71% (solo practitioners) and 75% (small firms)."
     },
     {
       "run_id": "2026-q2",
@@ -1231,7 +1550,13 @@
       "weight": 0.3,
       "included_in_score": true,
       "source": "AMA Physician AI Sentiment Survey",
-      "freshness": "2026"
+      "freshness": "2026",
+      "source_url": "https://www.ama-assn.org/sites/ama-assn.org/files/2026-03/physician-ai-sentiment-report_0.pdf",
+      "published_at": "2026-03",
+      "measurement_start": "2026-01-15",
+      "measurement_end": "2026-02-02",
+      "evidence_grade": "A",
+      "confidence": "high"
     },
     {
       "run_id": "2026-q2",
@@ -1243,7 +1568,13 @@
       "weight": 0.1,
       "included_in_score": true,
       "source": "FDA AI-Enabled Medical Devices",
-      "freshness": "2026-05-16"
+      "freshness": "2026-05-16",
+      "source_url": "https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices",
+      "published_at": "2026-05-16",
+      "measurement_end": "2026-05-16",
+      "evidence_grade": "A",
+      "confidence": "high",
+      "transform": "Row count of the FDA AI-enabled device list CSV accessed 2026-05-16; normalized linearly over 0-2000 devices."
     },
     {
       "run_id": "2026-q2",
@@ -1255,7 +1586,14 @@
       "weight": 0.25,
       "included_in_score": true,
       "source": "Pathology AI adoption surveys",
-      "freshness": "2025"
+      "freshness": "2025",
+      "source_url": "https://www.sciencedirect.com/science/article/pii/S2153353925001129",
+      "published_at": "2025",
+      "measurement_start": "2024",
+      "measurement_end": "2025",
+      "evidence_grade": "C",
+      "confidence": "low",
+      "transform": "Conservative hold pending a representative clinical deployment source; 2024/2025 pathology surveys show uneven and mostly non-diagnostic use."
     },
     {
       "run_id": "2026-q2",
@@ -1267,7 +1605,12 @@
       "weight": 0.35,
       "included_in_score": true,
       "source": "KLAS Global Imaging AI",
-      "freshness": "2025"
+      "freshness": "2025",
+      "source_url": "https://klasresearch.com/report/global-imaging-ai-2025-looking-at-adoption-and-usage-across-regions/3804",
+      "published_at": "2025",
+      "measurement_end": "2025",
+      "evidence_grade": "B",
+      "confidence": "medium"
     },
     {
       "run_id": "2026-q2",
@@ -1279,7 +1622,10 @@
       "weight": 0.2,
       "included_in_score": true,
       "source": "Intercom Trends",
-      "freshness": "2025"
+      "freshness": "2025",
+      "evidence_grade": "A",
+      "confidence": "low",
+      "transform": "Held from the prior locked Intercom value; the source definition (no escalation vs customer-confirmed resolution) is unresolved."
     },
     {
       "run_id": "2026-q2",
@@ -1291,7 +1637,13 @@
       "weight": 0.45,
       "included_in_score": true,
       "source": "Salesforce State of Service",
-      "freshness": "2025"
+      "freshness": "2025",
+      "source_url": "https://www.salesforce.com/news/stories/state-of-service-report-announcement-2025/",
+      "published_at": "2025-11-13",
+      "measurement_start": "2025-04-25",
+      "measurement_end": "2025-06-06",
+      "evidence_grade": "B",
+      "confidence": "medium-high"
     },
     {
       "run_id": "2026-q2",
@@ -1303,7 +1655,13 @@
       "weight": 0.1,
       "included_in_score": true,
       "source": "Intercom Customer Service Transformation",
-      "freshness": "Q4 2025"
+      "freshness": "Q4 2025",
+      "source_url": "https://www.intercom.com/customer-transformation-report",
+      "published_at": "2026",
+      "measurement_start": "2025-10",
+      "measurement_end": "2025-12",
+      "evidence_grade": "B",
+      "confidence": "medium"
     },
     {
       "run_id": "2026-q2",
@@ -1315,7 +1673,13 @@
       "weight": 0.25,
       "included_in_score": true,
       "source": "Sinch AI Production Paradox",
-      "freshness": "2026"
+      "freshness": "2026",
+      "source_url": "https://sinch.com/news/sinch-releases-ai-production-paradox/",
+      "published_at": "2026-05-13",
+      "measurement_start": "2026-01",
+      "measurement_end": "2026-02",
+      "evidence_grade": "B",
+      "confidence": "medium"
     },
     {
       "run_id": "legacy-2025",

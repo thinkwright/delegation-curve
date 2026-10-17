@@ -31,7 +31,7 @@ func main() {
 		io.WriteString(w, "ok")
 	})
 
-	mux.Handle("/", spaHandler(http.FS(staticFS)))
+	mux.Handle("/", siteHandler(http.FS(staticFS)))
 
 	log.Printf("curve.thinkwright.ai listening on :%s", *port)
 
@@ -58,44 +58,58 @@ func securityHeaders(next http.Handler) http.Handler {
 	})
 }
 
-// spaHandler serves static files from the embedded filesystem.
-// If a file exists, it is served directly. Otherwise, index.html is served
-// as a fallback for SvelteKit client-side routing.
-func spaHandler(fsys http.FileSystem) http.Handler {
+// siteHandler serves the prerendered site from the embedded filesystem.
+// Pages are prerendered as <path>.html (SvelteKit trailingSlash "never"), so
+// /about serves about.html. Unknown paths get the SvelteKit fallback page
+// with a real 404 status, and trailing slashes redirect to the canonical URL.
+func siteHandler(fsys http.FileSystem) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		p := r.URL.Path
 
-		// Root serves landing page.
 		if p == "/" {
-			serveFile(w, r, fsys, "/index.html")
+			serveFile(w, r, fsys, "/index.html", http.StatusOK)
+			return
+		}
+		if strings.HasSuffix(p, "/") {
+			target := strings.TrimRight(p, "/")
+			if r.URL.RawQuery != "" {
+				target += "?" + r.URL.RawQuery
+			}
+			http.Redirect(w, r, target, http.StatusMovedPermanently)
 			return
 		}
 
-		// Try the requested path as a file.
-		f, err := fsys.Open(p)
-		if err == nil {
-			defer f.Close()
-			stat, _ := f.Stat()
-			if !stat.IsDir() {
-				serveFile(w, r, fsys, p)
-				return
-			}
-			// Directory — try index.html inside it.
-			idx := path.Join(p, "index.html")
-			if fi, err := fsys.Open(idx); err == nil {
-				fi.Close()
-				serveFile(w, r, fsys, idx)
-				return
-			}
+		if isFile(fsys, p) {
+			serveFile(w, r, fsys, p, http.StatusOK)
+			return
+		}
+		if path.Ext(p) == "" && isFile(fsys, p+".html") {
+			serveFile(w, r, fsys, p+".html", http.StatusOK)
+			return
 		}
 
-		// SPA fallback: serve index.html for client-side routing.
-		serveFile(w, r, fsys, "/index.html")
+		if isFile(fsys, "/404.html") {
+			serveFile(w, r, fsys, "/404.html", http.StatusNotFound)
+			return
+		}
+		http.NotFound(w, r)
 	})
 }
 
-// serveFile opens and serves a single file from the embedded filesystem.
-func serveFile(w http.ResponseWriter, r *http.Request, fsys http.FileSystem, name string) {
+func isFile(fsys http.FileSystem, name string) bool {
+	f, err := fsys.Open(name)
+	if err != nil {
+		return false
+	}
+	defer f.Close()
+	stat, err := f.Stat()
+	return err == nil && !stat.IsDir()
+}
+
+// serveFile opens and serves a single file from the embedded filesystem with
+// the given status. Non-200 responses are written directly, since
+// http.ServeContent always answers 200 (or 206/304).
+func serveFile(w http.ResponseWriter, r *http.Request, fsys http.FileSystem, name string, status int) {
 	f, err := fsys.Open(name)
 	if err != nil {
 		http.Error(w, "Not Found", http.StatusNotFound)
@@ -157,13 +171,20 @@ func serveFile(w http.ResponseWriter, r *http.Request, fsys http.FileSystem, nam
 	}
 	w.Header().Set("Cache-Control", cacheControl(name))
 
+	defer f.Close()
+	if status != http.StatusOK {
+		w.Header().Set("Cache-Control", "no-cache")
+		w.WriteHeader(status)
+		if r.Method != http.MethodHead {
+			io.Copy(w, f)
+		}
+		return
+	}
 	seeker, ok := f.(io.ReadSeeker)
 	if !ok {
-		f.Close()
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
-	defer f.Close()
 	http.ServeContent(w, r, name, stat.ModTime(), seeker)
 }
 
@@ -179,7 +200,8 @@ func acceptsGzip(r *http.Request) bool {
 
 func isCompressible(name string) bool {
 	switch {
-	case strings.HasSuffix(name, ".js"),
+	case strings.HasSuffix(name, ".html"),
+		strings.HasSuffix(name, ".js"),
 		strings.HasSuffix(name, ".css"),
 		strings.HasSuffix(name, ".json"),
 		strings.HasSuffix(name, ".svg"),
