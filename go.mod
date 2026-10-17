@@ -2,7 +2,10 @@ module github.com/thinkwright/delegation-curve
 
 go 1.25.0
 
-require github.com/parquet-go/parquet-go v0.27.0
+require (
+	github.com/parquet-go/parquet-go v0.32.0
+	gopkg.in/yaml.v3 v3.0.1
+)
 
 require (
 	github.com/andybalholm/brotli v1.1.1 // indirect
@@ -14,5 +17,4 @@ require (
 	github.com/twpayne/go-geom v1.6.1 // indirect
 	golang.org/x/sys v0.38.0 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
