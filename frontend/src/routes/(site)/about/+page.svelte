@@ -49,6 +49,9 @@
 	<p class="text-sm leading-relaxed">
 		Older published points are retained in the dataset for audit, but the main chart uses the current measurement series.
 	</p>
+	<p class="text-sm leading-relaxed mt-4">
+		Every restatement and correction, with its effect on the composite, is recorded in the public <a href="https://github.com/thinkwright/delegation-curve/blob/main/docs/methodology/restatement-policy.md" target="_blank" rel="noopener" class="underline hover:text-neutral-500 transition-colors">restatement and correction log</a>.
+	</p>
 </div>
 
 <!-- Delegation Curve Methodology -->

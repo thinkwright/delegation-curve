@@ -10,7 +10,7 @@
 	let active = $state('All');
 
 	const domains = $derived(data.meta.domains ?? []);
-	const maxDelta = $derived(Math.max(...domains.map((d) => d.score - d.previousScore), 1));
+	const maxDelta = $derived(Math.max(...domains.map((d) => Math.abs(d.score - d.previousScore)), 1));
 	const sorted = $derived([...domains].sort((a, b) => b.score - a.score));
 	const filtered = $derived(
 		active === 'All' ? sorted : sorted.filter((d) => d.status === active.toLowerCase())

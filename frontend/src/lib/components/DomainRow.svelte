@@ -52,8 +52,9 @@
 	);
 
 	// Highlighted segment: proportional to delta vs largest delta across all domains
-	// Longest highlight = fastest-growing domain
-	const highlightPct = $derived((delta / maxDelta) * 60);
+	// Longest highlight = largest move since the prior run
+	// Sized by magnitude so declines highlight too; the label carries the sign.
+	const highlightPct = $derived(Math.min(Math.abs(delta) / maxDelta, 1) * 60);
 	const clipX = $derived(100 - highlightPct);
 </script>
 
