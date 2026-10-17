@@ -268,34 +268,3 @@ func ClassifyStatus(score float64) string {
 		return "nominal"
 	}
 }
-
-// UpdateTrend appends or updates the latest point in a trend array.
-// If the last run was <25 days ago, updates the last point (same-month re-run).
-// Otherwise appends. Caps at maxPoints (default 84 = 7 years monthly).
-func UpdateTrend(existing []float64, newScore float64, lastRunAt time.Time, maxPoints int) []float64 {
-	if maxPoints <= 0 {
-		maxPoints = 84
-	}
-
-	result := make([]float64, len(existing))
-	copy(result, existing)
-
-	if !ShouldAppendTrend(lastRunAt) && len(result) > 0 {
-		result[len(result)-1] = newScore
-		return result
-	}
-
-	result = append(result, newScore)
-	if len(result) > maxPoints {
-		result = result[len(result)-maxPoints:]
-	}
-	return result
-}
-
-// ShouldAppendTrend reports whether a new score should become a new curve point.
-func ShouldAppendTrend(lastRunAt time.Time) bool {
-	if lastRunAt.IsZero() {
-		return true
-	}
-	return time.Since(lastRunAt).Hours()/24 >= 25
-}

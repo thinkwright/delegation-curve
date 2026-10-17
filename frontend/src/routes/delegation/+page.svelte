@@ -8,13 +8,13 @@
 	let active = $state('All');
 
 	let domains = $state<DelegationDomain[]>([]);
-	let priorPeriodLabel = $state('2025');
+	let priorPeriodLabel = $state('prior run');
 	let error = $state<string | null>(null);
 	$effect(() => {
 		Promise.all([getDomains(), getMeta()])
 			.then(([d, meta]) => {
 				domains = d;
-				priorPeriodLabel = String(meta.delegation.dataYear - 1);
+				priorPeriodLabel = meta.delegation.previousPeriod ?? 'prior run';
 			})
 			.catch(e => { error = e.message; });
 	});

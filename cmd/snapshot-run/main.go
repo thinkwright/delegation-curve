@@ -26,6 +26,7 @@ func main() {
 	bootstrap := flag.Bool("bootstrap", true, "Materialize legacy trend history first when no explicit runs exist")
 	bootstrapOnly := flag.Bool("bootstrap-only", false, "Only materialize legacy trend history")
 	replace := flag.Bool("replace", false, "Replace an existing run with the same run ID")
+	rederiveOnly := flag.Bool("rederive-only", false, "Only rewrite previous/delta/trend fields from the explicit public run series")
 	flag.Parse()
 
 	seed, err := ingest.ReadSeed(*seedPath)
@@ -46,7 +47,9 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Materialized %d legacy analysis runs.\n", len(seed.AnalysisRuns))
 	}
 
-	if !*bootstrapOnly {
+	if *rederiveOnly {
+		changed = true
+	} else if !*bootstrapOnly {
 		if *runID == "" {
 			fmt.Fprintln(os.Stderr, "Error: -run-id is required unless -bootstrap-only is set")
 			os.Exit(1)
@@ -78,6 +81,12 @@ func main() {
 	}
 
 	sortExplicitHistory(seed)
+	// Previous scores, deltas, and trends are always derived from the public
+	// run series so the seed carries a single history.
+	if err := transform.DeriveHistory(seed); err != nil {
+		fmt.Fprintf(os.Stderr, "Error deriving history: %v\n", err)
+		os.Exit(1)
+	}
 	if err := ingest.WriteSeed(*seedPath, seed); err != nil {
 		fmt.Fprintf(os.Stderr, "Error writing seed: %v\n", err)
 		os.Exit(1)

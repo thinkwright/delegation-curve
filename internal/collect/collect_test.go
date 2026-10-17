@@ -1,6 +1,9 @@
 package collect
 
 import (
+	"errors"
+	"os"
+	"path/filepath"
 	"testing"
 	"time"
 
@@ -53,32 +56,123 @@ func TestResolveValue_Missing(t *testing.T) {
 	}
 }
 
-func TestUpdateComposite_SameRunKeepsPrevious(t *testing.T) {
+func TestUpdateComposite_DoesNotTouchHistory(t *testing.T) {
 	seed := &ingest.Seed{
 		Delegation: ingest.DelegationSeed{
 			Composite: ingest.CompositeDelegation{
 				Current:  45,
 				Previous: 40,
+				Delta:    5,
 				Trend:    []float64{40, 45},
 			},
 			Domains: []ingest.DomainJSON{
 				{ID: "d1", Score: 50},
+				{ID: "d2", Score: 30},
 			},
 		},
 	}
-	configs := []DomainConfig{{DomainID: "d1", Weight: 1}}
-	prevLog := &CollectLog{RunAt: time.Now().Add(-24 * time.Hour)}
+	configs := []DomainConfig{{DomainID: "d1", Weight: 0.75}, {DomainID: "d2", Weight: 0.25}}
 
-	updateComposite(seed, configs, prevLog)
+	updateComposite(seed, configs)
 
-	if seed.Delegation.Composite.Previous != 40 {
-		t.Fatalf("Previous = %v, want 40", seed.Delegation.Composite.Previous)
+	c := seed.Delegation.Composite
+	if c.Current != 45 {
+		t.Fatalf("Current = %v, want 45", c.Current)
 	}
-	if seed.Delegation.Composite.Current != 50 || seed.Delegation.Composite.Delta != 10 {
-		t.Fatalf("unexpected current/delta: %+v", seed.Delegation.Composite)
+	if c.Previous != 40 || c.Delta != 5 || len(c.Trend) != 2 {
+		t.Fatalf("history fields changed: %+v", c)
 	}
-	if len(seed.Delegation.Composite.Trend) != 2 || seed.Delegation.Composite.Trend[1] != 50 {
-		t.Fatalf("unexpected trend: %v", seed.Delegation.Composite.Trend)
+}
+
+func TestUpdateComposite_NormalizesByPresentWeight(t *testing.T) {
+	seed := &ingest.Seed{Delegation: ingest.DelegationSeed{Domains: []ingest.DomainJSON{{ID: "d1", Score: 50}}}}
+	updateComposite(seed, []DomainConfig{{DomainID: "d1", Weight: 0.5}, {DomainID: "absent", Weight: 0.5}})
+	if seed.Delegation.Composite.Current != 50 {
+		t.Fatalf("Current = %v, want 50", seed.Delegation.Composite.Current)
+	}
+}
+
+func TestRunDryRunWritesNothing(t *testing.T) {
+	dir := t.TempDir()
+	seedPath := filepath.Join(dir, "seed.json")
+	logPath := filepath.Join(dir, "collect.log.json")
+	seed := &ingest.Seed{Delegation: ingest.DelegationSeed{
+		Composite: ingest.CompositeDelegation{Current: 10, Previous: 8, Delta: 2, Trend: []float64{8, 10}},
+		Domains: []ingest.DomainJSON{{
+			ID: "d1", Score: 10, PreviousScore: 8, Trend: []float64{8, 10},
+			SubIndicators: []ingest.SubIndicatorJSON{{Name: "X", Value: 10, Unit: "%"}},
+		}},
+	}}
+	if err := ingest.WriteSeed(seedPath, seed); err != nil {
+		t.Fatal(err)
+	}
+	before, _ := os.ReadFile(seedPath)
+
+	cfg := RunConfig{
+		SeedPath:         seedPath,
+		OverridesPath:    filepath.Join(dir, "missing-overrides.yaml"),
+		LogPath:          logPath,
+		DomainConfigs:    []DomainConfig{{DomainID: "d1", Weight: 1, Indicators: []IndicatorConfig{{Name: "X", Weight: 1}}}},
+		CompositeConfigs: []DomainConfig{{DomainID: "d1", Weight: 1}},
+		Timeout:          time.Second,
+		DryRun:           true,
+		Check:            true,
+	}
+	if err := Run(cfg); err != nil {
+		t.Fatalf("unchanged checked dry run returned %v", err)
+	}
+	after, _ := os.ReadFile(seedPath)
+	if string(before) != string(after) {
+		t.Fatal("dry run modified the seed")
+	}
+	if _, err := os.Stat(logPath); !os.IsNotExist(err) {
+		t.Fatal("dry run wrote the collect log")
+	}
+
+	// A changed override must fail a checked dry run.
+	overrides := filepath.Join(dir, "overrides.yaml")
+	os.WriteFile(overrides, []byte("d1:\n  - name: X\n    value: 20\n    unit: \"%\"\n"), 0o644)
+	cfg.OverridesPath = overrides
+	if err := Run(cfg); !errors.Is(err, ErrScoresChanged) {
+		t.Fatalf("changed checked dry run returned %v, want ErrScoresChanged", err)
+	}
+}
+
+func TestRunKeepsHistoryFields(t *testing.T) {
+	dir := t.TempDir()
+	seedPath := filepath.Join(dir, "seed.json")
+	seed := &ingest.Seed{Delegation: ingest.DelegationSeed{
+		Composite: ingest.CompositeDelegation{Current: 10, Previous: 8, Delta: 2, Trend: []float64{8, 10}},
+		Domains: []ingest.DomainJSON{{
+			ID: "d1", Score: 10, PreviousScore: 8, Trend: []float64{8, 10},
+			SubIndicators: []ingest.SubIndicatorJSON{{Name: "X", Value: 10, Unit: "%"}},
+		}},
+	}}
+	if err := ingest.WriteSeed(seedPath, seed); err != nil {
+		t.Fatal(err)
+	}
+	overrides := filepath.Join(dir, "overrides.yaml")
+	os.WriteFile(overrides, []byte("d1:\n  - name: X\n    value: 20\n    unit: \"%\"\n"), 0o644)
+
+	err := Run(RunConfig{
+		SeedPath: seedPath, OverridesPath: overrides, LogPath: filepath.Join(dir, "log.json"),
+		DomainConfigs:    []DomainConfig{{DomainID: "d1", Weight: 1, Indicators: []IndicatorConfig{{Name: "X", Weight: 1}}}},
+		CompositeConfigs: []DomainConfig{{DomainID: "d1", Weight: 1}},
+		Timeout:          time.Second,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	got, err := ingest.ReadSeed(seedPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	d := got.Delegation.Domains[0]
+	if d.Score != 20 || got.Delegation.Composite.Current != 20 {
+		t.Fatalf("scores not updated: domain %v composite %v", d.Score, got.Delegation.Composite.Current)
+	}
+	if d.PreviousScore != 8 || len(d.Trend) != 2 || got.Delegation.Composite.Previous != 8 || len(got.Delegation.Composite.Trend) != 2 {
+		t.Fatalf("collect rewrote history: domain %+v composite %+v", d, got.Delegation.Composite)
 	}
 }
 

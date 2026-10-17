@@ -3,7 +3,6 @@ package collect
 import (
 	"math"
 	"testing"
-	"time"
 )
 
 func TestComputeDomainScore_AllPresent(t *testing.T) {
@@ -223,67 +222,5 @@ func TestClassifyStatus(t *testing.T) {
 		if got := ClassifyStatus(tt.score); got != tt.want {
 			t.Errorf("ClassifyStatus(%v) = %q, want %q", tt.score, got, tt.want)
 		}
-	}
-}
-
-func TestUpdateTrend_Append(t *testing.T) {
-	existing := []float64{1, 2, 3}
-	// Zero time → always append (old run).
-	got := UpdateTrend(existing, 4, time.Time{}, 84)
-	if len(got) != 4 || got[3] != 4 {
-		t.Errorf("append: got %v", got)
-	}
-}
-
-func TestUpdateTrend_UpdateLastPoint(t *testing.T) {
-	existing := []float64{1, 2, 3}
-	// Recent run → update last point.
-	got := UpdateTrend(existing, 4, time.Now().Add(-24*time.Hour), 84)
-	if len(got) != 3 || got[2] != 4 {
-		t.Errorf("update last: got %v", got)
-	}
-}
-
-func TestUpdateTrend_SlidingWindow(t *testing.T) {
-	existing := make([]float64, 84)
-	for i := range existing {
-		existing[i] = float64(i)
-	}
-	got := UpdateTrend(existing, 100, time.Time{}, 84)
-	if len(got) != 84 {
-		t.Errorf("should cap at 84, got %d", len(got))
-	}
-	if got[83] != 100 {
-		t.Errorf("last point should be 100, got %v", got[83])
-	}
-	if got[0] != 1 {
-		t.Errorf("first point should be 1 (shifted), got %v", got[0])
-	}
-}
-
-func TestUpdateTrend_EmptyExisting(t *testing.T) {
-	got := UpdateTrend(nil, 42, time.Time{}, 84)
-	if len(got) != 1 || got[0] != 42 {
-		t.Errorf("empty existing: got %v", got)
-	}
-}
-
-func TestUpdateTrend_DoesNotMutateOriginal(t *testing.T) {
-	existing := []float64{1, 2, 3}
-	UpdateTrend(existing, 4, time.Time{}, 84)
-	if existing[2] != 3 {
-		t.Errorf("original slice was mutated")
-	}
-}
-
-func TestShouldAppendTrend(t *testing.T) {
-	if !ShouldAppendTrend(time.Time{}) {
-		t.Fatal("zero last run should append")
-	}
-	if ShouldAppendTrend(time.Now().Add(-24 * time.Hour)) {
-		t.Fatal("recent last run should update current point")
-	}
-	if !ShouldAppendTrend(time.Now().Add(-30 * 24 * time.Hour)) {
-		t.Fatal("older last run should append")
 	}
 }

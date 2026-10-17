@@ -20,18 +20,7 @@
 			? composite.delegation.runHistory.map((p) => p.measurementPeriod)
 			: undefined
 	);
-	const currentRun = $derived(
-		composite?.delegation.runHistory?.find((p) => p.isCurrent)
-			?? composite?.delegation.runHistory?.[composite.delegation.runHistory.length - 1]
-			?? null
-	);
-	const priorRun = $derived(() => {
-		const history = composite?.delegation.runHistory ?? [];
-		if (!currentRun) return null;
-		const index = history.findIndex((p) => p.runId === currentRun.runId);
-		return index > 0 ? history[index - 1] : null;
-	});
-	const priorPeriodLabel = $derived(priorRun()?.measurementPeriod ?? 'prior');
+	const priorPeriodLabel = $derived(composite?.delegation.previousPeriod ?? 'prior run');
 </script>
 
 <svelte:head>

@@ -110,6 +110,18 @@ func ReadSeed(path string) (*Seed, error) {
 	return &seed, nil
 }
 
+// Clone deep-copies a seed through its JSON form.
+func Clone(src, dst *Seed) error {
+	data, err := json.Marshal(src)
+	if err != nil {
+		return fmt.Errorf("clone seed: %w", err)
+	}
+	if err := json.Unmarshal(data, dst); err != nil {
+		return fmt.Errorf("clone seed: %w", err)
+	}
+	return nil
+}
+
 // WriteSeed atomically writes the seed to disk via temp file + rename.
 func WriteSeed(path string, seed *Seed) error {
 	seed.GeneratedAt = time.Now().UTC().Format(time.RFC3339)

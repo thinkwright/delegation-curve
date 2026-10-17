@@ -2,6 +2,7 @@ package collect
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"math"
 	"os"
@@ -18,9 +19,23 @@ type RunConfig struct {
 	DomainConfigs []DomainConfig
 	Collectors    []Collector
 	Timeout       time.Duration
+	// CompositeConfigs weights the composite; nil means AllDomainConfigs, so
+	// partial runs (-domain) still average over every domain.
+	CompositeConfigs []DomainConfig
+	DryRun           bool // compute and report changes without writing the seed or log
+	Check            bool // with DryRun: fail when any score would change
 }
 
-// Run executes the full collection pipeline for all configured domains.
+// ErrScoresChanged is returned by a checked dry run whose recomputed scores
+// differ from the seed.
+var ErrScoresChanged = errors.New("recomputed scores differ from seed")
+
+// Run executes the collection pipeline for all configured domains.
+//
+// Collection only updates current values: sub-indicator values, domain
+// scores and statuses, and the composite score. Run history (previous
+// scores, deltas, trends) belongs to explicit analysis runs and is written
+// by curve-snapshot-run, never here.
 func Run(cfg RunConfig) error {
 	ctx, cancel := context.WithTimeout(context.Background(), cfg.Timeout)
 	defer cancel()
@@ -44,9 +59,9 @@ func Run(cfg RunConfig) error {
 		fmt.Fprintln(os.Stderr)
 	}
 
-	prevLog, err := LoadCollectLog(cfg.LogPath)
-	if err != nil {
-		return fmt.Errorf("load collect log: %w", err)
+	var before ingest.Seed
+	if err := ingest.Clone(seed, &before); err != nil {
+		return err
 	}
 
 	// Run all collectors.
@@ -82,15 +97,26 @@ func Run(cfg RunConfig) error {
 	}
 
 	for _, dcfg := range cfg.DomainConfigs {
-		if err := updateDomain(seed, dcfg, allResults, overrides, prevLog, newLog); err != nil {
+		if err := updateDomain(seed, dcfg, allResults, overrides, newLog); err != nil {
 			return fmt.Errorf("update domain %s: %w", dcfg.DomainID, err)
 		}
 	}
 
-	// Recompute composite score from all domain scores.
-	// Always use full config set so partial runs (-domain flag) don't zero out
-	// domains that weren't collected in this run.
-	updateComposite(seed, AllDomainConfigs(), prevLog)
+	compositeConfigs := cfg.CompositeConfigs
+	if compositeConfigs == nil {
+		compositeConfigs = AllDomainConfigs()
+	}
+	updateComposite(seed, compositeConfigs)
+
+	changes := DiffScores(&before, seed)
+	reportChanges(changes)
+	if cfg.DryRun {
+		fmt.Fprintln(os.Stderr, "\n  Dry run: seed and collect log not written.")
+		if cfg.Check && len(changes) > 0 {
+			return ErrScoresChanged
+		}
+		return nil
+	}
 
 	// W5: Backup seed.json before overwriting.
 	backupPath := cfg.SeedPath + ".bak"
@@ -116,7 +142,6 @@ func updateDomain(
 	dcfg DomainConfig,
 	results []CollectResult,
 	overrides OverrideFile,
-	prevLog *CollectLog,
 	newLog *CollectLog,
 ) error {
 	// Find the domain in seed.
@@ -180,11 +205,7 @@ func updateDomain(
 
 	filterSubIndicatorsToConfig(domain, dcfg.Indicators)
 
-	if ShouldAppendTrend(prevLog.RunAt) {
-		domain.PreviousScore = domain.Score
-	}
 	domain.Score = newScore
-	domain.Trend = UpdateTrend(domain.Trend, newScore, prevLog.RunAt, 84)
 	domain.Status = ClassifyStatus(newScore)
 
 	return nil
@@ -225,41 +246,33 @@ func resolveValue(
 }
 
 // updateComposite recomputes the composite delegation score as the weighted
-// average of all domain scores. Only domains present in both the config list
-// and the seed are included.
-func updateComposite(seed *ingest.Seed, configs []DomainConfig, prevLog *CollectLog) {
-	// Build a weight map from configs.
+// average of domain scores. Domains in the seed but absent from configs are
+// skipped, and the average is taken over the weight that is present.
+func updateComposite(seed *ingest.Seed, configs []DomainConfig) {
 	weightMap := make(map[string]float64, len(configs))
 	for _, c := range configs {
 		weightMap[c.DomainID] = c.Weight
 	}
 
-	var composite float64
+	var weighted, totalWeight float64
 	for _, d := range seed.Delegation.Domains {
 		w, ok := weightMap[d.ID]
 		if !ok {
-			// Domain not in this run's config — use its existing score at its
-			// known weight. This handles partial runs (-domain flag).
 			continue
 		}
-		composite += d.Score * w
+		weighted += d.Score * w
+		totalWeight += w
 	}
-
-	composite = math.Round(composite*10) / 10
+	if totalWeight == 0 {
+		return
+	}
+	composite := math.Round(weighted/totalWeight*10) / 10
 
 	prev := seed.Delegation.Composite.Current
-	if ShouldAppendTrend(prevLog.RunAt) {
-		seed.Delegation.Composite.Previous = prev
-	}
 	seed.Delegation.Composite.Current = composite
-	seed.Delegation.Composite.Delta = math.Round((composite-seed.Delegation.Composite.Previous)*10) / 10
-	seed.Delegation.Composite.Trend = UpdateTrend(
-		seed.Delegation.Composite.Trend, composite, prevLog.RunAt, 84,
-	)
 	seed.Delegation.Composite.LastUpdated = time.Now().UTC().Format("2006-01-02")
 
-	fmt.Fprintf(os.Stderr, "\n  Composite score: %.1f → %.1f (Δ%.1f)\n",
-		prev, composite, seed.Delegation.Composite.Delta)
+	fmt.Fprintf(os.Stderr, "\n  Composite score: %.1f → %.1f\n", prev, composite)
 }
 
 // updateSubIndicator updates an existing sub-indicator in the domain, or appends it.

@@ -31,6 +31,8 @@ export interface ScorePoint {
 	score: number;
 	notes?: string;
 	isCurrent?: boolean;
+	/** Midpoint of the measurement period (YYYY-MM-DD), used to place the point in time. */
+	periodMidpoint?: string;
 }
 
 export interface DelegationDomain {
@@ -49,6 +51,11 @@ export interface DelegationDomain {
 	description: string;
 }
 
+export type DomainSummary = Pick<
+	DelegationDomain,
+	'id' | 'name' | 'fullName' | 'score' | 'previousScore' | 'status' | 'weight' | 'tier' | 'description'
+>;
+
 export interface CompositeData {
 	delegation: {
 		current: number;
@@ -58,7 +65,13 @@ export interface CompositeData {
 		runHistory?: ScorePoint[];
 		lastUpdated: string;
 		dataYear: number;
+		runId?: string;
+		publishedAt?: string;
+		methodologyVersion?: string;
+		/** Measurement period of the public run that deltas are measured against. */
+		previousPeriod?: string;
 	};
+	domains?: DomainSummary[];
 	domainsTracked: number;
 	highestDomain: { name: string; score: number };
 	dataFreshness: string;

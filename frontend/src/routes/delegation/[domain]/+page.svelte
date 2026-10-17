@@ -12,6 +12,7 @@
 
 	let domain = $state<DelegationDomain | null>(null);
 	let dataYear = $state<number>(2025);
+	let priorPeriodLabel = $state('prior run');
 	let error = $state<string | null>(null);
 
 	$effect(() => {
@@ -22,6 +23,7 @@
 				if (!d) { error = 'Domain not found'; return; }
 				domain = d;
 				dataYear = meta.delegation.dataYear;
+				priorPeriodLabel = meta.delegation.previousPeriod ?? 'prior run';
 			})
 			.catch(e => { error = e.message; });
 	});
@@ -40,7 +42,6 @@
 			: undefined
 	);
 	const supplementalSources = $derived(domain ? (sourceDisclosures[domain.id] ?? []) : []);
-	const priorPeriodLabel = $derived(String(dataYear - 1));
 </script>
 
 <svelte:head>
