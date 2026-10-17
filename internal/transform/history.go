@@ -60,21 +60,8 @@ func explicitHistory(seed *ingest.Seed) (
 
 	indicatorRows := make([]schema.IndicatorObservationRow, 0, len(seed.IndicatorObservations))
 	for _, o := range seed.IndicatorObservations {
-		indicatorRows = append(indicatorRows, schema.IndicatorObservationRow{
-			RunID:           o.RunID,
-			DomainID:        o.DomainID,
-			IndicatorName:   o.IndicatorName,
-			RawValue:        o.RawValue,
-			NormalizedValue: o.NormalizedValue,
-			Unit:            o.Unit,
-			Weight:          o.Weight,
-			IncludedInScore: o.IncludedInScore,
-			Source:          o.Source,
-			SourceURL:       o.SourceURL,
-			Freshness:       o.Freshness,
-			EvidenceGrade:   o.EvidenceGrade,
-			Confidence:      o.Confidence,
-		})
+		indicatorRows = append(indicatorRows, observationRow(o.RunID, o.DomainID, o.IndicatorName,
+			o.RawValue, o.NormalizedValue, o.Unit, o.Weight, o.IncludedInScore, o.Source, o.Freshness, o.SourceMeta))
 	}
 
 	sortAnalysisRuns(runRows)
@@ -155,21 +142,48 @@ func CurrentIndicatorObservations(seed *ingest.Seed, runID string) []schema.Indi
 				weight = indCfg.Weight
 			}
 
-			rows = append(rows, schema.IndicatorObservationRow{
-				RunID:           runID,
-				DomainID:        d.ID,
-				IndicatorName:   si.Name,
-				RawValue:        si.Value,
-				NormalizedValue: normalized,
-				Unit:            si.Unit,
-				Weight:          weight,
-				IncludedInScore: included,
-				Source:          si.Source,
-				Freshness:       si.Freshness,
-			})
+			rows = append(rows, observationRow(runID, d.ID, si.Name,
+				si.Value, normalized, si.Unit, weight, included, si.Source, si.Freshness, si.SourceMeta))
 		}
 	}
 	return rows
+}
+
+func observationRow(runID, domainID, name string, raw, normalized float64, unit string,
+	weight float64, included bool, source, freshness string, meta ingest.SourceMeta,
+) schema.IndicatorObservationRow {
+	return schema.IndicatorObservationRow{
+		RunID:            runID,
+		DomainID:         domainID,
+		IndicatorName:    name,
+		RawValue:         raw,
+		NormalizedValue:  normalized,
+		Unit:             unit,
+		Weight:           weight,
+		IncludedInScore:  included,
+		Source:           source,
+		Freshness:        freshness,
+		SourceURL:        meta.SourceURL,
+		EvidenceGrade:    meta.EvidenceGrade,
+		Confidence:       meta.Confidence,
+		PublishedAt:      meta.PublishedAt,
+		MeasurementStart: meta.MeasurementStart,
+		MeasurementEnd:   meta.MeasurementEnd,
+		Transform:        meta.Transform,
+	}
+}
+
+// ObservationMeta returns the source audit trail carried by an observation row.
+func ObservationMeta(r schema.IndicatorObservationRow) ingest.SourceMeta {
+	return ingest.SourceMeta{
+		SourceURL:        r.SourceURL,
+		PublishedAt:      r.PublishedAt,
+		MeasurementStart: r.MeasurementStart,
+		MeasurementEnd:   r.MeasurementEnd,
+		EvidenceGrade:    r.EvidenceGrade,
+		Confidence:       r.Confidence,
+		Transform:        r.Transform,
+	}
 }
 
 func legacyRunID(year int) string {

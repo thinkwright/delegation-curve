@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/thinkwright/delegation-curve/internal/collect"
+	"github.com/thinkwright/delegation-curve/internal/ingest"
 )
 
 // aiExtensions lists the major AI coding assistant extensions to aggregate.
@@ -62,14 +63,23 @@ func (c *VSCodeCollector) Collect(ctx context.Context) ([]collect.CollectResult,
 	}
 
 	millions := float64(totalInstalls) / 1_000_000
+	today := time.Now().UTC().Format("2006-01-02")
 	return []collect.CollectResult{{
 		IndicatorName: "Tool Ecosystem Reach",
 		DomainID:      "code-gen",
 		RawValue:      millions,
 		Unit:          "M",
 		SourceName:    "VS Code Marketplace",
-		Freshness:     time.Now().Format("2006-01-02"),
-		SourceURL:     "https://marketplace.visualstudio.com/",
+		Freshness:     today,
+		Meta: ingest.SourceMeta{
+			SourceURL:        "https://marketplace.visualstudio.com/",
+			PublishedAt:      today,
+			MeasurementStart: today,
+			MeasurementEnd:   today,
+			EvidenceGrade:    "D",
+			Confidence:       "medium",
+			Transform:        fmt.Sprintf("Sum of install counts for %d tracked AI coding extensions, in millions; log-scaled over 1M-200M.", len(c.extensions)),
+		},
 	}}, nil
 }
 

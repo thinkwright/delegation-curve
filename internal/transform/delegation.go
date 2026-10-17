@@ -34,12 +34,19 @@ func Delegation(domains []ingest.DomainJSON) (
 
 		for _, si := range d.SubIndicators {
 			sRows = append(sRows, schema.SubIndicatorRow{
-				DomainID:  d.ID,
-				Name:      si.Name,
-				Value:     si.Value,
-				Unit:      si.Unit,
-				Source:    si.Source,
-				Freshness: si.Freshness,
+				DomainID:         d.ID,
+				Name:             si.Name,
+				Value:            si.Value,
+				Unit:             si.Unit,
+				Source:           si.Source,
+				Freshness:        si.Freshness,
+				SourceURL:        si.SourceURL,
+				PublishedAt:      si.PublishedAt,
+				MeasurementStart: si.MeasurementStart,
+				MeasurementEnd:   si.MeasurementEnd,
+				EvidenceGrade:    si.EvidenceGrade,
+				Confidence:       si.Confidence,
+				Transform:        si.Transform,
 			})
 		}
 

@@ -16,12 +16,19 @@ type DelegationRow struct {
 
 // SubIndicatorRow — ~35 rows (3–5 per domain).
 type SubIndicatorRow struct {
-	DomainID  string  `parquet:"domain_id,zstd"`
-	Name      string  `parquet:"name,zstd"`
-	Value     float64 `parquet:"value"`
-	Unit      string  `parquet:"unit,zstd"`
-	Source    string  `parquet:"source,zstd"`
-	Freshness string  `parquet:"freshness,zstd"`
+	DomainID         string  `parquet:"domain_id,zstd"`
+	Name             string  `parquet:"name,zstd"`
+	Value            float64 `parquet:"value"`
+	Unit             string  `parquet:"unit,zstd"`
+	Source           string  `parquet:"source,zstd"`
+	Freshness        string  `parquet:"freshness,zstd"`
+	SourceURL        string  `parquet:"source_url,zstd"`
+	PublishedAt      string  `parquet:"published_at,zstd"`
+	MeasurementStart string  `parquet:"measurement_start,zstd"`
+	MeasurementEnd   string  `parquet:"measurement_end,zstd"`
+	EvidenceGrade    string  `parquet:"evidence_grade,zstd"`
+	Confidence       string  `parquet:"confidence,zstd"`
+	Transform        string  `parquet:"transform,zstd"`
 }
 
 // DataSourceRow — ~30 rows (3–4 per domain).
@@ -71,17 +78,21 @@ type DomainScoreRow struct {
 
 // IndicatorObservationRow — source-level observations for a run.
 type IndicatorObservationRow struct {
-	RunID           string  `parquet:"run_id,zstd"`
-	DomainID        string  `parquet:"domain_id,zstd"`
-	IndicatorName   string  `parquet:"indicator_name,zstd"`
-	RawValue        float64 `parquet:"raw_value"`
-	NormalizedValue float64 `parquet:"normalized_value"`
-	Unit            string  `parquet:"unit,zstd"`
-	Weight          float64 `parquet:"weight"`
-	IncludedInScore bool    `parquet:"included_in_score"`
-	Source          string  `parquet:"source,zstd"`
-	SourceURL       string  `parquet:"source_url,zstd"`
-	Freshness       string  `parquet:"freshness,zstd"`
-	EvidenceGrade   string  `parquet:"evidence_grade,zstd"`
-	Confidence      string  `parquet:"confidence,zstd"`
+	RunID            string  `parquet:"run_id,zstd"`
+	DomainID         string  `parquet:"domain_id,zstd"`
+	IndicatorName    string  `parquet:"indicator_name,zstd"`
+	RawValue         float64 `parquet:"raw_value"`
+	NormalizedValue  float64 `parquet:"normalized_value"`
+	Unit             string  `parquet:"unit,zstd"`
+	Weight           float64 `parquet:"weight"`
+	IncludedInScore  bool    `parquet:"included_in_score"`
+	Source           string  `parquet:"source,zstd"`
+	SourceURL        string  `parquet:"source_url,zstd"`
+	Freshness        string  `parquet:"freshness,zstd"`
+	EvidenceGrade    string  `parquet:"evidence_grade,zstd"`
+	Confidence       string  `parquet:"confidence,zstd"`
+	PublishedAt      string  `parquet:"published_at,zstd"`
+	MeasurementStart string  `parquet:"measurement_start,zstd"`
+	MeasurementEnd   string  `parquet:"measurement_end,zstd"`
+	Transform        string  `parquet:"transform,zstd"`
 }

@@ -4,7 +4,7 @@
 	import { base } from '$app/paths';
 	import CurveChart from '$lib/components/CurveChart.svelte';
 	import StatusBadge from '$lib/components/StatusBadge.svelte';
-	import MetricRow from '$lib/components/MetricRow.svelte';
+	import IndicatorRow from '$lib/components/IndicatorRow.svelte';
 	import { formatDelta } from '$lib/utils/format';
 	import { sourceDisclosures } from '$lib/data/sourceDisclosures';
 
@@ -141,13 +141,10 @@
 
 <!-- Sub-Indicators -->
 <div class="px-4 py-6 hairline-b">
-	<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-4">Sub-Indicators</p>
+	<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-2">Sub-Indicators</p>
+	<p class="text-[11px] text-neutral-500 leading-relaxed mb-3">Each value links to its source, with the period it measures, its <a href="{base}/about#evidence-grades" class="underline hover:text-neutral-600">evidence grade</a>, and confidence.</p>
 	{#each domain.subIndicators as indicator}
-		<MetricRow
-			label={indicator.name}
-			value={typeof indicator.value === 'number' ? indicator.value.toLocaleString() : indicator.value}
-			unit={indicator.unit}
-		/>
+		<IndicatorRow {indicator} />
 	{/each}
 </div>
 

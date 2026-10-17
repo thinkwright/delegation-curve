@@ -74,7 +74,7 @@ func (s Series) DomainScore(runID, domainID string) (float64, bool) {
 }
 
 // DeriveHistory rewrites the seed's history-shaped fields (composite
-// previous/delta/trend and each domain's previous_score/trend) from the
+// previous/delta/trend/last_updated and each domain's previous_score/trend) from the
 // explicit public series, so every consumer of seed.json sees one history.
 // Seeds without explicit runs are left untouched.
 func DeriveHistory(seed *ingest.Seed) error {
@@ -93,6 +93,9 @@ func DeriveHistory(seed *ingest.Seed) error {
 		c.Previous = s.Previous.CompositeScore
 	}
 	c.Delta = round1(s.Current.CompositeScore - c.Previous)
+	if s.Current.PublishedAt != "" {
+		c.LastUpdated = s.Current.PublishedAt
+	}
 
 	for i := range seed.Delegation.Domains {
 		d := &seed.Delegation.Domains[i]
@@ -159,6 +162,10 @@ func CheckDerived(seed *ingest.Seed) error {
 	if !close1(got.Previous, want.Previous) || !close1(got.Delta, want.Delta) || !sameSeries(got.Trend, want.Trend) {
 		diffs = append(diffs, fmt.Sprintf("composite previous/delta/trend %.1f/%.1f/%v, want %.1f/%.1f/%v",
 			got.Previous, got.Delta, got.Trend, want.Previous, want.Delta, want.Trend))
+	}
+	if got.LastUpdated != want.LastUpdated {
+		diffs = append(diffs, fmt.Sprintf("composite last_updated %q, want current run publication date %q",
+			got.LastUpdated, want.LastUpdated))
 	}
 	for i, d := range seed.Delegation.Domains {
 		w := derived.Delegation.Domains[i]

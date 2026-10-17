@@ -3,6 +3,8 @@ package collect
 import (
 	"context"
 	"time"
+
+	"github.com/thinkwright/delegation-curve/internal/ingest"
 )
 
 // Collector fetches sub-indicator values from one external data source.
@@ -26,6 +28,6 @@ type CollectResult struct {
 	SourceName    string
 	Freshness     string
 	CollectedAt   time.Time
-	SourceURL     string
+	Meta          ingest.SourceMeta
 	Err           error // non-nil = fallback to override/cached
 }

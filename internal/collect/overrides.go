@@ -5,6 +5,8 @@ import (
 	"os"
 
 	"gopkg.in/yaml.v3"
+
+	"github.com/thinkwright/delegation-curve/internal/ingest"
 )
 
 // OverrideFile is the top-level structure of overrides.yaml.
@@ -20,6 +22,8 @@ type OverrideEntry struct {
 	Freshness string  `yaml:"freshness"`
 	EnteredAt string  `yaml:"entered_at"`
 	Note      string  `yaml:"note"`
+
+	ingest.SourceMeta `yaml:",inline"`
 }
 
 // LoadOverrides reads and parses the overrides YAML file.

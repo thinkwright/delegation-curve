@@ -17,9 +17,9 @@ func TestResolveValue_AutoFirst(t *testing.T) {
 	overrides := OverrideFile{"d1": {{Name: "X", Value: 99, Unit: "%", Source: "Override Source", Freshness: "2025"}}}
 	existing := []ingest.SubIndicatorJSON{{Name: "X", Value: 10, Unit: "%", Source: "Cached Source", Freshness: "2024"}}
 
-	val, _, source, _, method, _ := resolveValue("X", "d1", results, overrides, existing)
-	if method != "auto" || val != 42 || source != "Auto Source" {
-		t.Errorf("expected auto/42/Auto Source, got %s/%.0f/%s", method, val, source)
+	r := resolveValue("X", "d1", results, overrides, existing)
+	if r.Method != "auto" || r.Value != 42 || r.Source != "Auto Source" {
+		t.Errorf("expected auto/42/Auto Source, got %s/%.0f/%s", r.Method, r.Value, r.Source)
 	}
 }
 
@@ -30,9 +30,9 @@ func TestResolveValue_OverrideWhenAutoFails(t *testing.T) {
 	overrides := OverrideFile{"d1": {{Name: "X", Value: 99, Unit: "%", Source: "Override Source", Freshness: "2025"}}}
 	existing := []ingest.SubIndicatorJSON{{Name: "X", Value: 10, Unit: "%", Source: "Cached Source", Freshness: "2024"}}
 
-	val, _, source, _, method, _ := resolveValue("X", "d1", results, overrides, existing)
-	if method != "override" || val != 99 || source != "Override Source" {
-		t.Errorf("expected override/99/Override Source, got %s/%.0f/%s", method, val, source)
+	r := resolveValue("X", "d1", results, overrides, existing)
+	if r.Method != "override" || r.Value != 99 || r.Source != "Override Source" {
+		t.Errorf("expected override/99/Override Source, got %s/%.0f/%s", r.Method, r.Value, r.Source)
 	}
 }
 
@@ -43,16 +43,15 @@ func TestResolveValue_CachedWhenBothFail(t *testing.T) {
 	overrides := OverrideFile{} // no overrides
 	existing := []ingest.SubIndicatorJSON{{Name: "X", Value: 10, Unit: "%", Source: "Cached Source", Freshness: "2024"}}
 
-	val, _, source, _, method, _ := resolveValue("X", "d1", results, overrides, existing)
-	if method != "cached" || val != 10 || source != "Cached Source" {
-		t.Errorf("expected cached/10/Cached Source, got %s/%.0f/%s", method, val, source)
+	r := resolveValue("X", "d1", results, overrides, existing)
+	if r.Method != "cached" || r.Value != 10 || r.Source != "Cached Source" {
+		t.Errorf("expected cached/10/Cached Source, got %s/%.0f/%s", r.Method, r.Value, r.Source)
 	}
 }
 
 func TestResolveValue_Missing(t *testing.T) {
-	_, _, _, _, method, _ := resolveValue("X", "d1", nil, OverrideFile{}, nil)
-	if method != "missing" {
-		t.Errorf("expected missing, got %s", method)
+	if r := resolveValue("X", "d1", nil, OverrideFile{}, nil); r.Method != "missing" {
+		t.Errorf("expected missing, got %s", r.Method)
 	}
 }
 

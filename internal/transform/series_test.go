@@ -7,7 +7,6 @@ import (
 	"github.com/thinkwright/delegation-curve/internal/ingest"
 )
 
-
 // seriesSeed mirrors the published shape: an archived legacy run, two public
 // restated runs, and a current run whose stored history fields are stale.
 func seriesSeed() *ingest.Seed {
@@ -59,7 +58,7 @@ func TestDeriveHistoryFromRuns(t *testing.T) {
 		t.Fatal(err)
 	}
 	c := seed.Delegation.Composite
-	if c.Previous != 37.7 || c.Delta != 8.1 || !sameSeries(c.Trend, []float64{31.5, 37.7, 45.8}) {
+	if c.Previous != 37.7 || c.Delta != 8.1 || !sameSeries(c.Trend, []float64{31.5, 37.7, 45.8}) || c.LastUpdated != "2026-05-16" {
 		t.Fatalf("composite = %+v", c)
 	}
 	a, b := seed.Delegation.Domains[0], seed.Delegation.Domains[1]

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"sort"
+	"time"
 
 	"github.com/thinkwright/delegation-curve/internal/collect"
 	"github.com/thinkwright/delegation-curve/internal/ingest"
@@ -16,13 +17,14 @@ func main() {
 	seedPath := flag.String("seed", "seed/seed.json", "Path to seed.json")
 	runID := flag.String("run-id", "", "Run identifier to append from the current seed scores")
 	label := flag.String("label", "", "Human-readable run label")
-	publishedAt := flag.String("published-at", "", "Publication date for the run")
+	publishedAt := flag.String("published-at", "", "Publication date for the run (default: today, UTC)")
 	measurementPeriod := flag.String("measurement-period", "", "Measurement period label")
 	measurementYear := flag.Int("measurement-year", 0, "Measurement year")
 	methodologyVersion := flag.String("methodology-version", "delegation-curve-v1", "Methodology version")
 	notes := flag.String("notes", "", "Run notes")
 	dataFreshness := flag.String("data-freshness", "", "Composite data freshness label to write")
 	current := flag.Bool("current", true, "Mark appended run as the current run")
+	public := flag.Bool("public", true, "Include the run in the public curve series")
 	bootstrap := flag.Bool("bootstrap", true, "Materialize legacy trend history first when no explicit runs exist")
 	bootstrapOnly := flag.Bool("bootstrap-only", false, "Only materialize legacy trend history")
 	replace := flag.Bool("replace", false, "Replace an existing run with the same run ID")
@@ -71,6 +73,7 @@ func main() {
 			methodologyVersion: *methodologyVersion,
 			notes:              *notes,
 			current:            *current,
+			public:             *public,
 		})
 		changed = true
 	}
@@ -104,6 +107,7 @@ type snapshotOptions struct {
 	methodologyVersion string
 	notes              string
 	current            bool
+	public             bool
 }
 
 func materializeLegacyHistory(seed *ingest.Seed) {
@@ -125,7 +129,7 @@ func appendCurrentSnapshot(seed *ingest.Seed, opts snapshotOptions) {
 		opts.label = opts.measurementPeriod
 	}
 	if opts.publishedAt == "" {
-		opts.publishedAt = composite.LastUpdated
+		opts.publishedAt = time.Now().UTC().Format("2006-01-02")
 	}
 
 	if opts.current {
@@ -144,6 +148,7 @@ func appendCurrentSnapshot(seed *ingest.Seed, opts snapshotOptions) {
 		CompositeScore:     composite.Current,
 		Notes:              opts.notes,
 		IsCurrent:          opts.current,
+		IsPublicSeries:     &opts.public,
 	})
 
 	for _, d := range seed.Delegation.Domains {
@@ -271,10 +276,8 @@ func toIndicatorObservationJSON(rows []schema.IndicatorObservationRow) []ingest.
 			Weight:          r.Weight,
 			IncludedInScore: r.IncludedInScore,
 			Source:          r.Source,
-			SourceURL:       r.SourceURL,
 			Freshness:       r.Freshness,
-			EvidenceGrade:   r.EvidenceGrade,
-			Confidence:      r.Confidence,
+			SourceMeta:      transform.ObservationMeta(r),
 		})
 	}
 	return out

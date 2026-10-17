@@ -10,7 +10,7 @@ import (
 
 // CollectLog records the result of a collection run.
 type CollectLog struct {
-	RunAt   time.Time              `json:"run_at"`
+	RunAt   time.Time             `json:"run_at"`
 	Entries map[string][]LogEntry `json:"entries"` // keyed by domain ID
 }
 

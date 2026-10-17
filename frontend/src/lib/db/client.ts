@@ -92,7 +92,14 @@ async function loadDomainDetail(id: string): Promise<DelegationDomain | null> {
 			value: s.value as number,
 			unit: s.unit as string,
 			source: s.source as string,
-			freshness: s.freshness as string
+			freshness: s.freshness as string,
+			sourceUrl: (s.source_url as string) || undefined,
+			publishedAt: (s.published_at as string) || undefined,
+			measurementStart: (s.measurement_start as string) || undefined,
+			measurementEnd: (s.measurement_end as string) || undefined,
+			evidenceGrade: (s.evidence_grade as string) || undefined,
+			confidence: (s.confidence as string) || undefined,
+			transform: (s.transform as string) || undefined
 		})),
 		dataSources: sourceRows.map((s) => ({
 			name: s.name as string,

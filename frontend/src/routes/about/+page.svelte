@@ -122,6 +122,18 @@
 	</div>
 </div>
 
+<!-- Evidence Grades -->
+<div id="evidence-grades" class="px-4 py-6 hairline-b">
+	<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-3">Evidence Grades</p>
+	<p class="text-sm leading-relaxed mb-4">Every scored indicator carries a grade for how directly its source measures delegation, a confidence level, and the period it measures. Grades and sources are shown on each domain page.</p>
+	<div class="space-y-3">
+		<div class="flex gap-3"><span class="font-mono font-bold shrink-0 w-4">A</span><p class="text-sm text-neutral-600 leading-relaxed">Direct observed delegated decisions, task resolutions, operational outcomes, regulatory disclosures, or platform telemetry.</p></div>
+		<div class="flex gap-3"><span class="font-mono font-bold shrink-0 w-4">B</span><p class="text-sm text-neutral-600 leading-relaxed">Workflow penetration, operational deployment, official databases, or strong representative surveys.</p></div>
+		<div class="flex gap-3"><span class="font-mono font-bold shrink-0 w-4">C</span><p class="text-sm text-neutral-600 leading-relaxed">AI-attributable output, value, or productivity share, or narrower proxy evidence. Used with caveats.</p></div>
+		<div class="flex gap-3"><span class="font-mono font-bold shrink-0 w-4">D</span><p class="text-sm text-neutral-600 leading-relaxed">Adoption, sentiment, capability benchmarks, or broad context. Scored only through an explicit, documented conversion.</p></div>
+	</div>
+</div>
+
 <!-- Credibility -->
 <div class="px-4 py-6 hairline-b">
 	<p class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-3">Credibility Principles</p>

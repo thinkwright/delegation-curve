@@ -14,7 +14,7 @@ func TestNormalize_DirectPercent(t *testing.T) {
 		{50, 50},
 		{0, 0},
 		{100, 100},
-		{-5, 0},   // clamped
+		{-5, 0},    // clamped
 		{120, 100}, // clamped
 		{48.2, 48.2},
 	}
@@ -35,7 +35,7 @@ func TestNormalize_LinearClamp(t *testing.T) {
 		{10, 0},
 		{110, 100},
 		{60, 50},
-		{0, 0},    // below min → clamped to 0
+		{0, 0},     // below min → clamped to 0
 		{200, 100}, // above max → clamped to 100
 	}
 	for _, tt := range tests {
@@ -61,11 +61,11 @@ func TestNormalize_LogScale(t *testing.T) {
 		wantMin float64
 		wantMax float64
 	}{
-		{1, 0, 0},           // log10(1) = 0 → 0%
-		{200, 99, 101},      // log10(200) ≈ 2.3 → ~100%
-		{71.8, 75, 85},      // log10(71.8) ≈ 1.856 → ~80.7%
-		{0, 0, 0},           // zero → 0
-		{-5, 0, 0},          // negative → 0
+		{1, 0, 0},      // log10(1) = 0 → 0%
+		{200, 99, 101}, // log10(200) ≈ 2.3 → ~100%
+		{71.8, 75, 85}, // log10(71.8) ≈ 1.856 → ~80.7%
+		{0, 0, 0},      // zero → 0
+		{-5, 0, 0},     // negative → 0
 	}
 	for _, tt := range tests {
 		got := Normalize(tt.raw, cfg)

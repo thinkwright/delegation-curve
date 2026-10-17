@@ -107,10 +107,13 @@ func TestHistoryUsesExplicitRuns(t *testing.T) {
 				Weight:          0.2,
 				IncludedInScore: true,
 				Source:          "METR",
-				SourceURL:       "https://metr.org/blog/2026-05-11-ai-usage-survey/",
 				Freshness:       "2026-05",
-				EvidenceGrade:   "survey",
-				Confidence:      "medium",
+				SourceMeta: ingest.SourceMeta{
+					SourceURL:      "https://metr.org/blog/2026-05-11-ai-usage-survey/",
+					EvidenceGrade:  "survey",
+					Confidence:     "medium",
+					MeasurementEnd: "2026-04-30",
+				},
 			},
 		},
 	}
@@ -126,7 +129,7 @@ func TestHistoryUsesExplicitRuns(t *testing.T) {
 	if len(domainScores) != 1 || domainScores[0].Score != 58.4 {
 		t.Fatalf("unexpected explicit domain scores: %+v", domainScores)
 	}
-	if len(observations) != 1 || observations[0].SourceURL == "" || !observations[0].IncludedInScore {
+	if len(observations) != 1 || observations[0].SourceURL == "" || observations[0].MeasurementEnd != "2026-04-30" || !observations[0].IncludedInScore {
 		t.Fatalf("unexpected explicit observations: %+v", observations)
 	}
 }

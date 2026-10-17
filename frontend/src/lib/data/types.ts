@@ -4,6 +4,13 @@ export interface SubIndicator {
 	unit: string;
 	source: string;
 	freshness: string;
+	sourceUrl?: string;
+	publishedAt?: string;
+	measurementStart?: string;
+	measurementEnd?: string;
+	evidenceGrade?: string;
+	confidence?: string;
+	transform?: string;
 }
 
 export interface DataSource {
