@@ -37,6 +37,8 @@ async function launch() {
 	const profile = mkdtempSync(join(tmpdir(), 'curve-chrome-'));
 	const proc = spawn(bin, [
 		'--headless=new',
+		'--no-sandbox',
+		'--disable-dev-shm-usage',
 		'--disable-gpu',
 		'--no-first-run',
 		'--no-default-browser-check',
