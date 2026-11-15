@@ -16,7 +16,7 @@ export const sourceDisclosures: Record<string, SourceDisclosure[]> = {
 			cadence: 'Quarterly',
 			type: 'documentation',
 			url: 'https://support.google.com/transparencyreport/answer/9198203?hl=en-GB',
-			note: 'Supports the 99.5% automated flagging input and clarifies that this indicator measures automated detection/flagging rather than final human-reviewed removal.'
+			note: 'Clarifies that this indicator measures automated detection/flagging rather than final human-reviewed removal. The scored value is the share of removed videos first flagged by automation; the 99.5% used in 2026 Q2 was the comment-removal share for Jul-Sep 2023 and was corrected in 2026 Q4.'
 		},
 		{
 			name: 'TikTok Community Guidelines Reports',
@@ -143,12 +143,12 @@ export const sourceDisclosures: Record<string, SourceDisclosure[]> = {
 			note: 'Used for the assisted-versus-fully-delegated task split, aligning the score with delegation rather than general AI involvement.'
 		},
 		{
-			name: 'Agentic Much? Coding-Agent Adoption Study',
+			name: 'Agentic Very Much! Coding-Agent Adoption Study',
 			role: 'Scored behavioral adoption component',
 			cadence: 'Periodic',
 			type: 'research',
-			url: 'https://arxiv.org/abs/2601.18341',
-			note: 'Open-source GitHub trace evidence helps ground agentic adoption behaviorally, while remaining narrower than private enterprise software work.'
+			url: 'https://arxiv.org/abs/2606.07448',
+			note: 'Open-source GitHub trace evidence (a 2026 rerun of the Agentic Much? study on the same projects) helps ground agentic adoption behaviorally, while remaining narrower than private enterprise software work.'
 		},
 		{
 			name: 'GitHub Octoverse 2025',
@@ -282,12 +282,12 @@ export const sourceDisclosures: Record<string, SourceDisclosure[]> = {
 	],
 	credit: [
 		{
-			name: 'Upstart 2025 Form 10-K',
+			name: 'Upstart Form 10-Q (Q2 2026)',
 			role: 'Scored automation numerator',
-			cadence: 'Annual',
+			cadence: 'Quarterly',
 			type: 'filing',
-			url: 'https://www.sec.gov/Archives/edgar/data/1647639/000164763926000027/upst-20251231.htm',
-			note: 'Provides the 91% fully automated platform-loan numerator used inside the personal-loan proxy; not treated as broad credit-market share.'
+			url: 'https://www.sec.gov/Archives/edgar/data/1647639/000164763926000063/upst-20260630.htm',
+			note: 'Provides the 91% fully automated platform-loan numerator (unchanged from the FY2025 10-K) used inside the personal-loan proxy; not treated as broad credit-market share.'
 		},
 		{
 			name: 'TransUnion Q4 2025 CIIR',
@@ -295,14 +295,15 @@ export const sourceDisclosures: Record<string, SourceDisclosure[]> = {
 			cadence: 'Quarterly',
 			type: 'report',
 			url: 'https://newsroom.transunion.com/q4-2025-ciir/',
-			note: 'Provides the 42% fintech unsecured personal-loan origination denominator used with the Upstart platform automation rate.'
+			note: 'Provides the 42% fintech unsecured personal-loan origination denominator (Q3 2025) used with the Upstart platform automation rate. Held in 2026 Q4 because the Q2 2026 report does not state the share in its published text.'
 		},
 		{
-			name: 'McKinsey Credit Risk Survey',
-			role: 'Conservative bank-decisioning hold',
+			name: 'ECB Banking Supervision: AI in Credit Scoring',
+			role: 'Scored bank-decisioning input',
 			cadence: 'Annual',
-			type: 'survey',
-			note: 'Retained as a cautious bank credit-decisioning signal while direct 2026 bank underwriting deployment data remains unavailable.'
+			type: 'supervisory data',
+			url: 'https://www.bankingsupervision.europa.eu/press/supervisory-newsletters/newsletter/2025/html/ssm.nl251120_1.en.html',
+			note: 'Share of euro-area significant banks using AI for credit scoring (30% in 2024, 14% in 2023). Replaces a held value that measured generative-AI use cases among credit-risk chiefs rather than credit decisioning; euro-area banks, not U.S. banks.'
 		},
 		{
 			name: 'Bank of England/FCA AI in UK Financial Services 2024',

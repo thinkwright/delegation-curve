@@ -8,15 +8,15 @@ The AI Delegation Curve is a public measurement project tracking AI influence ac
 
 ## Current Reading
 
-The Q2 2026 update estimates the Delegation Curve at:
+The Q4 2026 update estimates the Delegation Curve at:
 
 ```text
-45.8
+46.3
 ```
 
-That is up **8.1 points since 2025** on the current measurement series.
+That is up **0.5 points since 2026 Q2**. About 0.4 of that movement comes from correcting two Q2 inputs that did not measure what their indicators describe; the rest is new data. Most sources publish annually, so many inputs are unchanged since the last run. See the [2026 Q4 run record](docs/runs/2026-q4.md).
 
-The curve preserves prior public points, while archived published runs remain available in the dataset for audit. The goal is to maintain a continuous signal over time, not just a one-off score.
+The curve preserves prior public points, while archived published runs remain available in the dataset for audit. Restatements and corrections follow a [published policy](docs/methodology/restatement-policy.md). The goal is to maintain a continuous signal over time, not just a one-off score.
 
 ## What The Score Means
 
@@ -71,8 +71,8 @@ Canonical methodology and audit records live in [`docs/`](docs/):
 - [`docs/methodology/source-grading.md`](docs/methodology/source-grading.md) defines evidence grades, the audit trail every value carries, and the refresh workflow.
 - [`docs/methodology/restatement-policy.md`](docs/methodology/restatement-policy.md) governs when the series may be restated and logs every restatement and correction.
 - [`docs/methodology/weights.md`](docs/methodology/weights.md) and [`docs/methodology/v3-shadow.md`](docs/methodology/v3-shadow.md) cover domain weights and the depth/reach method computed in shadow.
-- [`docs/runs/2026-q2.md`](docs/runs/2026-q2.md) records the current 2026 Q2 run.
-- [`docs/evidence/2026-q2/`](docs/evidence/2026-q2/) contains domain-level evidence notes and caveats.
+- [`docs/runs/2026-q4.md`](docs/runs/2026-q4.md) records the current 2026 Q4 run; earlier runs are alongside it.
+- [`docs/evidence/2026-q4/`](docs/evidence/2026-q4/) contains domain-level evidence notes and caveats.
 
 ## Data Access
 

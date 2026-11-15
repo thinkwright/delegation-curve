@@ -39,7 +39,7 @@ The current index tracks nine domains:
 - recruitment and screening,
 - education and assessment.
 
-Each domain has its own evidence note under [`docs/evidence/2026-q2`](../evidence/2026-q2/).
+Each domain has evidence notes for every run, most recently under [`docs/evidence/2026-q4`](../evidence/2026-q4/).
 
 ## Status Bands
 

@@ -169,7 +169,7 @@ func CreditConfig() DomainConfig {
 		Tier:        2,
 		Indicators: []IndicatorConfig{
 			{Name: "AI-Underwritten Personal Loan Proxy", Weight: 0.55, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "Upstart and TransUnion", Cadence: Quarterly, Construct: Work},
-			{Name: "AI Credit Decisioning (Banks)", Weight: 0.45, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "OCC Survey", Construct: Adoption},
+			{Name: "AI Credit Decisioning (Banks)", Weight: 0.45, NormConfig: NormConfig{Method: DirectPercent}, SourceName: "ECB Banking Supervision", Construct: Adoption},
 		},
 	}
 }
